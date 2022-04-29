@@ -1,39 +1,39 @@
 VENV=venv/bin/activate
 
 server:
-	@. $(VENV) && venv/bin/python3.6 manage.py runserver
+	@. $(VENV) && venv/bin/python3.9 manage.py runserver
 .PHONY: server
 
 createsuperuser:
-	@. $(VENV) && venv/bin/python3.6 manage.py createsuperuser
+	@. $(VENV) && venv/bin/python3.9 manage.py createsuperuser
 .PHONY: createsuperuser
 
 shell:
-	@. $(VENV) && venv/bin/python3.6 manage.py shell_plus
+	@. $(VENV) && venv/bin/python3.9 manage.py shell_plus
 .PHONY: shell
 
 showmigrations:
-	@. $(VENV) && venv/bin/python3.6 manage.py showmigrations
+	@. $(VENV) && venv/bin/python3.9 manage.py showmigrations
 .PHONY: showmigrations
 
 make-migration:
-	@. $(VENV) && venv/bin/python3.6 manage.py makemigrations
+	@. $(VENV) && venv/bin/python3.9 manage.py makemigrations
 .PHONY: make-migration
 
 migrate:
-	@. $(VENV) && venv/bin/python3.6 manage.py migrate --no-input
+	@. $(VENV) && venv/bin/python3.9 manage.py migrate --no-input
 .PHONY: migrate
 
 collectstatic:
-	@. $(VENV) && venv/bin/python3.6 manage.py collectstatic --no-input
+	@. $(VENV) && venv/bin/python3.9 manage.py collectstatic --no-input
 .PHONY: migrate
 
 virtualenv:
-	@virtualenv venv --python=python3.6
+	@virtualenv venv --python=python3.9
 .PHONY: virtualenv
 
 install:
-	@. $(VENV) && pip3 install -r requirements.txt
+	@. $(VENV) && venv/bin/pip3.9 install -r requirements.txt
 .PHONY: install
 
 pylama:
@@ -45,7 +45,7 @@ apply-isort:
 .PHONY: apply-isort
 
 checks:
-	@. $(VENV) && venv/bin/python3.6 manage.py check --fail-level=WARNING
+	@. $(VENV) && venv/bin/python3.9 manage.py check --fail-level=WARNING
 .PHONY: checks
 
 isort:

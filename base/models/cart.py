@@ -1,8 +1,9 @@
 from django.db import models
 
+from simple_history.models import HistoricalRecords
+
 from base.models.base import AuthBaseEntity
 from base.models.product import Product
-from simple_history.models import HistoricalRecords
 
 
 class Cart(AuthBaseEntity):

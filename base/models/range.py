@@ -1,7 +1,9 @@
 from django.db import models
 
-from base.models.base import AuthBaseEntity
 from simple_history.models import HistoricalRecords
+
+from base.models.base import AuthBaseEntity
+
 
 class Range(AuthBaseEntity):
     name = models.CharField(max_length=70)

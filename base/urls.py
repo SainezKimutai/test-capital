@@ -6,7 +6,6 @@ from base.views.category_view import (
     CategoryUpdateView
 )
 from base.views.dashboard_view import Dashboard
-from base.views.range_view import CreateListRangeView, RangeDeleteView, UpdateRangeView
 from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
     InventoryListView, InventoryUpdateView
@@ -14,6 +13,9 @@ from base.views.inventory_view import (
 from base.views.order_views import OrderItemView, bulling_information_view
 from base.views.pos_view import POSView, cart_add, cart_remove, cart_updated
 from base.views.product_view import CreateProductView, ProductListView
+from base.views.range_view import (
+    CreateListRangeView, RangeDeleteView, UpdateRangeView
+)
 from base.views.tag_view import CreateListTagView, TagDeleteView, UpdateTagView
 
 urlpatterns = [

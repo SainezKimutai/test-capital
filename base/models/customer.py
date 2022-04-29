@@ -1,8 +1,9 @@
 from django.contrib.auth.modles import User
 from django.db import models
 
-from base.models.base import AuthBaseEntity
 from simple_history.models import HistoricalRecords
+
+from base.models.base import AuthBaseEntity
 
 
 class Customer(AuthBaseEntity):

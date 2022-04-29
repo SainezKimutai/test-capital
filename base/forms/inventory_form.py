@@ -1,5 +1,8 @@
 from django import forms
-from django.forms import (CheckboxInput, FileInput, NumberInput, Select, SelectMultiple, TextInput, Textarea)
+from django.forms import (
+    CheckboxInput, FileInput, NumberInput, Select, SelectMultiple, Textarea,
+    TextInput
+)
 
 from base.models.inventory import Inventory
 

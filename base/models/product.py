@@ -1,8 +1,10 @@
 from django.db import models
 
+from simple_history.models import HistoricalRecords
+
 from base.models.base import AuthBaseEntity
 from base.models.category import Category
-from simple_history.models import HistoricalRecords
+
 
 class Product(AuthBaseEntity):
     title = models.CharField(max_length=180)

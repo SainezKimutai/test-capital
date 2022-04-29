@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
+from simple_history.models import HistoricalRecords
+
 from base.models.base import AuthBaseEntity
 from base.models.category import Category
 from base.models.color import Color
@@ -8,7 +10,6 @@ from base.models.finish import Finish
 from base.models.range import Range
 from base.models.size import Size
 from base.models.tag import Tag
-from simple_history.models import HistoricalRecords
 
 
 class Inventory(AuthBaseEntity):

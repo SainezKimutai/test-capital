@@ -1,10 +1,10 @@
 from django.db import models
 
 from extended_choices.choices import Choices
+from simple_history.models import HistoricalRecords
 
 from base.models.base import AuthBaseEntity
 from base.models.category import Category
-from simple_history.models import HistoricalRecords
 
 
 class Size(AuthBaseEntity):

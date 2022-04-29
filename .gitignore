@@ -1,0 +1,8 @@
+.idea/
+venv/
+env
+media
+__pycache__
+.DS_Store
+staticfiles
+static

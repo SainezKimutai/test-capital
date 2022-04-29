@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %} Add New Inventory || Inventory {% endblock %}
+
+{% block content %}
+
+{% include 'inventory/page_header.html' %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                {% include 'common/message.html' %}
+                <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 class="box-title">Add New Inventory</h3>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <a title="Inventory List" data-toggle="tooltip" data-placement="left"
+                               class="btn btn-info btn-sm" href="{% url 'inventory_list' %}">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.errors }}
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="name">Inventory Name</label>
+                                    {{ form.name }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="inventory_code">Inventory Code</label>
+                                    {{ form.inventory_code }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="range">Select Range</label>
+                                    {{ form.range }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Select Category</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="color">Select Color</label>
+                                    {{ form.color }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="finish">Select Finish</label>
+                                    {{ form.finish }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="size">Select Size</label>
+                                    {{ form.size }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="short_description">Inventory short description</label>
+                                    {{ form.short_description }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="selling_price">Inventory selling price</label>
+                                            {{ form.selling_price }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="reorder_level">Reorder level</label>
+                                            {{ form.reorder_level }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="wholesale_price">Inventory wholesale price</label>
+                                            {{ form.wholesale_price }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="wholesale_minimum_number">Inventory wholesale minimum
+                                                items</label>
+                                            {{ form.wholesale_minimum_number }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="promotional_price">Inventory promotion price</label>
+                                            {{ form.promotional_price }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-check">
+                                            <label for="is_promotion">Is on promotion?</label>
+                                            {{ form.is_promotion }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tags">Add Inventory Tag</label>
+                                    {{ form.tags }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="picture">Inventory picture</label>
+                                    {{ form.picture }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="full_description">Inventory full description</label>
+                                    {{ form.full_description }}
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

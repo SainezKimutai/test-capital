@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import PROTECT
 
 from simple_history.models import HistoricalRecords
 
@@ -7,9 +8,9 @@ from base.models.category import Category
 
 
 class Color(AuthBaseEntity):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='colorCategory')
+    category = models.ForeignKey(Category, on_delete=PROTECT, related_name='colorCategory')
     name = models.CharField(max_length=70)
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.name
+        return f"{self.name}-{self.category.name}"

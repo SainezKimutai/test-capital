@@ -7,7 +7,13 @@ from base.models.color import Color
 from base.models.finish import Finish
 from base.models.size import Size
 from base.models.range import Range
+from base.models.promotion import Promotion
+from base.models.supplier import Supplier
+from base.models.customer import Customer
+from base.models.damaged_inventory import DamagedInventory
+from base.models.replenishment import Replenishment
 from base.models.order import Order, OrderItem
+from base.models.sales import SalesOrder, SalesItem
 
 __all__ = [
     'AuthBaseEntity',
@@ -20,5 +26,12 @@ __all__ = [
     'Finish',
     'Size',
     'Range',
-    'OrderItem'
+    'Promotion',
+    'Supplier',
+    'Customer',
+    'DamagedInventory',
+    'Replenishment',
+    'OrderItem',
+    'SalesOrder',
+    'SalesItem'
 ]

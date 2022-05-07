@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import PROTECT
 
 from simple_history.models import HistoricalRecords
 
@@ -23,8 +24,8 @@ class Order(AuthBaseEntity):
 
 # order Item list
 class OrderItem(AuthBaseEntity):
-    orderItem = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    products = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
+    orderItem = models.ForeignKey(Order, related_name='items', on_delete=PROTECT)
+    products = models.ForeignKey(Product, related_name='order_items', on_delete=PROTECT)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
     history = HistoricalRecords()

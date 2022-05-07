@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import models
-from django.db.models.deletion import SET_NULL
+from django.db.models.deletion import PROTECT
 
 from django_extensions.db.models import TimeStampedModel
 
@@ -14,7 +14,7 @@ class AuthBaseEntity(TimeStampedModel):
     """
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=SET_NULL,
+        on_delete=PROTECT,
         null=True,
         blank=True,
         default=None,
@@ -24,7 +24,7 @@ class AuthBaseEntity(TimeStampedModel):
 
     modified_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=SET_NULL,
+        on_delete=PROTECT,
         null=True,
         blank=True,
         default=None,

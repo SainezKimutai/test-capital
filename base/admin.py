@@ -19,12 +19,12 @@ admin.site.register(Tag)
 
 
 class InventoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'category', 'current_stock', 'recent_purchase_price', 'selling_price',
-                    'promotional_price']
+    list_display = ['id', 'name', 'category', 'current_stock', 'recent_buying_price', 'max_selling_price',
+                    'min_selling_price']
     list_display_links = ['name', 'category']
-    list_editable = ['current_stock', 'recent_purchase_price', 'selling_price', 'promotional_price']
+    list_editable = ['current_stock', 'recent_buying_price', 'max_selling_price', 'min_selling_price']
     list_filter = ['name', 'current_stock']
-    search_fields = ['name', 'recent_purchase_price', 'recent_purchase_price', 'promotional_price']
+    search_fields = ['name']
     list_per_page = 8
 
 

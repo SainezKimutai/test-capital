@@ -16,6 +16,9 @@ from base.views.product_view import CreateProductView, ProductListView
 from base.views.range_view import (
     CreateListRangeView, RangeDeleteView, UpdateRangeView
 )
+from base.views.color_view import (
+    ColorCreateView, ColorListView, ColorUpdateView, ColorDeleteView
+)
 from base.views.tag_view import CreateListTagView, TagDeleteView, UpdateTagView
 
 urlpatterns = [
@@ -23,10 +26,18 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
     path('create-category/', CategoryCreateView.as_view(), name='create_category'),
+
+    # Configurations
     path('category/', CategoryListView.as_view(), name='category_list'),
     path('category/<pk>/', CategoryUpdateView.as_view(), name='category_update'),
     path('category-delete/<pk>/', CategoryDeleteView.as_view(), name='category_delete'),
     path('create-inventory/', CreateInventoryView.as_view(), name='inventory_create'),
+
+    path('color/', ColorListView.as_view(), name='color_list'),
+    path('color/<pk>/', ColorUpdateView.as_view(), name='color_update'),
+    path('color-delete/<pk>/', ColorDeleteView.as_view(), name='color_delete'),
+    path('create-color/', ColorCreateView.as_view(), name='color_create'),
+
     path('inventory/', InventoryListView.as_view(), name='inventory_list'),
     path('inventory/<pk>/', InventoryDetailView.as_view(), name='inventory_detail'),
     path('inventory-update/<pk>/', InventoryUpdateView.as_view(), name='inventory_update'),

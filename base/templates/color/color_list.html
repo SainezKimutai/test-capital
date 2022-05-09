@@ -17,13 +17,13 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header with-border">
+                <div class="box border-5 border-info rounded">
+                    <div class="box-header rounded">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h3 class="box-title">Color List</h3>
                             </div>
-                            <div class="col-lg-6 text-right">
+                            <div class="col-lg-6 d-flex justify-content-end">
                                 <a title="Add Color" data-toggle="tooltip" data-placement="left"
                                    class="btn btn-info btn-sm" href="{% url 'color_create' %}">
                                     <i class="fa fa-plus"></i>
@@ -34,9 +34,9 @@
 
                     <div class="box-body">
                         {% if color %}
-                            <table class="table table-bordered">
+                            <table class="table shadow-sm rounded">
                                 <tbody>
-                                <tr>
+                                <tr class="bg-info rounded">
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th class="text-center">Action</th>

@@ -25,18 +25,18 @@ urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
-    path('create-category/', CategoryCreateView.as_view(), name='create_category'),
+    path('create-inventory/', CreateInventoryView.as_view(), name='inventory_create'),
 
     # Configurations
+    path('category-create/', CategoryCreateView.as_view(), name='category_create'),
     path('category/', CategoryListView.as_view(), name='category_list'),
     path('category/<pk>/', CategoryUpdateView.as_view(), name='category_update'),
     path('category-delete/<pk>/', CategoryDeleteView.as_view(), name='category_delete'),
-    path('create-inventory/', CreateInventoryView.as_view(), name='inventory_create'),
 
+    path('color-create/', ColorCreateView.as_view(), name='color_create'),
     path('color/', ColorListView.as_view(), name='color_list'),
     path('color/<pk>/', ColorUpdateView.as_view(), name='color_update'),
     path('color-delete/<pk>/', ColorDeleteView.as_view(), name='color_delete'),
-    path('create-color/', ColorCreateView.as_view(), name='color_create'),
 
     path('inventory/', InventoryListView.as_view(), name='inventory_list'),
     path('inventory/<pk>/', InventoryDetailView.as_view(), name='inventory_detail'),

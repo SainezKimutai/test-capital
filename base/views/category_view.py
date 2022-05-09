@@ -9,11 +9,11 @@ from base.models.category import Category
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class CategoryCreateView(SuccessMessageMixin, CreateView):
-    template_name = 'category/create_category.html'
+    template_name = 'category/category_create.html'
     success_message = "Category successfully created!"
     model = Category
     form_class = CategoryForm
-    success_url = '/create-category/'
+    success_url = '/category-create/'
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -25,7 +25,7 @@ class CategoryListView(ListView):
 
 
 class CategoryUpdateView(UpdateView):
-    template_name = 'category/create_category.html'
+    template_name = 'category/category_create.html'
     model = Category
     form_class = CategoryForm
     success_url = '/category/'

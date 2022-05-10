@@ -1,5 +1,7 @@
 from django import forms
-from django.forms import TextInput, Select
+from django.forms import TextInput, Select, CharField
+from colorfield.widgets import ColorWidget
+
 
 from base.models.color import Color
 
@@ -10,6 +12,18 @@ class ColorForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'id': 'name'}),
-            'category': Select(attrs={'class': 'form-control'})
+            'code': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'color_name',
+                'type': 'color'
+            }),
+            'name': TextInput(attrs={
+                'class': 'form-control',
+                'id': 'color_name',
+                'type': 'text'
+            }),
+            'category': Select(attrs={
+                'class': 'form-control',
+                'id': 'color_category'
+            })
         }

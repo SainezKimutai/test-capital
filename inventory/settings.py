@@ -33,7 +33,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     'simple_history',
     'import_export',
-    'phonenumber_field',
+    'phonenumber_field'
 ]
 
 LOCAL_APPS = [

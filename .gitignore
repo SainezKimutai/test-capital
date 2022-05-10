@@ -2,7 +2,7 @@
 venv/
 env
 media
-staticfiles
-static
+# staticfiles
+# static
 __pycache__
 .DS_Store

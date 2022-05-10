@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Color List {% endblock %}
+{% block title %} Size List {% endblock %}
 
 {% block content %}
 
     <section class="content-header">
-        <h1> Dashboard <small>Color List page</small></h1>
+        <h1> Dashboard <small>Size List page</small></h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Color-List</li>
+            <li class="active">Size-List</li>
         </ol>
     </section>
 
@@ -21,37 +21,37 @@
                     <div class="box-header rounded">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="box-title">Color List</h3>
+                                <h3 class="box-title">Size List</h3>
                             </div>
                             <div class="col-lg-6 d-flex justify-content-end">
-                                <a class="btn btn-info btn-sm shadow" href="{% url 'color_create' %}">
-                                   <span>Add Color</span> <i class="fa fa-plus"></i>
+                                <a class="btn btn-info btn-sm shadow" href="{% url 'size_create' %}">
+                                   <span>Add Size</span> <i class="fa fa-plus"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="box-body">
-                        {% if color %}
+                        {% if size %}
                             <table class="table table-bordered shadow-sm rounded">
                                 <tbody>
                                 <tr class="bg-info rounded">
-                                    <th>Color</th>
-                                    <th>Name</th>
+                                    <th>Size Type</th>
+                                    <th>Size value</th>
                                     <th>Category</th>
                                     <th class="text-left">Action</th>
                                 </tr>
-                                {% for color_item in color %}
+                                {% for size_item in size %}
                                     <tr>
                                         <td>
-                                            <span class="badge" style="background-color: {{ color_item.code }}"> {{ color_item.code }} </span>
+                                            {{ size_item.size_type }}
                                         </td>
-                                        <td>{{ color_item.name }}</td>
-                                        <td>{% if not color_item.category %} <-> {% else %} {{ color_item.category }} {% endif %}</td>
+                                        <td>{{ size_item.value }}</td>
+                                        <td>{% if not size_item.category %} <-> {% else %} {{ size_item.category }} {% endif %}</td>
                                         <td class="text-left">
-                                            <a class="btn btn-info btn-sm" href="{% url 'color_update' color_item.id %}"><i
+                                            <a class="btn btn-info btn-sm" href="{% url 'size_update' size_item.id %}"><i
                                                     class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'color_delete' color_item.id %}"><i
+                                            <a class="btn btn-danger btn-sm" href="{% url 'size_delete' size_item.id %}"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -60,8 +60,9 @@
                             </table>
                         {% else %}
                             <div class="col-3 mx-auto p-2 bg-info rounded text-white">
-                                <span class="h4">Color not added yet </span>
+                                <span class="h4">Size not added yet </span>
                             </div>
+                              
                         {% endif %}
                     </div>
                     

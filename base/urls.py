@@ -19,6 +19,9 @@ from base.views.range_view import (
 from base.views.color_view import (
     ColorCreateView, ColorListView, ColorUpdateView, ColorDeleteView
 )
+from base.views.size_view import (
+    SizeCreateView, SizeListView, SizeUpdateView, SizeDeleteView
+)
 from base.views.tag_view import CreateListTagView, TagDeleteView, UpdateTagView
 
 urlpatterns = [
@@ -37,6 +40,11 @@ urlpatterns = [
     path('color/', ColorListView.as_view(), name='color_list'),
     path('color/<pk>/', ColorUpdateView.as_view(), name='color_update'),
     path('color-delete/<pk>/', ColorDeleteView.as_view(), name='color_delete'),
+
+    path('size-create/', SizeCreateView.as_view(), name='size_create'),
+    path('size/', SizeListView.as_view(), name='size_list'),
+    path('size/<pk>/', SizeUpdateView.as_view(), name='size_update'),
+    path('size-delete/<pk>/', SizeDeleteView.as_view(), name='size_delete'),
 
     path('inventory/', InventoryListView.as_view(), name='inventory_list'),
     path('inventory/<pk>/', InventoryDetailView.as_view(), name='inventory_detail'),

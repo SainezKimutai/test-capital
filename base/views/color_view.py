@@ -13,7 +13,7 @@ class ColorCreateView(SuccessMessageMixin, CreateView):
     success_message = 'Color successfully created !'
     model = Color
     form_class = ColorForm
-    success_url = '/create-color/'
+    success_url = '/color-create/'
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

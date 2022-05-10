@@ -1,7 +1,5 @@
 from django import forms
-from django.forms import TextInput, Select, CharField
-from colorfield.widgets import ColorWidget
-
+from django.forms import TextInput, Select
 
 from base.models.color import Color
 

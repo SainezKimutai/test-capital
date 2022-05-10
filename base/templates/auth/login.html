@@ -5,13 +5,13 @@
 {% block content %}
 <body>
     <div class="login-box-body bg-dark rounded shadow-lg">
-        <p class="login-box-msg text-white pt-2 mb-2">Sign in to start your session</p>
+        <p class="login-box-msg text-secondary pt-2 mb-2">Sign in to start your session</p>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-group mb-3 h6">
                 {{ form.username }}
             </div>
-            <div class="form-group mb-3 h6 text-danger">
+            <div class="form-group mb-3 h6">
                 {{ form.password }}
             </div>
             <div class="form-group p-3">
@@ -28,7 +28,7 @@
             </div>
         </form>
         <div class="social-auth-links text-center">
-            <div class="h6">Forgot password</a>
+            <a href="#" class="text-secondary">Forgot password</a>
         </div>
     </div>
     </body>

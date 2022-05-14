@@ -16,10 +16,10 @@ class Expense(AuthBaseEntity):
         null=False,
         blank=False,
         default=None,
-        editable=False,
+        editable=True,
         related_name="expense_by_%(app_label)s_%(class)s_set",
         verbose_name="expense by")
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.inventory.name}"
+        return f"{self.description}"

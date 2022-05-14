@@ -10,6 +10,10 @@ from base.views.customer_view import (
     CustomerListView, CustomerUpdateView, customer_search
 )
 from base.views.dashboard_view import Dashboard
+from base.views.expense_view import (
+    CreateExpenseView, ExpenseDetailView, ExpenseListView, ExpenseUpdateView,
+    expense_search
+)
 from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
     InventoryListView, InventoryUpdateView
@@ -65,4 +69,9 @@ urlpatterns = [
     path('customer-update/<pk>/', CustomerUpdateView.as_view(), name='customer_update'),
     path('customer-delete/<pk>/', CustomerDeleteView.as_view(), name='customer_delete'),
     path('customer-search/', customer_search, name='customer_search'),
+    path('create-expense/', CreateExpenseView.as_view(), name='expense_create'),
+    path('expense/', ExpenseListView.as_view(), name='expense_list'),
+    path('expense/<pk>/', ExpenseDetailView.as_view(), name='expense_detail'),
+    path('expense-update/<pk>/', ExpenseUpdateView.as_view(), name='expense_update'),
+    path('expense-search/', expense_search, name='expense_search'),
 ]

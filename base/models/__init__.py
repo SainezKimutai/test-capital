@@ -8,6 +8,7 @@ from base.models.finish import Finish
 from base.models.size import Size
 from base.models.range import Range
 from base.models.promotion import Promotion
+from base.models.expense import Expense
 from base.models.supplier import Supplier
 from base.models.customer import Customer
 from base.models.damaged_inventory import DamagedInventory
@@ -27,6 +28,7 @@ __all__ = [
     'Size',
     'Range',
     'Promotion',
+    'Expense',
     'Supplier',
     'Customer',
     'DamagedInventory',

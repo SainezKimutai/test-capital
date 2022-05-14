@@ -1,0 +1,56 @@
+<div class="box box-default">
+    <div class="box-header with-border">
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <form method="GET" action="{% url 'expense_search' %}">
+                    <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                           name="q">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        {% if expense %}
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Requester</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Modified</th>
+                <th>Modified By</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% for obj in expense %}
+            <tr>
+                <td>{{ obj.description|truncatechars:55 }}</td>
+                <td>{{ obj.amount }}</td>
+                <td>{{ obj.requester }}</td>
+                <td>{{ obj.created|time:'g:i:s A' }}</td>
+                <td>{{ obj.created_by }}</td>
+                <td>{{ obj.modified|time:'g:i:s A' }}</td>
+                <td>{{ obj.modified_by }}</td>
+                <td class="text-center">
+                    <a class="btn btn-info btn-sm" href="{% url 'expense_detail' obj.pk %}"><i
+                            class="fa fa-eye"></i></a>
+                    <a class="btn btn-info btn-sm" href="{% url 'expense_update' obj.pk %}"><i
+                            class="fa fa-pencil"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        {% if query %}
+            <h2>No match was found</h2>
+        {% else %}
+            <h2>No Expense added yet</h2>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+<!-- /.box-body -->

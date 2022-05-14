@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} Add New Expense || Expense {% endblock %}
+
+{% block content %}
+
+{% include 'expense/page_header.html' %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                {% include 'common/message.html' %}
+                <div class="box-header with-border">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 class="box-title">Add New Expense</h3>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <a title="Expense List" data-toggle="tooltip" data-placement="left"
+                               class="btn btn-info btn-sm" href="{% url 'expense_list' %}">
+                                <i class="fa fa-list"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.errors }}
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="description">Expense Description</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    {{ form.amount }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone_number_2">Requester</label>
+                                    {{ form.requester }}
+                                </div>
+
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

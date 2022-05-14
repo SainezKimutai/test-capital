@@ -77,6 +77,30 @@
         </li>
         <li class="treeview">
             <a href="#">
+                <i class="fa fa-address-book"></i>
+                <span>Suppliers</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{% url 'supplier_list' %}"><i class="fa fa-circle-o"></i> Suppliers</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Customers</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{% url 'customer_list' %}"><i class="fa fa-circle-o"></i> Customers</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
                 <i class="fa fa-gears"></i>
                 <span>Setting</span>
                 <span class="pull-right-container">

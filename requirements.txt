@@ -20,6 +20,7 @@ mysqlclient==2.1.0
 django-extended-choices==1.3.3
 phonenumberslite==8.12.45
 django-phonenumber-field==5.2.0
+djangorestframework==3.13.1
 
 # Freeze pyflakes
 pyflakes==2.1.1

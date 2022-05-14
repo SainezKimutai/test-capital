@@ -5,6 +5,10 @@ from base.views.category_view import (
     CategoryCreateView, CategoryDeleteView, CategoryListView,
     CategoryUpdateView
 )
+from base.views.customer_view import (
+    CreateCustomerView, CustomerDeleteView, CustomerDetailView,
+    CustomerListView, CustomerUpdateView, customer_search
+)
 from base.views.dashboard_view import Dashboard
 from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
@@ -15,6 +19,10 @@ from base.views.pos_view import POSView, cart_add, cart_remove, cart_updated
 from base.views.product_view import CreateProductView, ProductListView
 from base.views.range_view import (
     CreateListRangeView, RangeDeleteView, UpdateRangeView
+)
+from base.views.supplier_view import (
+    CreateSupplierView, SupplierDeleteView, SupplierDetailView,
+    SupplierListView, SupplierUpdateView, supplier_search
 )
 from base.views.tag_view import CreateListTagView, TagDeleteView, UpdateTagView
 
@@ -45,4 +53,16 @@ urlpatterns = [
     path('pos/', POSView.as_view(), name='pos_view'),
     path('bulling-infromation/', bulling_information_view, name='bulling_information'),
     path('order-infromation/', OrderItemView.as_view(), name='order_information'),
+    path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
+    path('supplier/', SupplierListView.as_view(), name='supplier_list'),
+    path('supplier/<pk>/', SupplierDetailView.as_view(), name='supplier_detail'),
+    path('supplier-update/<pk>/', SupplierUpdateView.as_view(), name='supplier_update'),
+    path('supplier-delete/<pk>/', SupplierDeleteView.as_view(), name='supplier_delete'),
+    path('supplier-search/', supplier_search, name='supplier_search'),
+    path('create-customer/', CreateCustomerView.as_view(), name='customer_create'),
+    path('customer/', CustomerListView.as_view(), name='customer_list'),
+    path('customer/<pk>/', CustomerDetailView.as_view(), name='customer_detail'),
+    path('customer-update/<pk>/', CustomerUpdateView.as_view(), name='customer_update'),
+    path('customer-delete/<pk>/', CustomerDeleteView.as_view(), name='customer_delete'),
+    path('customer-search/', customer_search, name='customer_search'),
 ]

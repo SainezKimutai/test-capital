@@ -4,7 +4,7 @@
 
 {% block content %}
 <body>
-    <div class="login-box-body bg-dark rounded shadow-lg">
+    <div class="login-box-body bg-black">
         <p class="login-box-msg text-secondary pt-2 mb-2">Sign in to start your session</p>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -22,7 +22,7 @@
                         </label>
                     </div>
                     <div class="col-lg-4">
-                        <button type="submit" class="btn btn-outline-danger">Sign in</button>
+                        <button type="submit" class="btn btn-success">Sign in</button>
                     </div>
                 </div>
             </div>

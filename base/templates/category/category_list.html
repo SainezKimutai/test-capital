@@ -23,14 +23,14 @@
                             <div class="col-lg-6">
                                 <h3 class="box-title">Category List</h3>
                             </div>
-                            <div class="col-lg-6 d-flex justify-content-end">
-                                <a class="btn btn-info btn-sm shadow" href="{% url 'category_create' %}">
+                            <div class="col-lg-6 d-flex text-right">
+                                <a class="btn btn-info btn-sm" href="{% url 'category_create' %}">
                                    <span>Add Category</span> <i class="fa fa-plus"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="row">
-                            <form class="col-lg-6 mt-3 mb-1" method="GET" action="{% url 'category_search' %}">
+                            <form class="col-lg-6" method="GET" action="{% url 'category_search' %}">
                                 <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
                                        name="q">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>

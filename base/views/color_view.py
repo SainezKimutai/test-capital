@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.db.models import Q
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
@@ -13,17 +13,13 @@ from base.models.color import Color
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class ColorCreateView(SuccessMessageMixin, CreateView):
     template_name = 'color/color_create.html'
-    # success_message = 'Color successfully created !'
     model = Color
     form_class = ColorForm
     success_url = '/color/'
 
-    def get_success_message(self, cleaned_data):
-        return f"{self.object.name} was successfully created!!"
-
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        messages.success(self.request, "Color successfully created!")
+        messages.success(self.request, f"Color '{form.instance.name}' successfully created!")
         return super().form_valid(form)
 
 
@@ -41,11 +37,9 @@ class ColorUpdateView(UpdateView):
     form_class = ColorForm
     success_url = '/color/'
 
-    def get_success_message(self):
-        return f"{self.object.name} was successfully updated!!"
-
     def form_valid(self, form):
         form.instance.modified_by = self.request.user
+        messages.success(self.request, f"Color '{form.instance.name}' successfully updated!")
         return super().form_valid(form)
 
 
@@ -68,5 +62,4 @@ def color_search(request):
         'color': color,
         'query': query
     }
-
     return render(request, 'color/color_list.html', context)

@@ -29,6 +29,13 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="row">
+                            <form class="col-lg-6 mt-3 mb-1" method="GET" action="{% url 'finish_search' %}">
+                                <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                                       name="q">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </form>
+                        </div>
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
@@ -39,12 +46,20 @@
                            
                                     <th>Name</th>
                                     <th>Category</th>
+                                    <th>Created By</th>
+                                    <th>Modified / Created</th>
                                     <th class="text-left">Action</th>
                                 </tr>
                                 {% for finish_item in finish %}
                                     <tr>
                                         <td>{{ finish_item.name }}</td>
                                         <td>{% if not finish_item.category %} <-> {% else %} {{ finish_item.category }} {% endif %}</td>
+                                        <td> <span class="fw-lighter"> <i>{{ finish_item.created_by }}</i> </span> </td> 
+                                        <td>
+                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ finish_item.modified | date:"M d, Y" }}</i>  </span>
+                                             <br>
+                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ finish_item.modified | date:"M d, Y" }}</i>  </span>
+                                        </td>
                                         <td class="text-left">
                                             <a class="btn btn-info btn-sm" href="{% url 'finish_update' finish_item.id %}"><i
                                                     class="fa fa-pencil"></i></a>

@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <form method="GET" action="{% url 'color_search' %}">
+                            <form class="col-lg-6 mt-3 mb-1" method="GET" action="{% url 'color_search' %}">
                                 <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
                                        name="q">
                                 <span class="glyphicon glyphicon-search form-control-feedback"></span>
@@ -47,7 +47,7 @@
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Created By</th>
-                                    <th>Last modified / Created</th>
+                                    <th>Modified / Created</th>
                                     <th class="text-left">Action</th>
                                 </tr>
                                 {% for color_item in color %}

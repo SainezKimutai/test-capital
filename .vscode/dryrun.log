@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/kimutai/KimSpace/Projects/Peters/CapitalFinishes'
+. venv/bin/activate && venv/bin/python3.9 manage.py runserver
+make: Leaving directory '/home/kimutai/KimSpace/Projects/Peters/CapitalFinishes'
+ 

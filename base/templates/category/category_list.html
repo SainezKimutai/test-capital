@@ -29,6 +29,13 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="row">
+                            <form class="col-lg-6 mt-3 mb-1" method="GET" action="{% url 'category_search' %}">
+                                <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                                       name="q">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </form>
+                        </div>
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
@@ -39,9 +46,12 @@
                                     <th>Sub Category</th>
                                     <th>Parent Category</th>
                                     <th>Is Active</th>
-                                    <th>Created At</th>
                                     <th>Image</th>
+                                    <th>Created By</th>
+                                    <th>Modified / Created</th>
+
                                     <th class="text-center">Action</th>
+                                   
                                 </tr>
                                 {% for cat in category %}
                                     <tr>
@@ -50,7 +60,7 @@
                                         <td>{% if cat.is_active == 1 %}
                                             <span class="badge bg-green">Active</span> {% else %}
                                             <span class="badge bg-red">Deactivated</span> {% endif %}</td>
-                                        <td>{{ cat.created_at }}</td>
+                                      
                                         <td>
                                             {% if not cat.category_image %}
                                                 <div class="image_not_found"><i class="fa fa-desktop"></i></div>
@@ -59,12 +69,18 @@
                                                         alt="category image">
                                             {% endif %}
                                         </td>
+                                        <td> <span class="fw-lighter"> <i>{{ cat.created_by }}</i> </span> </td>
+                                        <td>
+                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}</i>  </span>
+                                            <br>
+                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}</i>  </span>
+                                        </td> 
                                         <td class="text-center">
                                             <a class="btn btn-info btn-sm" href="{% url 'category_update' cat.id %}"><i
                                                     class="fa fa-pencil"></i></a>
                                             <a class="btn btn-danger btn-sm" href="{% url 'category_delete' cat.id %}"><i
                                                     class="fa fa-trash"></i></a>
-                                        </td>
+                                        </td>          
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -9,7 +9,15 @@ from base.views.color_view import (
     ColorCreateView, ColorDeleteView, ColorListView, ColorUpdateView,
     color_search
 )
+from base.views.customer_view import (
+    CreateCustomerView, CustomerDeleteView, CustomerDetailView,
+    CustomerListView, CustomerUpdateView, customer_search
+)
 from base.views.dashboard_view import Dashboard
+from base.views.expense_view import (
+    CreateExpenseView, ExpenseDetailView, ExpenseListView, ExpenseUpdateView,
+    expense_search
+)
 from base.views.finish_view import (
     FinishCreateView, FinishDeleteView, FinishListView, FinishUpdateView,
     finish_search
@@ -27,6 +35,10 @@ from base.views.range_view import (
 )
 from base.views.size_view import (
     SizeCreateView, SizeDeleteView, SizeListView, SizeUpdateView, size_search
+)
+from base.views.supplier_view import (
+    CreateSupplierView, SupplierDeleteView, SupplierDetailView,
+    SupplierListView, SupplierUpdateView, supplier_search
 )
 from base.views.tag_view import (
     TagCreateView, TagDeleteView, TagListView, TagUpdateView, tag_search
@@ -88,4 +100,21 @@ urlpatterns = [
     path('pos/', POSView.as_view(), name='pos_view'),
     path('bulling-infromation/', bulling_information_view, name='bulling_information'),
     path('order-infromation/', OrderItemView.as_view(), name='order_information'),
+    path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
+    path('supplier/', SupplierListView.as_view(), name='supplier_list'),
+    path('supplier/<pk>/', SupplierDetailView.as_view(), name='supplier_detail'),
+    path('supplier-update/<pk>/', SupplierUpdateView.as_view(), name='supplier_update'),
+    path('supplier-delete/<pk>/', SupplierDeleteView.as_view(), name='supplier_delete'),
+    path('supplier-search/', supplier_search, name='supplier_search'),
+    path('create-customer/', CreateCustomerView.as_view(), name='customer_create'),
+    path('customer/', CustomerListView.as_view(), name='customer_list'),
+    path('customer/<pk>/', CustomerDetailView.as_view(), name='customer_detail'),
+    path('customer-update/<pk>/', CustomerUpdateView.as_view(), name='customer_update'),
+    path('customer-delete/<pk>/', CustomerDeleteView.as_view(), name='customer_delete'),
+    path('customer-search/', customer_search, name='customer_search'),
+    path('create-expense/', CreateExpenseView.as_view(), name='expense_create'),
+    path('expense/', ExpenseListView.as_view(), name='expense_list'),
+    path('expense/<pk>/', ExpenseDetailView.as_view(), name='expense_detail'),
+    path('expense-update/<pk>/', ExpenseUpdateView.as_view(), name='expense_update'),
+    path('expense-search/', expense_search, name='expense_search'),
 ]

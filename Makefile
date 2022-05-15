@@ -24,6 +24,10 @@ migrate:
 	@. $(VENV) && venv/bin/python3.9 manage.py migrate --no-input
 .PHONY: migrate
 
+fix-migrations:
+	@. $(VENV) && venv/bin/python3.9 manage.py makemigrations --merge
+.PHONY: migrate
+
 collectstatic:
 	@. $(VENV) && venv/bin/python3.9 manage.py collectstatic --no-input
 .PHONY: migrate

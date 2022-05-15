@@ -1,0 +1,59 @@
+<div class="box box-default">
+    <div class="box-header with-border">
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <form method="GET" action="{% url 'customer_search' %}">
+                    <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                           name="q">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-body">
+        {% include 'common/message.html' %}
+        {% if customer %}
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Customer Name</th>
+                <th>Phone Number</th>
+                <th>Credit Customer?</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Modified</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% for obj in customer %}
+            <tr>
+                <td>{{ obj.name|truncatechars:55 }}</td>
+                <td>{{ obj.phone_number }}</td>
+                <td>{{ obj.is_credit }}</td>
+                <td>{{ obj.email }}</td>
+                <td>{{ obj.created|time:'g:i:s A' }}</td>
+                <td>{{ obj.created_by }}</td>
+                <td>{{ obj.modified|time:'g:i:s A' }}</td>
+                <td class="text-center">
+                    <a class="btn btn-info btn-sm" href="{% url 'customer_detail' obj.pk %}"><i
+                            class="fa fa-eye"></i></a>
+                    <a class="btn btn-info btn-sm" href="{% url 'customer_update' obj.pk %}"><i
+                            class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger btn-sm"
+                       href="{% url 'customer_delete' obj.pk %}"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        {% if query %}
+            <h2>No match was found</h2>
+        {% else %}
+            <h2>No Customer added yet</h2>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+<!-- /.box-body -->

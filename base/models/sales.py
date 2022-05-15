@@ -26,7 +26,7 @@ class SalesOrder(AuthBaseEntity):
         null=False,
         blank=False,
         default=None,
-        editable=False,
+        editable=True,
         related_name="sold_by_%(app_label)s_%(class)s_set",
         verbose_name="sold by")
     receipt_number = models.CharField(default=uuid.uuid4, editable=False, null=False, blank=False, max_length=100)

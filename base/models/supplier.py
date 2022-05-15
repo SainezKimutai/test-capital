@@ -9,7 +9,7 @@ from base.models.base import AuthBaseEntity
 class Supplier(AuthBaseEntity):
     supplier_name = models.CharField(max_length=150, unique=True)
     phone_number_1 = PhoneNumberField(blank=False, null=False, unique=True)
-    phone_number_2 = PhoneNumberField(blank=True, null=True, unique=True)
+    phone_number_2 = PhoneNumberField(blank=True, null=True)
     email = models.CharField(max_length=50, unique=True)
     physical_address = models.TextField(blank=True)
     pin_number = models.CharField(max_length=50, unique=True)

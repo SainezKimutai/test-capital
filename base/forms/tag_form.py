@@ -9,5 +9,5 @@ class TagForm(forms.ModelForm):
         model = Tag
         fields = '__all__'
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'id': 'name'}),
+            'name': TextInput(attrs={'class': 'form-control', 'id': 'tag_name'}),
         }

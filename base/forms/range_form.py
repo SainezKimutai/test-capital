@@ -9,5 +9,5 @@ class RangeForm(forms.ModelForm):
         model = Range
         fields = '__all__'
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'id': 'name'}),
+            'name': TextInput(attrs={'class': 'form-control', 'id': 'range_name'}),
         }

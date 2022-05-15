@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %} Add new color {% endblock %}
+{% block title %} Add new finish {% endblock %}
 
 {% block content %}
 
     <section class="content-header">
-        <h1> Dashboard <small>Add new color</small></h1>
+        <h1> Dashboard <small>Add new finish</small></h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Color</li>
+            <li class="active">Finish</li>
         </ol>
     </section>
 
@@ -19,11 +19,11 @@
                     <div class="box-header bg-success">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="box-title text-light">New color form</h3>
+                                <h3 class="box-title text-light">New finish form</h3>
                             </div>
                             <div class="col-lg-6 d-flex justify-content-end">
-                                <a title="Color list" data-toggle="tooltip" data-placement="left"
-                                   class="btn btn-outline-success btn-sm ml-auto" href="{% url 'color_list' %}">
+                                <a title="Finish list" data-toggle="tooltip" data-placement="left"
+                                   class="btn btn-outline-success btn-sm ml-auto" href="{% url 'finish_list' %}">
                                     <i class="fa fa-list text-light"></i>
                                 </a>
                             </div>
@@ -34,21 +34,17 @@
                             {% csrf_token %}
                             <div class="">
                                     <div class="form-group mb-3">
-                                        <label for="color_name">Name</label>
+                                        <label for="finish_name">Name</label>
                                         {{ form.name }}
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="color_category">Category</label>
+                                        <label for="finish_category">Category</label>
                                         {{ form.category }}
                                     </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label for="color_code">Code</label>
-                                        {{ form.code }}
-                                    </div>
+                   
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a href="{% url 'color_list' %}" class="btn btn-outline-secondary ml-auto">Discard</a>
+                                <a href="{% url 'finish_list' %}" class="btn btn-outline-secondary ml-auto">Discard</a>
                                 <button class="btn btn-success shadow me-2 mr-auto" type="submit">Save</button>
                             </div>
                         </form>

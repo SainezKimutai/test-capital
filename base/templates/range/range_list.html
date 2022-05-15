@@ -13,25 +13,56 @@
         </ol>
     </section>
 
+
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header with-border">
+                <div class="box border-5 border-info rounded">
+                    <div class="box-header rounded">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="box-title">Range List   {% include 'common/message.html' %}</h3>
+                                <h3 class="box-title">Range List</h3>
                             </div>
-                            <div class="col-lg-6 text-right">
-                                <button type="button" data-backdrop="static" data-keyboard="false"
-                                        class="btn btn-primary btn-sm"
-                                        data-toggle="modal" data-target="#modal-primary"><i class="fa fa-plus"></i>
-                                </button>
+                            <div class="col-lg-6 d-flex justify-content-end">
+                                <a class="btn btn-info btn-sm shadow" href="{% url 'range_create' %}">
+                                   <span>Add Range</span> <i class="fa fa-plus"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-
-                    {% include 'range/range_list_component.html' %}
+                    {% include 'common/message.html' %}
+                    <div class="box-body">
+                        {% if range %}
+                            <table class="table table-bordered shadow-sm rounded">
+                                <tbody>
+                                <tr class="bg-info rounded">
+                              
+                                    <th>Name</th>
+                         
+                                    <th class="text-left">Action</th>
+                                </tr>
+                                {% for range_item in range %}
+                                    <tr>
+                              
+                                        <td>{{ range_item.name }}</td>
+                         
+                                        <td class="text-left">
+                                            <a class="btn btn-info btn-sm" href="{% url 'range_update' range_item.id %}"><i
+                                                    class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="{% url 'range_delete' range_item.id %}"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="col-3 mx-auto p-2 bg-info rounded text-white">
+                                <span class="h4">Range not added yet </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
 
                     <div class="box-footer clearfix">
                         {% include 'common/pagination.html' %}
@@ -40,7 +71,5 @@
             </div>
         </div>
     </div>
-
-    {% include 'range/modal.html' %}
 
 {% endblock %}

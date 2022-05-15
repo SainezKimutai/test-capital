@@ -13,29 +13,29 @@
         </ol>
     </section>
 
+
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header with-border">
+                <div class="box border-5 border-info rounded">
+                    <div class="box-header rounded">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h3 class="box-title">Category List</h3>
                             </div>
-                            <div class="col-lg-6 text-right">
-                                <a title="Create category" data-toggle="tooltip" data-placement="left"
-                                   class="btn btn-info btn-sm" href="{% url 'category_create' %}">
-                                    <i class="fa fa-plus"></i>
+                            <div class="col-lg-6 d-flex justify-content-end">
+                                <a class="btn btn-info btn-sm shadow" href="{% url 'category_create' %}">
+                                   <span>Add Category</span> <i class="fa fa-plus"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-
+                    {% include 'common/message.html' %}
                     <div class="box-body">
                         {% if category %}
-                            <table class="table table-bordered">
+                            <table class="table table-bordered shadow-sm rounded">
                                 <tbody>
-                                <tr>
+                                <tr class="bg-info rounded">
                                     <th>Sub Category</th>
                                     <th>Parent Category</th>
                                     <th>Is Active</th>
@@ -56,7 +56,7 @@
                                                 <div class="image_not_found"><i class="fa fa-desktop"></i></div>
                                             {% else %}
                                                 <img width="40px" height="15" src="/media/{{ cat.category_image }}"
-                                                     alt="category image">
+                                                        alt="category image">
                                             {% endif %}
                                         </td>
                                         <td class="text-center">
@@ -70,9 +70,12 @@
                                 </tbody>
                             </table>
                         {% else %}
-                            <h2>Category not added yet</h2>
+                            <div class="col-3 mx-auto p-2 bg-info rounded text-white">
+                                <span class="h4">Category not added yet </span>
+                            </div>
                         {% endif %}
-                    </div>                    
+                    </div>
+                    
 
                     <div class="box-footer clearfix">
                         {% include 'common/pagination.html' %}
@@ -81,4 +84,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

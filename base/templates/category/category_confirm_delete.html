@@ -5,17 +5,25 @@
 {% block content %}
     <div class="content">
         <div class="row text-center">
-            <div class="col-lg-6 col-lg-offset-3 text-center mt-5">
-                <div class="box">
-                    <form method="POST">
+            <div class="col-lg-4 col-lg-offset-3 text-center mt-5 mx-auto">
+                <div class="box p-0 m-0 shadow rounded">
+                    <form method="POST" class="border-0 p-0 m-0">
                         {% csrf_token %}
-                        <div class="card pt-3">
-                            <div class="card-header">
-                                <h5 class="card-title">Are you sure will you want to delete "{{ object }}"?</h5>
+                        <div class="card border-0 p-0 m-0">
+                            <div class="card-header bg-danger">
+                                <h4 class="card-title m-0 text-light">Are you sure ?</h4>
                             </div>
                             <div class="card-body">
-                                <button class="btn btn-danger btn-sm" type="submit">Yes</button>
-                                <a href="{% url 'category_list' %}" class="btn btn-warning btn-sm  text-light">No</a>
+                                <div>
+                                    <i class="fa fa-times fa-3x text-danger"></i>
+                                   <h5>
+                                    You are deleting <b>"{{ object }}" </b>?
+                                   </h5> 
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="{% url 'category_list' %}" class="btn btn-danger shadow me-2">No</a>
+                                <button class="btn border border-danger text-danger" type="submit">Yes</button>
                             </div>
                         </div>
                     </form>

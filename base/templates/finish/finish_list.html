@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Tag List {% endblock %}
+{% block title %} finish List {% endblock %}
 
 {% block content %}
 
     <section class="content-header">
-        <h1> Dashboard <small>Tag List page</small></h1>
+        <h1> Dashboard <small>Finish List page</small></h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Tag-List</li>
+            <li class="active">Finish-List</li>
         </ol>
     </section>
 
@@ -21,33 +21,34 @@
                     <div class="box-header rounded">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="box-title">Tag List</h3>
+                                <h3 class="box-title">Finish List</h3>
                             </div>
                             <div class="col-lg-6 d-flex justify-content-end">
-                                <a class="btn btn-info btn-sm shadow" href="{% url 'tag_create' %}">
-                                   <span>Add Tag</span> <i class="fa fa-plus"></i>
+                                <a class="btn btn-info btn-sm shadow" href="{% url 'finish_create' %}">
+                                   <span>Add Finish</span> <i class="fa fa-plus"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
-                        {% if tag %}
+                        {% if finish %}
                             <table class="table table-bordered shadow-sm rounded">
                                 <tbody>
                                 <tr class="bg-info rounded">
+                           
                                     <th>Name</th>
-                              
+                                    <th>Category</th>
                                     <th class="text-left">Action</th>
                                 </tr>
-                                {% for tag_item in tag %}
+                                {% for finish_item in finish %}
                                     <tr>
-
-                                        <td>{{ tag_item.name }}</td>
+                                        <td>{{ finish_item.name }}</td>
+                                        <td>{% if not finish_item.category %} <-> {% else %} {{ finish_item.category }} {% endif %}</td>
                                         <td class="text-left">
-                                            <a class="btn btn-info btn-sm" href="{% url 'tag_update' tag_item.id %}"><i
+                                            <a class="btn btn-info btn-sm" href="{% url 'finish_update' finish_item.id %}"><i
                                                     class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'tag_delete' tag_item.id %}"><i
+                                            <a class="btn btn-danger btn-sm" href="{% url 'finish_delete' finish_item.id %}"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -56,7 +57,7 @@
                             </table>
                         {% else %}
                             <div class="col-3 mx-auto p-2 bg-info rounded text-white">
-                                <span class="h4">Tag not added yet </span>
+                                <span class="h4">Finish not added yet </span>
                             </div>
                         {% endif %}
                     </div>

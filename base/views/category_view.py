@@ -13,7 +13,7 @@ class CategoryCreateView(SuccessMessageMixin, CreateView):
     success_message = "Category successfully created!"
     model = Category
     form_class = CategoryForm
-    success_url = '/category-create/'
+    success_url = '/category/'
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

@@ -13,7 +13,7 @@ class SizeCreateView(SuccessMessageMixin, CreateView):
     success_message = 'Size successfully created !'
     model = Size
     form_class = SizeForm
-    success_url = '/size-create/'
+    success_url = '/size/'
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

@@ -1,1 +1,0 @@
-{"buildTargets":["apply-isort","checks","collectstatic","createsuperuser","install","isort","local-ci","make-migration","migrate","pylama","server","shell","showmigrations","virtualenv"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

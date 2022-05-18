@@ -33,7 +33,7 @@
                             <form class="col-lg-6" method="GET" action="{% url 'category_search' %}">
                                 <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
                                        name="q">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
                             </form>
                         </div>
                     </div>
@@ -71,9 +71,9 @@
                                         </td>
                                         <td> <span class="fw-lighter"> <i>{{ cat.created_by }}</i> </span> </td>
                                         <td>
-                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}</i>  </span>
+                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}, {{ cat_item.modified | time:"H:i" }}</i>  </span>
                                             <br>
-                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}</i>  </span>
+                                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ cat.created | date:"M d, Y" }}, {{  color_item.created | time:"H:i" }}</i>  </span>
                                         </td> 
                                         <td class="text-center">
                                             <a class="btn btn-info btn-sm" href="{% url 'category_update' cat.id %}"><i

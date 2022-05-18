@@ -26,10 +26,9 @@
                     </div>
                     <div class="row" style="padding: 1em;">
                         <form class="col-lg-6" method="GET" action="{% url 'color_search' %}">
-                            <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
                                    name="q">
                             <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-                       
                         </form>
                     </div>
                     {% include 'common/message.html' %}

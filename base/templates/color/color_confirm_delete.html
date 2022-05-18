@@ -5,31 +5,29 @@
 {% block content %}
     <div class="content">
         <div class="row text-center">
-            <div class="col-lg-4 col-lg-offset-3 text-center mt-5 mx-auto">
-                <div class="box p-0 m-0 shadow rounded">
-                    <form method="POST" class="border-0 p-0 m-0">
-                        {% csrf_token %}
-                        <div class="card border-0 p-0 m-0">
-                            <div class="card-header bg-danger">
-                                <h4 class="card-title m-0 text-light">Are you sure ?</h4>
+            <div class="col-lg-4 col-lg-offset-4 text-centermx-auto">
+                <div class="box box-solid box-danger">
+                    <div class="box-header with-border ">
+                        <h3 class="box-title">Are you sure ?</h3>
+                    </div>
+                    <div class="box-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div>
+                                <i class="fa fa-times fa-3x text-red"></i>
+                                <h4>You are deleting <b>"{{ object }}" </b>?</h4> 
                             </div>
-                            <div class="card-body">
-                                <div>
-                                    <i class="fa fa-times fa-3x text-danger"></i>
-                                   <h5>
-                                    You are deleting <b>"{{ object }}" </b>?
-                                   </h5> 
-                                </div>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <a href="{% url 'color_list' %}" class="btn btn-danger shadow me-2">No</a>
-                                <button class="btn border border-danger text-danger" type="submit">Yes</button>
-                            </div>
-                        </div>
-                    </form>
-                    <br/>
+                        </form>    
+                    </div>
+                    <div class="box-footer">
+                        <a href="{% url 'color_list' %}" class="btn btn-danger" style="margin-right: 1em;">No</a>
+                        <button class="btn btn-light text-red" type="submit" style="border: solid 1px red;">Yes</button>
+                    </div>      
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+
+

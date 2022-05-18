@@ -12,38 +12,32 @@
             <li class="active">Color-List</li>
         </ol>
     </section>
-
-
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box border-5 border-info rounded">
-                    <div class="box-header rounded">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h3 class="box-title">Color List</h3>
-                            </div>
-                            <div class="col-lg-6 d-flex text-right">
-                                <a class="btn btn-info btn-sm shadow" href="{% url 'color_create' %}">
-                                   <span>Add Color</span> <i class="fa fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <form class="col-lg-6 mt-3 mb-1" method="GET" action="{% url 'color_search' %}">
-                                <input type="search" class="form-control rounded p-5" placeholder="{{ query|default:'Search...' }}"
-                                       name="q">
-                                <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-                           
-                            </form>
-                        </div>
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border ">     
+                        <h3 class="box-title">Color List</h3>
+                        <div class="box-tools pull-right">
+                            <a class="btn" href="{% url 'color_create' %}">
+                                <span>Add Color</span> <i class="fa fa-plus"></i>
+                            </a>
+                        </div>                       
+                    </div>
+                    <div class="row" style="padding: 1em;">
+                        <form class="col-lg-6" method="GET" action="{% url 'color_search' %}">
+                            <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
+                                   name="q">
+                            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+                       
+                        </form>
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
                         {% if color %}
-                            <table class="table table-bordered shadow-sm rounded">
+                            <table class="table table-bordered">
                                 <tbody>
-                                <tr class="bg-info rounded">
+                                <tr class="bg-blue rounded">
                                     <th>Color</th>
                                     <th>Name</th>
                                     <th>Category</th>
@@ -57,15 +51,13 @@
                                             <span class="badge" style="background-color: {{ color_item.code }}"> {{ color_item.code }} </span>
                                         </td>
                                         <td>{{ color_item.name }}</td>
-                                        <td>{% if not color_item.category %} <-> {% else %} {{ color_item.category }} {% endif %}</td>
-                                   
+                                        <td>{% if not color_item.category %} <-> {% else %} {{ color_item.category }} {% endif %}</td>                                  
                                         <td> <span class="fw-lighter"> <i>{{ color_item.created_by }}</i> </span> </td> 
                                         <td>
                                              <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ color_item.modified | date:"M d, Y" }}, {{  color_item.modified | time:"H:i" }}</i>  </span>
                                              <br>
                                              <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ color_item.created | date:"M d, Y" }}, {{  color_item.created | time:"H:i" }}</i>  </span>
                                         </td>
-
                                         <td class="text-left">
                                             <a class="btn btn-info btn-sm" href="{% url 'color_update' color_item.id %}"><i
                                                     class="fa fa-pencil"></i></a>
@@ -77,13 +69,12 @@
                                 </tbody>
                             </table>
                         {% else %}
-                            <div class="col-3 mx-auto p-2 bg-info rounded text-white">
+                            <div class="bg-blue text-white" style="padding: 1em;">
+                                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
                                 <span class="h4">Color not added yet </span>
                             </div>
                         {% endif %}
                     </div>
-                    
-
                     <div class="box-footer clearfix">
                         {% include 'common/pagination.html' %}
                     </div>

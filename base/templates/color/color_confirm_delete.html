@@ -17,12 +17,12 @@
                                 <i class="fa fa-times fa-3x text-red"></i>
                                 <h4>You are deleting <b>"{{ object }}" </b>?</h4> 
                             </div>
+                            <div style="padding: 1em;">
+                                <a href="{% url 'color_list' %}" class="btn btn-danger" style="margin-right: 1em;">No</a>
+                                <button class="btn btn-light text-red" type="submit" style="border: solid 1px red;">Yes</button>
+                            </div>   
                         </form>    
-                    </div>
-                    <div class="box-footer">
-                        <a href="{% url 'color_list' %}" class="btn btn-danger" style="margin-right: 1em;">No</a>
-                        <button class="btn btn-light text-red" type="submit" style="border: solid 1px red;">Yes</button>
-                    </div>      
+                    </div>         
                 </div>
             </div>
         </div>

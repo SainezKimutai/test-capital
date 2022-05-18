@@ -1,14 +1,14 @@
 {% load static %}
 
 <!-- Logo -->
-<a href="{% url 'dashboard' %}" class="logo d-flex">
+<a href="{% url 'dashboard' %}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini">POS</span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg">Point of Sale</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top shadow-sm pe-3">
+<nav class="navbar navbar-static-top">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
-                <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{% static 'dist/img/admin.png' %}" class="user-image" alt="User Image">
                     <span class="hidden-xs">{% if request.user.first_name  or request.user.last_name %}
                         {{ request.user.first_name }} {{ request.user.last_name }} {% else %}

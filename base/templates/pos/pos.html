@@ -31,7 +31,7 @@
                                             <img src="{{ obj.product_image.url }}" alt="">
                                             <h5 class="box-title">{{ obj.title }}</h5>
                                         </a>
-                                        <p class="box-comment">$ {{ obj.price }}</p>
+                                        <p class="box-comment">KES {{ obj.price }}</p>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -54,7 +54,7 @@
                                         <h3 class="box-title">Default Customer</h3>
                                     </div>
                                     <div class="col-lg-6 text-right">
-                                        <h3 class="box-title"><a href="#"><i class="fa fa-plus"></i></a></h3>
+                                        <h3 class="box-title"><a href="{% url 'customer_create' %}"><i class="fa fa-plus"></i></a></h3>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                         <td>
                                             <form action="{% url 'cart_updated' product.id %}" method="post">
                                                 {% csrf_token %}
-                                                <input style="width: 30px" type="number" name="number"
+                                                <input style="width: 50px" type="number" name="number"
                                                        value="{{ item.update_quantity_form.quantity }}" min="1">
                                                 <button type="submit" class="btn btn-success btn-sm">
                                                     <i class="fa fa-pencil"></i>
@@ -104,7 +104,7 @@
                                 <a class="btn btn-primary" href="{% url 'bulling_information' %}">Pay</a>
                             </div>
                             <div class="col-md-6 text-right">
-                                <p>Net Total: ৳{{ cart.get_total_price }}</p>
+                                <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>
                             </div>
                         </div>
                     </div>

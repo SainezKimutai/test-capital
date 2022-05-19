@@ -14,13 +14,15 @@ isort==4.3.4
 mock==2.0.0
 eradicate==1.0
 structlog==18.2.0
-django-dynamic-fixture==2.0.0
 django-import-export==2.3.0
 mysqlclient==2.1.0
 django-extended-choices==1.3.3
 phonenumberslite==8.12.45
 django-phonenumber-field==5.2.0
 djangorestframework==3.13.1
+Faker==13.11.1
+django-dynamic-fixture==3.1.2
+django-colorfield==0.7.0
 
 # Freeze pyflakes
 pyflakes==2.1.1

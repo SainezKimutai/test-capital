@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Select, Textarea, TextInput
+from django.forms import Select, Textarea, TextInput, EmailInput
 
 from base.models.customer import Customer
 
@@ -19,7 +19,7 @@ class CustomerForm(forms.ModelForm):
             'is_credit': Select(attrs={'class': 'form-control', 'id': 'is_credit'}, choices=is_credit_choices),
             'vat_number': TextInput(attrs={'class': 'form-control', 'id': 'vat_number'}),
             'pin_number': TextInput(attrs={'class': 'form-control', 'id': 'pin_number'}),
-            'email': TextInput(attrs={'class': 'form-control', 'id': 'email'}),
+            'email': EmailInput(attrs={'class': 'form-control', 'id': 'email'}),
             'physical_address': Textarea(attrs={'class': 'form-control', 'id': 'physical_address',
                                                 'placeholder': 'Enter physical address description'}),
         }

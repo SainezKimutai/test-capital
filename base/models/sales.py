@@ -19,7 +19,7 @@ class SalesOrder(AuthBaseEntity):
         ['CREDIT', 'CREDIT', 'CREDIT'],
     )
 
-    customer = models.ForeignKey(Customer, on_delete=PROTECT)
+    customer = models.ForeignKey(Customer, on_delete=PROTECT, blank=True, null=True)
     sales_agent = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=PROTECT,

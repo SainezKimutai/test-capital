@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
     'import_export',
     'phonenumber_field',
     'rest_framework',
+    'colorfield',
 ]
 
 LOCAL_APPS = [

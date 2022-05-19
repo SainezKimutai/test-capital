@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} Add new category {% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1> Dashboard <small>Add new category</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Category</li>
+        </ol>
+    </section>
+
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box box-solid box-success">
+                    <div class="box-header">       
+                        <h3 class="box-title">New category form</h3>  
+                        <div class="box-tools pull-right">
+                            <a title="Category list" data-toggle="tooltip" data-placement="left"
+                                class="btn btn-success btn-sm ml-auto" href="{% url 'category_list' %}">
+                                <i class="fa fa-list text-light"></i>
+                            </a>
+                        </div>   
+                    </div>
+                    <div class="box-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <label for="name">Category Name</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">Parent Category</label>
+                                {{ form.parent }}
+                            </div>
+                        
+                            <div class="form-group mb-3">       
+                                <label for="name">Parent Category</label>
+                                {{ form.category_image }}
+                            </div>
+                            <div style="padding: 1em 0;">
+                                <a href="{% url 'category_list' %}" class="btn btn-default ml-auto">Discard</a>
+                                <button class="btn btn-success pull-right" type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

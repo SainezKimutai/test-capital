@@ -1,6 +1,6 @@
 {% load static %}
 <!-- sidebar: style can be found in sidebar.less -->
-<section class="sidebar">
+<section class="sidebar shadow-sm">
     <!-- Sidebar user panel -->
     <div class="user-panel">
         <div class="pull-left image">
@@ -15,8 +15,8 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN FEATURES</li>
-        <li class="active treeview">
-            <a href="#">
+        <li class="active">
+            <a href="{% url 'dashboard' %}">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 <span class="pull-right-container">
             </span>
@@ -31,9 +31,12 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="{% url 'create_category' %}"><i class="fa fa-circle-o"></i> Add Category</a></li>
-                <li><a href="{% url 'category_list' %}"><i class="fa fa-circle-o"></i> All Category</a></li>
-                <li><a href="{% url 'create_list_tag' %}"><i class="fa fa-circle-o"></i> All Tag</a></li>
+                <li><a href="{% url 'category_list' %}"><i class="fa fa-circle-o"></i>Categories</a></li>
+                <li><a href="{% url 'tag_list' %}"><i class="fa fa-circle-o"></i>Tags</a></li>
+                <li><a href="{% url 'color_list' %}"><i class="fa fa-circle-o"></i>Colors</a></li>
+                <li><a href="{% url 'size_list' %}"><i class="fa fa-circle-o"></i>Size</a></li>
+                <li><a href="{% url 'range_list' %}"><i class="fa fa-circle-o"></i>Range</a></li>
+                <li><a href="{% url 'finish_list' %}"><i class="fa fa-circle-o"></i>Finish</a></li>
             </ul>
         </li>
         <li class="treeview">

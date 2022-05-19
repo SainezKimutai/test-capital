@@ -10,6 +10,7 @@ from base.models.category import Category
 class Color(AuthBaseEntity):
     category = models.ForeignKey(Category, on_delete=PROTECT, related_name='colorCategory')
     name = models.CharField(max_length=70)
+    code = models.CharField(max_length=70, default='#FF0000')
     history = HistoricalRecords()
 
     def __str__(self):

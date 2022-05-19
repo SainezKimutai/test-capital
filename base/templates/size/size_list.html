@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Tag List {% endblock %}
+{% block title %} Size List {% endblock %}
 
 {% block content %}
 
     <section class="content-header">
-        <h1> Dashboard <small>Tag List page</small></h1>
+        <h1> Dashboard <small>Size List page</small></h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Tag-List</li>
+            <li class="active">Size-List</li>
         </ol>
     </section>
+
 
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
                 <div class="box box-solid box-info">
                     <div class="box-header with-border ">     
-                        <h3 class="box-title">Tag List</h3>
+                        <h3 class="box-title">Size List</h3>
                         <div class="box-tools pull-right">
-                            <a class="btn" href="{% url 'tag_create' %}">
-                                <span>Add Tag</span> <i class="fa fa-plus"></i>
+                            <a class="btn" href="{% url 'size_create' %}">
+                                <span>Add Size</span> <i class="fa fa-plus"></i>
                             </a>
                         </div>                       
                     </div>
                     <div class="row" style="padding: 1em;">
-                        <form class="col-lg-6" method="GET" action="{% url 'tag_search' %}">
+                        <form class="col-lg-6" method="GET" action="{% url 'size_search' %}">
                             <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
                                    name="q">
                             <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
@@ -34,29 +35,34 @@
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
-                        {% if tag %}
+                        {% if size %}
                             <table class="table table-bordered">
                                 <tbody>
                                 <tr class="bg-blue rounded">
-                                    <th>Name</th>
+                                    <th>Size Type</th>
+                                    <th>Size value</th>
+                                    <th>Category</th>
                                     <th>Created By</th>
                                     <th>Modified / Created</th>
                                     <th class="text-left">Action</th>
                                 </tr>
-                                {% for tag_item in tag %}
+                                {% for size_item in size %}
                                     <tr>
-
-                                        <td>{{ tag_item.name }}</td>
-                                        <td> <span class="fw-lighter"> <i>{{ tag_item.created_by }}</i> </span> </td> 
                                         <td>
-                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ tag_item.modified | date:"M d, Y" }}, {{ tag_item.modified | time:"H:i" }}</i>  </span>
+                                            {{ size_item.size_type }}
+                                        </td>
+                                        <td>{{ size_item.value }}</td>
+                                        <td>{% if not size_item.category %} <-> {% else %} {{ size_item.category }} {% endif %}</td>
+                                        <td> <span class="fw-lighter"> <i>{{ size_item.created_by }}</i> </span> </td> 
+                                        <td>
+                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ size_item.modified | date:"M d, Y" }}, {{ size_item.modified | time:"H:i" }}</i>  </span>
                                              <br>
-                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ tag_item.created | date:"M d, Y" }}, {{ tag_item.created | time:"H:i" }}</i>  </span>
+                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ size_item.created | date:"M d, Y" }}, {{ size_item.created | time:"H:i" }}</i>  </span>
                                         </td>
                                         <td class="text-left">
-                                            <a class="btn btn-info btn-sm" href="{% url 'tag_update' tag_item.id %}"><i
+                                            <a class="btn btn-info btn-sm" href="{% url 'size_update' size_item.id %}"><i
                                                     class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'tag_delete' tag_item.id %}"><i
+                                            <a class="btn btn-danger btn-sm" href="{% url 'size_delete' size_item.id %}"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -66,8 +72,8 @@
                         {% else %}
                             <div class="bg-blue text-white" style="padding: 1em;">
                                 <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
-                                <span class="h4">Tag not added yet </span>
-                            </div>
+                                <span class="h4">Size not added yet </span>
+                            </div>       
                         {% endif %}
                     </div>
                     <div class="box-footer clearfix">

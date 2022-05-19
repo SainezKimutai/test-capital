@@ -1,19 +1,15 @@
 {% load static %}
 
-
+<!-- jQuery 3 -->
+<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{% static 'bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
-<!-- Bootstrap 5.0.2 -->
-<!-- Popper js included  -->
-<script src="{% static 'bootstrap_5/js/bootstrap.bundle.min.js' %}"></script>
-
-<!-- jQuery 3 -->
-<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-
+<!-- Bootstrap 3.3.7 -->
+<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
 <!-- Morris.js charts -->
 <script src="{% static 'bower_components/raphael/raphael.min.js' %}"></script>
 <script src="{% static 'bower_components/morris.js/morris.min.js' %}"></script>

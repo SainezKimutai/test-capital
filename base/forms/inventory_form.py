@@ -33,4 +33,7 @@ class InventoryForm(forms.ModelForm):
             'wholesale_price': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_price'}),
             'wholesale_minimum_number': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_minimum_number'}),
             'picture': FileInput(attrs={'class': 'form-control', 'id': 'picture'}),
+            'current_stock': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock'}),
+            'max_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock'}),
+            'min_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'min_selling_price'})
         }

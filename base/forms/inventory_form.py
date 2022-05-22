@@ -35,5 +35,6 @@ class InventoryForm(forms.ModelForm):
             'picture': FileInput(attrs={'class': 'form-control', 'id': 'picture'}),
             'current_stock': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock'}),
             'max_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock'}),
-            'min_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'min_selling_price'})
+            'min_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'min_selling_price'}),
+            'stock_unit': TextInput(attrs={'class': 'form-control', 'id': 'stock_unit'})
         }

@@ -7,10 +7,8 @@
 {% include 'inventory/page_header.html' %}
 
 <div class="content">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box box-primary">
-                {% include 'common/message.html' %}
+    <div class="col-lg-12" >
+        <div class="box box-solid box-success">
                 <div class="box-header with-border">
                     <div class="row">
                         <div class="col-lg-6">
@@ -73,6 +71,12 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
+                                            <label for="stock_unit">Stock Unit</label>
+                                            {{ form.stock_unit }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
                                             <label for="reorder_level">Reorder level</label>
                                             {{ form.reorder_level }}
                                         </div>
@@ -122,10 +126,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-success btn-sm">Save</button>
+                        <div style="padding: 1em 0;">
+                            <a href="{% url 'inventory_list' %}" class="btn btn-default ml-auto">Discard</a>
+                            <button class="btn btn-success pull-right" type="submit">Save</button>
+                        </div>
+                
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>

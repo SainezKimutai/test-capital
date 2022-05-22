@@ -24,6 +24,7 @@ class Inventory(AuthBaseEntity):
     size = models.ForeignKey(Size, on_delete=PROTECT, related_name='productSize')
     reorder_level = models.IntegerField(default=0)
     current_stock = models.IntegerField(default=0)
+    stock_unit = models.CharField(max_length=120, default='Packages')
     recent_buying_price = models.IntegerField(default=0, blank=True)
     max_selling_price = models.IntegerField(default=0)
     min_selling_price = models.IntegerField(default=0)

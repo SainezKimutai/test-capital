@@ -24,7 +24,7 @@ from base.views.finish_view import (
 )
 from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
-    InventoryListView, InventoryUpdateView
+    InventoryListView, InventoryUpdateView, inventory_search
 )
 from base.views.order_views import OrderItemView, bulling_information_view
 from base.views.pos_view import POSView, cart_add, cart_remove, cart_updated
@@ -91,6 +91,7 @@ urlpatterns = [
     path('inventory/<pk>/', InventoryDetailView.as_view(), name='inventory_detail'),
     path('inventory-update/<pk>/', InventoryUpdateView.as_view(), name='inventory_update'),
     path('inventory-delete/<pk>/', InventoryDeleteView.as_view(), name='inventory_delete'),
+    path('inventory-search/', inventory_search, name='inventory_search'),
 
     path('create-product/', CreateProductView.as_view(), name='product_create'),
     path('product-list/', ProductListView.as_view(), name='product_list'),

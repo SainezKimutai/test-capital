@@ -9,20 +9,30 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="box">
+                <div class="box box-solid box-info">
                     <div class="box-header with-border">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h3 class="box-title">Inventory List</h3>
                             </div>
                             <div class="col-lg-6 text-right">
-                                <a title="Create Inventory" data-toggle="tooltip" data-placement="left" class="btn btn-info btn-sm" href="{% url 'inventory_create' %}">
-                                    <i class="fa fa-plus"></i>
+                                <a title="Create Inventory" data-toggle="tooltip" data-placement="left" class="btn btn-primary btn-sm" href="{% url 'inventory_create' %}">
+                                    <span>Add Inventory</span> <i class="fa fa-plus"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
+                    <div class="row" style="padding: 1em;">
+                        <form class="col-lg-6" method="GET" action="{% url 'inventory_search' %}">
+                            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
+                                   name="q">
+                            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+                       
+                        </form>
+                    </div>
+                    {% include 'common/message.html' %}
                     {% include 'inventory/inventory_list_component.html' %}
+
                     <div class="box-footer clearfix">
                         {% include 'common/pagination.html' %}
                     </div>

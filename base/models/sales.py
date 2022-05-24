@@ -10,6 +10,7 @@ from simple_history.models import HistoricalRecords
 from base.models.base import AuthBaseEntity
 from base.models.customer import Customer
 from base.models.inventory import Inventory
+from base.models.product import Product
 
 
 class SalesOrder(AuthBaseEntity):
@@ -31,6 +32,7 @@ class SalesOrder(AuthBaseEntity):
         verbose_name="sold by")
     receipt_number = models.CharField(default=uuid.uuid4, editable=False, null=False, blank=False, max_length=100)
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE, blank=False, null=False)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -39,9 +41,11 @@ class SalesOrder(AuthBaseEntity):
 
 class SalesItem(AuthBaseEntity):
     sales_order = models.ForeignKey(SalesOrder, on_delete=PROTECT)
-    inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
+    # Temp Fk to product until inventory is done
+    inventory = models.ForeignKey(Product, on_delete=PROTECT)
     quantity = models.PositiveIntegerField(default=1)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     history = HistoricalRecords()
 
     def __str__(self):

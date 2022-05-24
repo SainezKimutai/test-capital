@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Textarea, TextInput, EmailInput
+from django.forms import EmailInput, Textarea, TextInput
 
 from base.models.supplier import Supplier
 

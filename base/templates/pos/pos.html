@@ -13,11 +13,19 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="row" style="padding: 1em;">
+                <form class="col-lg-7" method="GET" action="{% url 'product_search' %}">
+                    <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
+                           name="q">
+                    <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+                </form>
+            </div>
             <div class="col-md-7">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         {% for key in data.keys %}
-                        <li {% if forloop.first %} class="active" {% endif %}><a href="#{{ key|cut:' ' }}" data-toggle="tab">{{ key }}</a></li>
+                        <li {% if forloop.first %} class="active" {% endif %}><a href="#{{ key|cut:' ' }}"
+                                                                                 data-toggle="tab">{{ key }}</a></li>
                         {% endfor %}
                     </ul>
                     <div class="tab-content">
@@ -45,7 +53,7 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <div class="box-header">
-                            <h4 class="box-title">12:00 PM</h4>
+                            <h4 class="box-title">{% now "jS F Y H:i" %}</h4>
                         </div>
                         <div class="box">
                             <div class="box-header">
@@ -54,8 +62,10 @@
                                         <h3 class="box-title">Default Customer</h3>
                                     </div>
                                     <div class="col-lg-6 text-right">
-                                        <h3 class="box-title"><a href="{% url 'customer_create' %}"><i class="fa fa-plus"></i></a></h3>
+                                        <h3 class="box-title"><a href="{% url 'customer_create' %}"><i
+                                                class="fa fa-plus"></i></a></h3>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /.box-header -->
@@ -101,7 +111,7 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="btn btn-primary" href="{% url 'bulling_information' %}">Pay</a>
+                                <a class="btn btn-primary" href="{% url 'make_payment_view' %}">Pay</a>
                             </div>
                             <div class="col-md-6 text-right">
                                 <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Select, Textarea, TextInput, EmailInput
+from django.forms import EmailInput, Select, Textarea, TextInput
 
 from base.models.customer import Customer
 

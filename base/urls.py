@@ -26,13 +26,15 @@ from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
     InventoryListView, InventoryUpdateView
 )
-from base.views.order_views import OrderItemView, bulling_information_view
-from base.views.pos_view import POSView, cart_add, cart_remove, cart_updated
+from base.views.pos_view import (
+    POSView, cart_add, cart_remove, cart_updated, product_search
+)
 from base.views.product_view import CreateProductView, ProductListView
 from base.views.range_view import (
     RangeCreateView, RangeDeleteView, RangeListView, RangeUpdateView,
     range_search
 )
+from base.views.sales_view import SalesItemView, make_payment_view
 from base.views.size_view import (
     SizeCreateView, SizeDeleteView, SizeListView, SizeUpdateView, size_search
 )
@@ -94,24 +96,30 @@ urlpatterns = [
 
     path('create-product/', CreateProductView.as_view(), name='product_create'),
     path('product-list/', ProductListView.as_view(), name='product_list'),
+    path('product-search/', product_search, name='product_search'),
+
     path('cart/<int:id>/', cart_add, name='cart_add'),
     path('cart-update/<int:id>/', cart_updated, name='cart_updated'),
     path('cart-remove/<int:id>/', cart_remove, name='cart_remove'),
+
     path('pos/', POSView.as_view(), name='pos_view'),
-    path('bulling-infromation/', bulling_information_view, name='bulling_information'),
-    path('order-infromation/', OrderItemView.as_view(), name='order_information'),
+    path('make_payment_view/', make_payment_view, name='make_payment_view'),
+    path('sale-item-information/', SalesItemView.as_view(), name='sale_item_information'),
+
     path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
     path('supplier/', SupplierListView.as_view(), name='supplier_list'),
     path('supplier/<pk>/', SupplierDetailView.as_view(), name='supplier_detail'),
     path('supplier-update/<pk>/', SupplierUpdateView.as_view(), name='supplier_update'),
     path('supplier-delete/<pk>/', SupplierDeleteView.as_view(), name='supplier_delete'),
     path('supplier-search/', supplier_search, name='supplier_search'),
+
     path('create-customer/', CreateCustomerView.as_view(), name='customer_create'),
     path('customer/', CustomerListView.as_view(), name='customer_list'),
     path('customer/<pk>/', CustomerDetailView.as_view(), name='customer_detail'),
     path('customer-update/<pk>/', CustomerUpdateView.as_view(), name='customer_update'),
     path('customer-delete/<pk>/', CustomerDeleteView.as_view(), name='customer_delete'),
     path('customer-search/', customer_search, name='customer_search'),
+
     path('create-expense/', CreateExpenseView.as_view(), name='expense_create'),
     path('expense/', ExpenseListView.as_view(), name='expense_list'),
     path('expense/<pk>/', ExpenseDetailView.as_view(), name='expense_detail'),

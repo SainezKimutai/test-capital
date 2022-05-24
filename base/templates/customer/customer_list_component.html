@@ -1,14 +1,10 @@
 <div class="box box-default">
-    <div class="box-header with-border">
-        <div class="box-tools pull-right">
-            <div class="has-feedback">
-                <form method="GET" action="{% url 'customer_search' %}">
-                    <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
-                           name="q">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                </form>
-            </div>
-        </div>
+    <div class="row" style="padding: 1em;">
+        <form class="col-lg-7" method="GET" action="{% url 'customer_search' %}">
+            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
+                   name="q">
+            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+        </form>
     </div>
 
     <div class="box-body">
@@ -49,9 +45,9 @@
         </table>
         {% else %}
         {% if query %}
-            <h2>No match was found</h2>
+        <h2>No match was found</h2>
         {% else %}
-            <h2>No Customer added yet</h2>
+        <h2>No Customer added yet</h2>
         {% endif %}
         {% endif %}
     </div>

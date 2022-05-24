@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.decorators.http import require_POST
@@ -52,3 +53,30 @@ def cart_updated(request, id):
     product = get_object_or_404(Product, id=id)
     cart.add(product=product, quantity=number, update_quantity=True)
     return redirect('pos_view')
+
+
+def product_search(request):
+    products = Product.objects.all()
+    query = request.GET.get('q')
+    context = dict()
+    data_items = dict()
+    if query:
+        products = Product.objects.filter(
+            Q(description__icontains=query) |
+            Q(product_category__name__icontains=query) |
+            Q(title__icontains=query)
+        )
+
+    cart = Cart(request)
+
+    for item in cart:
+        item['update_quantity_form'] = {'quantity': item['quantity'], 'update': True}
+
+    for product in products:
+        data_items.setdefault(product.product_category.name, []).append(product)
+
+    context['data'] = data_items
+    context['cart'] = cart
+    context['query'] = query
+
+    return render(request, 'pos/pos.html', context)

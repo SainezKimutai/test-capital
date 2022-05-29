@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.deletion import PROTECT
+from django.db.models.deletion import CASCADE, PROTECT
 
 from simple_history.models import HistoricalRecords
 
@@ -9,12 +9,24 @@ from base.models.supplier import Supplier
 
 
 class Replenishment(AuthBaseEntity):
-    inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
-    count = models.IntegerField(null=False, blank=False)
     supplier = models.ForeignKey(Supplier, on_delete=PROTECT)
-    price_per_item = models.DecimalField(max_digits=10, decimal_places=2)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    receipt_number = models.CharField(max_length=50, null=False, blank=False)
+    receipt_number = models.CharField(max_length=500, null=False, blank=False)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return f"{self.receipt_number}"
+
+    @property
+    def items(self):
+        return ReplenishmentItem.objects.filter(replenishment=self)
+
+
+class ReplenishmentItem(AuthBaseEntity):
+    replenishment = models.ForeignKey(Replenishment, on_delete=CASCADE)
+    inventory = models.ForeignKey(Inventory, on_delete=CASCADE)
+    count = models.IntegerField(null=False, blank=False)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     history = HistoricalRecords()
 
     def __str__(self):

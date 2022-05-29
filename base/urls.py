@@ -13,6 +13,11 @@ from base.views.customer_view import (
     CreateCustomerView, CustomerDeleteView, CustomerDetailView,
     CustomerListView, CustomerUpdateView, customer_search
 )
+from base.views.damaged_inventory_view import (
+    DamagedInventoryCreateView, DamagedInventoryDeleteView,
+    DamagedInventoryListView, DamagedInventoryUpdateView,
+    damaged_inventory_search
+)
 from base.views.dashboard_view import Dashboard
 from base.views.expense_view import (
     CreateExpenseView, ExpenseDetailView, ExpenseListView, ExpenseUpdateView,
@@ -29,9 +34,17 @@ from base.views.inventory_view import (
 from base.views.order_views import OrderItemView, bulling_information_view
 from base.views.pos_view import POSView, cart_add, cart_remove, cart_updated
 from base.views.product_view import CreateProductView, ProductListView
+from base.views.promotion_view import (
+    PromotionCreateView, PromotionDeleteView, PromotionListView,
+    PromotionUpdateView, promotion_search
+)
 from base.views.range_view import (
     RangeCreateView, RangeDeleteView, RangeListView, RangeUpdateView,
     range_search
+)
+from base.views.replenishment_view import (
+    ReplenishmentCreateView, ReplenishmentDeleteView, ReplenishmentListView,
+    replenishment_search
 )
 from base.views.size_view import (
     SizeCreateView, SizeDeleteView, SizeListView, SizeUpdateView, size_search
@@ -118,4 +131,18 @@ urlpatterns = [
     path('expense/<pk>/', ExpenseDetailView.as_view(), name='expense_detail'),
     path('expense-update/<pk>/', ExpenseUpdateView.as_view(), name='expense_update'),
     path('expense-search/', expense_search, name='expense_search'),
+    path('replenishment-create/', ReplenishmentCreateView.as_view(), name='replenishment_create'),
+    path('replenishment/', ReplenishmentListView.as_view(), name='replenishment_list'),
+    path('replenishment-delete/<pk>/', ReplenishmentDeleteView.as_view(), name='replenishment_delete'),
+    path('replenishment-search/', replenishment_search, name='replenishment_search'),
+    path('promotion-create/', PromotionCreateView.as_view(), name='promotion_create'),
+    path('promotion/', PromotionListView.as_view(), name='promotion_list'),
+    path('promotion-update/<pk>/', PromotionUpdateView.as_view(), name='promotion_update'),
+    path('promotion-delete/<pk>/', PromotionDeleteView.as_view(), name='promotion_delete'),
+    path('promotion-search/', promotion_search, name='promotion_search'),
+    path('damaged-inventory-create/', DamagedInventoryCreateView.as_view(), name='damaged_inventory_create'),
+    path('damaged-inventory/', DamagedInventoryListView.as_view(), name='damaged_inventory_list'),
+    path('damaged-inventory-update/<pk>/', DamagedInventoryUpdateView.as_view(), name='damaged_inventory_update'),
+    path('damaged-inventory-delete/<pk>/', DamagedInventoryDeleteView.as_view(), name='damaged_inventory_delete'),
+    path('damaged-inventory-search/', damaged_inventory_search, name='damaged_inventory_search'),
 ]

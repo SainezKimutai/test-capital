@@ -24,7 +24,6 @@ class DamagedInventory(AuthBaseEntity):
         null=False,
         blank=False,
         default=None,
-        editable=False,
         related_name="damaged_by_%(app_label)s_%(class)s_set",
         verbose_name="damaged by")
     history = HistoricalRecords()

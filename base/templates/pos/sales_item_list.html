@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Inventory || Sales Items {% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">List of Sales Item</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Receipt Number</th>
+                                <th>Customer Name</th>
+                                <th>Task</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Amount</th>
+                            </tr>
+                            {% if sales_item %}
+                                {% for obj in sales_item %}
+                                    <tr>
+                                        <td>{{ obj.sales_order.receipt_number }}</td>
+                                        <td>{{ obj.sales_order.customer }}</td>
+                                        <td>{{ obj.inventory }}</td>
+                                        <td>{{ obj.price }}</td>
+                                        <td>{{ obj.quantity }}</td>
+                                        <td>{{ obj.total_amount }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

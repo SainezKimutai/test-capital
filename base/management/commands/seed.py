@@ -1,17 +1,19 @@
 import random
+
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
+from django_seed import Seed
+
 from base.models.category import Category
-from base.models.tag import Tag
 from base.models.color import Color
-from base.models.size import Size
-from base.models.range import Range
-from base.models.finish import Finish
 from base.models.customer import Customer
 from base.models.expense import Expense
+from base.models.finish import Finish
+from base.models.range import Range
+from base.models.size import Size
 from base.models.supplier import Supplier
-from django_seed import Seed
+from base.models.tag import Tag
 
 User = get_user_model()
 seeder = Seed.seeder()

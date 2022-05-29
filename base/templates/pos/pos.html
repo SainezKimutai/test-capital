@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row" style="padding: 1em;">
-                <form class="col-lg-7" method="GET" action="{% url 'product_search' %}">
+                <form class="col-lg-7" method="GET" action="{% url 'pos_inventory_search' %}">
                     <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
                            name="q">
                     <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
@@ -36,10 +36,10 @@
                                     {% for obj in value %}
                                     <div class="col-lg-3">
                                         <a href="{% url 'cart_add' obj.id %}">
-                                            <img src="{{ obj.product_image.url }}" alt="">
-                                            <h5 class="box-title">{{ obj.title }}</h5>
+                                            <img src="{{ obj.picture.url }}" alt="">
+                                            <h5 class="box-title">{{ obj.name }}</h5>
                                         </a>
-                                        <p class="box-comment">KES {{ obj.price }}</p>
+                                        <p class="box-comment">KES {{ obj.selling_price }}</p>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -50,6 +50,7 @@
                 </div>
             </div>
             <div class="col-md-5">
+                {% include 'common/message.html' %}
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <div class="box-header">
@@ -73,7 +74,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Product Name</th>
+                                        <th>Inventory Name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Del</th>
@@ -82,11 +83,28 @@
                                     <tbody>
                                     <tr>
                                         {% for item in cart %}
-                                        {% with product=item.product %}
-                                        <td>{{ product.title }}</td>
-                                        <td>{{ product.price }}</td>
+                                        {% with inventory=item.inventory %}
+                                        {% if item.is_wholesale %}
+                                        <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
                                         <td>
-                                            <form action="{% url 'cart_updated' product.id %}" method="post">
+                                            {{ item.update_price_form.price }}
+                                        </td>
+                                        {% else %}
+                                         <td>{{ inventory.name }}</td>
+                                        <td>
+                                            <form action="{% url 'cart_updated' inventory.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input style="width: 70px" type="number" name="price"
+                                                       value="{{ item.update_price_form.price }}"
+                                                       min="{{ inventory.min_selling_price }}}">
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        {% endif %}
+                                        <td>
+                                            <form action="{% url 'cart_updated' inventory.id %}" method="post">
                                                 {% csrf_token %}
                                                 <input style="width: 50px" type="number" name="number"
                                                        value="{{ item.update_quantity_form.quantity }}" min="1">
@@ -96,7 +114,7 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <a href="{% url 'cart_remove' product.id %}"
+                                            <a href="{% url 'cart_remove' inventory.id %}"
                                                title="cancel" class="icon"><i
                                                     class="fa fa-trash-o"></i></a>
                                         </td>

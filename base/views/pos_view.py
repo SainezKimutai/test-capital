@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.decorators.http import require_POST
 
 from base.addcart import Cart
-from base.models.product import Product
+from base.models.inventory import Inventory
 
 
 class POSView(View):
@@ -12,14 +13,15 @@ class POSView(View):
     def get(self, request):
         context = dict()
         data_items = dict()
-        products = Product.objects.all()
+        inventories = Inventory.objects.all()
         cart = Cart(request)
 
         for item in cart:
             item['update_quantity_form'] = {'quantity': item['quantity'], 'update': True}
-
-        for product in products:
-            data_items.setdefault(product.product_category.name, []).append(product)
+            item['update_price_form'] = {'price': item['price'], 'update': True}
+            item['is_wholesale'] = item['is_wholesale']
+        for inventory in inventories:
+            data_items.setdefault(inventory.category.name, []).append(inventory)
 
         context['data'] = data_items
         context['cart'] = cart
@@ -30,16 +32,18 @@ class POSView(View):
 # Add to cart views
 def cart_add(request, id):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=id)
-    cart.add(product=product, quantity=1, update_quantity=1)
+    inventory = get_object_or_404(Inventory, id=id)
+    cart.add(inventory=inventory, quantity=1, price=inventory.selling_price, update_quantity=True,
+             wholesale_quantity=inventory.wholesale_minimum_number,
+             wholesale_price=inventory.wholesale_price)
     return redirect('pos_view')
 
 
 # Remove Shopping Cart views
 def cart_remove(request, id):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=id)
-    cart.remove(product)
+    inventory = get_object_or_404(Inventory, id=id)
+    cart.remove(inventory)
     return redirect('pos_view')
 
 
@@ -49,22 +53,57 @@ def cart_updated(request, id):
     number = None
     cart = Cart(request)
     if request.method == 'POST':
-        number = int(request.POST.get('number'))
-    product = get_object_or_404(Product, id=id)
-    cart.add(product=product, quantity=number, update_quantity=True)
+        number = request.POST.get('number', None)
+        price = request.POST.get('price', None)
+
+    inventory = get_object_or_404(Inventory, id=id)
+
+    if number:
+        # Validate, quantity does not exceed stock available
+        if inventory.current_stock < int(number):
+            messages.add_message(request, messages.ERROR,
+                                 f'Current stock is {inventory.current_stock} which is less than {int(number)}')
+            return redirect('pos_view')
+        # Revert to max selling price if number is below wholesale minimum number
+        if int(number) <= inventory.wholesale_minimum_number:
+            cart.add(inventory=inventory, quantity=int(number), update_quantity=True, update_price=True,
+                     price=inventory.selling_price,
+                     wholesale_quantity=inventory.wholesale_minimum_number,
+                     wholesale_price=inventory.wholesale_price)
+        else:
+            cart.add(inventory=inventory, quantity=int(number), update_quantity=True,
+                     wholesale_quantity=inventory.wholesale_minimum_number,
+                     wholesale_price=inventory.wholesale_price)
+
+    # Validate, modified price is not less than minimum_selling_price
+    if price:
+        if int(price) < inventory.min_selling_price:
+            messages.add_message(request, messages.ERROR,
+                                 f'Price should not be below: KES {inventory.min_selling_price}')
+            return redirect('pos_view')
+        cart.add(inventory=inventory, price=int(price), update_price=True,
+                 wholesale_quantity=inventory.wholesale_minimum_number,
+                 wholesale_price=inventory.wholesale_price)
+
     return redirect('pos_view')
 
 
-def product_search(request):
-    products = Product.objects.all()
+def pos_inventory_search(request):
+    inventories = Inventory.objects.all()
     query = request.GET.get('q')
     context = dict()
     data_items = dict()
     if query:
-        products = Product.objects.filter(
-            Q(description__icontains=query) |
-            Q(product_category__name__icontains=query) |
-            Q(title__icontains=query)
+        inventories = Inventory.objects.filter(
+            Q(short_description__icontains=query) |
+            Q(full_description__icontains=query) |
+            Q(name__icontains=query) |
+            Q(range__name__icontains=query) |
+            Q(color__name__icontains=query) |
+            Q(finish__name__icontains=query) |
+            Q(size__size_type=query) |
+            Q(tags__name__icontains=query) |
+            Q(category__name__icontains=query)
         )
 
     cart = Cart(request)
@@ -72,8 +111,8 @@ def product_search(request):
     for item in cart:
         item['update_quantity_form'] = {'quantity': item['quantity'], 'update': True}
 
-    for product in products:
-        data_items.setdefault(product.product_category.name, []).append(product)
+    for inventory in inventories:
+        data_items.setdefault(inventory.category.name, []).append(inventory)
 
     context['data'] = data_items
     context['cart'] = cart

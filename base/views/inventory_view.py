@@ -64,7 +64,15 @@ def inventory_search(request):
     query = request.GET.get('q')
     if query:
         inventory = Inventory.objects.filter(
-            Q(name__icontains=query)
+            Q(short_description__icontains=query) |
+            Q(full_description__icontains=query) |
+            Q(name__icontains=query) |
+            Q(range__name__icontains=query) |
+            Q(color__name__icontains=query) |
+            Q(finish__name__icontains=query) |
+            Q(size__size_type=query) |
+            Q(tags__name__icontains=query) |
+            Q(category__name__icontains=query)
         )
     context = {
         'inventory': inventory,

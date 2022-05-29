@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="box-title">Confirm Order</h4>
+                    </div>
+                    <div class="box-body">
+                        <form method="POST" action="{% url 'make_payment_view' %}" class="register-form"
+                        role="form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="info-title" for="customer">Customer</label>
+                            {{ form.customer }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="sales_agent">Sales Agent</label>
+                            {{ form.sales_agent }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="transaction_type">Transaction Type</label>
+                            {{ form.transaction_type }}
+                        </div>
+                        <button type="submit"
+                                class="btn-upper btn btn-primary checkout-page-button">Confirm Order
+                        </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

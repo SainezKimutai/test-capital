@@ -27,7 +27,7 @@ from base.views.inventory_view import (
     InventoryListView, InventoryUpdateView, inventory_search
 )
 from base.views.pos_view import (
-    POSView, cart_add, cart_remove, cart_updated, product_search
+    POSView, cart_add, cart_remove, cart_updated, pos_inventory_search
 )
 from base.views.product_view import CreateProductView, ProductListView
 from base.views.range_view import (
@@ -97,7 +97,6 @@ urlpatterns = [
 
     path('create-product/', CreateProductView.as_view(), name='product_create'),
     path('product-list/', ProductListView.as_view(), name='product_list'),
-    path('product-search/', product_search, name='product_search'),
 
     path('cart/<int:id>/', cart_add, name='cart_add'),
     path('cart-update/<int:id>/', cart_updated, name='cart_updated'),
@@ -106,6 +105,7 @@ urlpatterns = [
     path('pos/', POSView.as_view(), name='pos_view'),
     path('make_payment_view/', make_payment_view, name='make_payment_view'),
     path('sale-item-information/', SalesItemView.as_view(), name='sale_item_information'),
+    path('pos-inventory-search/', pos_inventory_search, name='pos_inventory_search'),
 
     path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
     path('supplier/', SupplierListView.as_view(), name='supplier_list'),

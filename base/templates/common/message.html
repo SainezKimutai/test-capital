@@ -1,7 +1,7 @@
 {% if messages %}
     <div class="alert alert-success" role="alert">
         {% for m in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ m }}</li>
+            <li{% if message.extra_tags %} class="{{ message.extra_tags }}"{% endif %}>{{ m }}</li>
         {% endfor %}
     </div>
 {% endif %}

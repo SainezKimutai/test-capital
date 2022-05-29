@@ -27,7 +27,6 @@ class InventoryForm(forms.ModelForm):
             'full_description': Textarea(attrs={'class': 'form-control', 'id': 'full_description',
                                                 'placeholder': 'Enter inventory full description'}),
             'reorder_level': NumberInput(attrs={'class': 'form-control', 'id': 'reorder_level'}),
-            'selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'selling_price'}),
             'promotional_price': NumberInput(attrs={'class': 'form-control', 'id': 'promotional_price'}),
             'is_promotion': CheckboxInput(attrs={'class': 'form-check-input', 'id': 'is_promotion'}),
             'wholesale_price': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_price'}),

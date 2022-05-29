@@ -73,8 +73,12 @@
                                         class="pull-right">{{ inventory.min_selling_price }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Tags</b> <a
-                                        class="pull-right">{{ inventory.tags }}</a>
+                                    <b>Tags</b>
+                                    <a class="pull-right">
+                                        {% for tag in inventory.tags.all %}
+                                        <span >{{ tag.name }}</span>,
+                                        {% endfor %}
+                                    </a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Is deactivated</b> <a

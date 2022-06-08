@@ -4,6 +4,14 @@
 
 {% block content %}
 
+<section class="content-header">
+    <h1> Dashboard <small>Create Order</small></h1>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Create Order</li>
+    </ol>
+</section>
+
 <style type="text/css">
     .item_list img {
         width: 100%;
@@ -86,11 +94,12 @@
                                         {% with inventory=item.inventory %}
                                         {% if item.is_wholesale %}
                                         <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
-                                        <td>
-                                            {{ item.update_price_form.price }}
-                                        </td>
+                                        <td>{{ item.update_price_form.price }}</td>
+                                        {% elif item.is_promotion %}
+                                        <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
+                                        <td>{{ item.update_price_form.price }}</td>
                                         {% else %}
-                                         <td>{{ inventory.name }}</td>
+                                        <td>{{ inventory.name }}</td>
                                         <td>
                                             <form action="{% url 'cart_updated' inventory.id %}" method="post">
                                                 {% csrf_token %}

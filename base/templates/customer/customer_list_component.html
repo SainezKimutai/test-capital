@@ -33,11 +33,12 @@
                 <td>{{ obj.modified|time:'g:i:s A' }}</td>
                 <td class="text-center">
                     <a class="btn btn-info btn-sm" href="{% url 'customer_detail' obj.pk %}"><i
-                            class="fa fa-eye"></i></a>
+                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
                     <a class="btn btn-info btn-sm" href="{% url 'customer_update' obj.pk %}"><i
-                            class="fa fa-pencil"></i></a>
+                            class="fa fa-pencil" data-toggle="tooltip" title="Edit"></i></a>
                     <a class="btn btn-danger btn-sm"
-                       href="{% url 'customer_delete' obj.pk %}"><i class="fa fa-trash"></i></a>
+                       href="{% url 'customer_delete' obj.pk %}"><i class="fa fa-trash" data-toggle="tooltip"
+                                                                    title="Delete"></i></a>
                 </td>
             </tr>
             {% endfor %}

@@ -31,10 +31,12 @@ from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
     InventoryListView, InventoryUpdateView, inventory_search
 )
+from base.views.invoice_view import (
+    InvoiceDetailView, InvoiceListView, invoice_search, mark_invoice_as_paid
+)
 from base.views.pos_view import (
     POSView, cart_add, cart_remove, cart_updated, pos_inventory_search
 )
-from base.views.product_view import CreateProductView, ProductListView
 from base.views.promotion_view import (
     PromotionCreateView, PromotionDeleteView, PromotionListView,
     PromotionUpdateView, promotion_search
@@ -47,7 +49,9 @@ from base.views.replenishment_view import (
     ReplenishmentCreateView, ReplenishmentDeleteView, ReplenishmentListView,
     replenishment_search
 )
-from base.views.sales_view import SalesItemView, make_payment_view
+from base.views.sales_view import (
+    SalesItemView, make_payment_view, sales_order_search
+)
 from base.views.size_view import (
     SizeCreateView, SizeDeleteView, SizeListView, SizeUpdateView, size_search
 )
@@ -108,9 +112,6 @@ urlpatterns = [
     path('inventory-delete/<pk>/', InventoryDeleteView.as_view(), name='inventory_delete'),
     path('inventory-search/', inventory_search, name='inventory_search'),
 
-    path('create-product/', CreateProductView.as_view(), name='product_create'),
-    path('product-list/', ProductListView.as_view(), name='product_list'),
-
     path('cart/<int:id>/', cart_add, name='cart_add'),
     path('cart-update/<int:id>/', cart_updated, name='cart_updated'),
     path('cart-remove/<int:id>/', cart_remove, name='cart_remove'),
@@ -119,6 +120,12 @@ urlpatterns = [
     path('make_payment_view/', make_payment_view, name='make_payment_view'),
     path('sale-item-information/', SalesItemView.as_view(), name='sale_item_information'),
     path('pos-inventory-search/', pos_inventory_search, name='pos_inventory_search'),
+    path('sales-order-search/', sales_order_search, name='sales_order_search'),
+
+    path('invoice/', InvoiceListView.as_view(), name='invoice_list'),
+    path('invoice/<pk>/', InvoiceDetailView.as_view(), name='invoice_detail'),
+    path('invoice-mark-paid/<int:pk>/', mark_invoice_as_paid, name='mark_invoice_as_paid'),
+    path('invoice-search/', invoice_search, name='invoice_search'),
 
     path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
     path('supplier/', SupplierListView.as_view(), name='supplier_list'),

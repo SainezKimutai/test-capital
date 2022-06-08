@@ -33,9 +33,7 @@ class POSView(View):
 def cart_add(request, id):
     cart = Cart(request)
     inventory = get_object_or_404(Inventory, id=id)
-    cart.add(inventory=inventory, quantity=1, price=inventory.selling_price, update_quantity=True,
-             wholesale_quantity=inventory.wholesale_minimum_number,
-             wholesale_price=inventory.wholesale_price)
+    cart.add(inventory=inventory, quantity=1, price=inventory.selling_price, update_quantity=True)
     return redirect('pos_view')
 
 
@@ -57,23 +55,13 @@ def cart_updated(request, id):
         price = request.POST.get('price', None)
 
     inventory = get_object_or_404(Inventory, id=id)
-
     if number:
         # Validate, quantity does not exceed stock available
         if inventory.current_stock < int(number):
             messages.add_message(request, messages.ERROR,
                                  f'Current stock is {inventory.current_stock} which is less than {int(number)}')
             return redirect('pos_view')
-        # Revert to max selling price if number is below wholesale minimum number
-        if int(number) <= inventory.wholesale_minimum_number:
-            cart.add(inventory=inventory, quantity=int(number), update_quantity=True, update_price=True,
-                     price=inventory.selling_price,
-                     wholesale_quantity=inventory.wholesale_minimum_number,
-                     wholesale_price=inventory.wholesale_price)
-        else:
-            cart.add(inventory=inventory, quantity=int(number), update_quantity=True,
-                     wholesale_quantity=inventory.wholesale_minimum_number,
-                     wholesale_price=inventory.wholesale_price)
+        cart.add(inventory=inventory, quantity=int(number), update_quantity=True)
 
     # Validate, modified price is not less than minimum_selling_price
     if price:
@@ -81,9 +69,7 @@ def cart_updated(request, id):
             messages.add_message(request, messages.ERROR,
                                  f'Price should not be below: KES {inventory.min_selling_price}')
             return redirect('pos_view')
-        cart.add(inventory=inventory, price=int(price), update_price=True,
-                 wholesale_quantity=inventory.wholesale_minimum_number,
-                 wholesale_price=inventory.wholesale_price)
+        cart.add(inventory=inventory, price=int(price), update_price=True)
 
     return redirect('pos_view')
 

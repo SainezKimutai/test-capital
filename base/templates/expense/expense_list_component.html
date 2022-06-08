@@ -33,9 +33,9 @@
                 <td>{{ obj.modified_by }}</td>
                 <td class="text-center">
                     <a class="btn btn-info btn-sm" href="{% url 'expense_detail' obj.pk %}"><i
-                            class="fa fa-eye"></i></a>
+                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
                     <a class="btn btn-info btn-sm" href="{% url 'expense_update' obj.pk %}"><i
-                            class="fa fa-pencil"></i></a>
+                            class="fa fa-pencil" data-toggle="tooltip" title="Edit"></i></a>
                 </td>
             </tr>
             {% endfor %}

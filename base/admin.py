@@ -2,8 +2,6 @@ from django.contrib import admin
 
 from base.models.category import Category
 from base.models.inventory import Inventory
-from base.models.order import Order, OrderItem
-from base.models.product import Product
 from base.models.tag import Tag
 
 
@@ -29,6 +27,3 @@ class InventoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Inventory, InventoryAdmin)
-admin.site.register(Product)
-admin.site.register(Order)
-admin.site.register(OrderItem)

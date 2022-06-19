@@ -7,6 +7,9 @@ from base.models.base import AuthBaseEntity
 
 
 class Supplier(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     supplier_name = models.CharField(max_length=150, unique=True)
     phone_number_1 = PhoneNumberField(blank=False, null=False, unique=True)
     phone_number_2 = PhoneNumberField(blank=True, null=True)

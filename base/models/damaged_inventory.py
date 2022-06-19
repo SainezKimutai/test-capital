@@ -11,6 +11,9 @@ from base.models.supplier import Supplier
 
 
 class DamagedInventory(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
     count = models.IntegerField(null=False, blank=False)
     damage_reason = models.CharField(max_length=250)

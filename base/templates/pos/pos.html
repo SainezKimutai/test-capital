@@ -138,7 +138,11 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-md-6">
+                                {% if cart.get_total_price > 0 %}
                                 <a class="btn btn-primary" href="{% url 'make_payment_view' %}">Pay</a>
+                                {% else %}
+                                <a class="btn btn-primary" disabled="True" href="#">Pay</a>
+                                {% endif %}
                             </div>
                             <div class="col-md-6 text-right">
                                 <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>

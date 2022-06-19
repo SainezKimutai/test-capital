@@ -29,14 +29,15 @@ class InvoiceDetailView(DetailView):
 def mark_invoice_as_paid(request, pk):
     invoice = Invoice.objects.get(id=pk)
 
-    invoice.paid = True
-    invoice.payment_date = date.today()
-    invoice.modified_by = request.user
-    invoice.save()
+    if request.method == 'POST':
+        invoice.paid = True
+        invoice.payment_date = date.today()
+        invoice.modified_by = request.user
+        invoice.save()
+        messages.add_message(request, messages.INFO, 'Invoice successfully marked as PAID.')
+        return redirect('invoice_list')
 
-    messages.add_message(request, messages.INFO, 'Invoice successfully marked as PAID.')
-
-    return redirect('invoice_list')
+    return render(request, 'invoice/invoice_mark_as_paid.html', {'invoice': invoice})
 
 
 def invoice_search(request):

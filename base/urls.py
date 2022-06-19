@@ -9,6 +9,9 @@ from base.views.color_view import (
     ColorCreateView, ColorDeleteView, ColorListView, ColorUpdateView,
     color_search
 )
+from base.views.credit_note_view import (
+    CreditNoteListView, create_credit_note_view, credit_note_search
+)
 from base.views.customer_view import (
     CreateCustomerView, CustomerDeleteView, CustomerDetailView,
     CustomerListView, CustomerUpdateView, customer_search
@@ -117,10 +120,14 @@ urlpatterns = [
     path('cart-remove/<int:id>/', cart_remove, name='cart_remove'),
 
     path('pos/', POSView.as_view(), name='pos_view'),
-    path('make_payment_view/', make_payment_view, name='make_payment_view'),
+    path('payment-info/', make_payment_view, name='make_payment_view'),
     path('sale-item-information/', SalesItemView.as_view(), name='sale_item_information'),
     path('pos-inventory-search/', pos_inventory_search, name='pos_inventory_search'),
     path('sales-order-search/', sales_order_search, name='sales_order_search'),
+
+    path('credit-note-info/<int:pk>/', create_credit_note_view, name='create_credit_note_view'),
+    path('credit-note/', CreditNoteListView.as_view(), name='credit_note_list'),
+    path('credit-note-search/', credit_note_search, name='credit_note_search'),
 
     path('invoice/', InvoiceListView.as_view(), name='invoice_list'),
     path('invoice/<pk>/', InvoiceDetailView.as_view(), name='invoice_detail'),

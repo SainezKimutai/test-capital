@@ -2,6 +2,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Sum
 from django.db.models.deletion import PROTECT
 
 from extended_choices.choices import Choices
@@ -13,6 +14,9 @@ from base.models.inventory import Inventory
 
 
 class SalesOrder(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     TRANSACTION_TYPE = Choices(
         ['CASH', 'CASH', 'CASH'],
         ['MPESA', 'MPESA', 'MPESA'],
@@ -39,6 +43,9 @@ class SalesOrder(AuthBaseEntity):
 
 
 class SalesItem(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     sales_order = models.ForeignKey(SalesOrder, on_delete=PROTECT)
     inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
     quantity = models.PositiveIntegerField(default=1)
@@ -48,3 +55,19 @@ class SalesItem(AuthBaseEntity):
 
     def __str__(self):
         return f"{self.inventory.name}-{self.sales_order.receipt_number}"
+
+    def fully_credited(self):
+        """
+        Returns True or False
+        Check if a certain sale item can be raised as a credit note
+        :return:
+        """
+        from base.models.credit_note import CreditNote
+        previous_quantity = CreditNote.objects.filter(sales_item__id=self.id)
+        if previous_quantity:
+            count = previous_quantity.aggregate(Sum('quantity')).get('quantity__sum')
+
+            if count >= self.quantity:
+                return True
+
+        return False

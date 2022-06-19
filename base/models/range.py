@@ -6,6 +6,9 @@ from base.models.base import AuthBaseEntity
 
 
 class Range(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     name = models.CharField(max_length=70)
     history = HistoricalRecords()
 

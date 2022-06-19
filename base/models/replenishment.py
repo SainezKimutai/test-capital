@@ -9,6 +9,9 @@ from base.models.supplier import Supplier
 
 
 class Replenishment(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     supplier = models.ForeignKey(Supplier, on_delete=PROTECT)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     receipt_number = models.CharField(max_length=500, null=False, blank=False)
@@ -23,6 +26,9 @@ class Replenishment(AuthBaseEntity):
 
 
 class ReplenishmentItem(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     replenishment = models.ForeignKey(Replenishment, on_delete=CASCADE)
     inventory = models.ForeignKey(Inventory, on_delete=CASCADE)
     count = models.IntegerField(null=False, blank=False)

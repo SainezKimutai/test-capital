@@ -11,6 +11,9 @@ from base.models.sales import SalesOrder
 
 
 class Invoice(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     sales_order = models.ForeignKey(SalesOrder, blank=False, on_delete=PROTECT)
     expected_payment_date = models.DateField(null=False, blank=False)
     payment_date = models.DateField(null=True, blank=True)

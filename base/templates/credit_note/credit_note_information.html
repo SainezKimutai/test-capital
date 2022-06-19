@@ -5,10 +5,10 @@
 {% block content %}
 
 <section class="content-header">
-    <h1> Dashboard <small>Confirm Order</small></h1>
+    <h1> Dashboard <small>Credit Note</small></h1>
     <ol class="breadcrumb">
         <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Confirm Order</li>
+        <li class="active">Credit Note</li>
     </ol>
 </section>
 
@@ -17,10 +17,11 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header">
-                    <h4 class="box-title">Confirm Order</h4>
+                    <h4 class="box-title">Credit Note</h4>
                 </div>
                 <div class="box-body">
-                    <form method="POST" action="{% url 'make_payment_view' %}" class="register-form"
+                    <P>{{ form. }}</P>
+                    <form method="POST" action="{% url 'create_credit_note_view' form.initial.sales_item.id %}" class="register-form"
                           role="form">
                         {% if form.errors %}
                         <div class="alert alert-danger">
@@ -29,71 +30,25 @@
                         {% endif %}
                         {% csrf_token %}
                         <div class="form-group">
-                            <label class="info-title" for="customer">Customer</label>
-                            {{ form.customer }}
+                            <label class="info-title" for="sales_item">Sales Item</label>
+                            {{ form.sales_item }}
                         </div>
                         <div class="form-group">
-                            <label class="info-title" for="sales_agent">Sales Agent</label>
-                            {{ form.sales_agent }}
+                            <label class="info-title" for="quantity">Quantity</label>
+                            {{ form.quantity }}
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="affects_cash"value="True">
+                            <label class="form-check-label" for="affects_cash">Affects Cash</label>
                         </div>
                         <div class="form-group">
-                            <label class="info-title" for="transaction_type">Transaction Type</label>
-                            {{ form.transaction_type }}
+                            <label class="info-title" for="credit_note_reason">Credit Note Reason</label>
+                            {{ form.credit_note_reason }}
                         </div>
                         <button type="submit"
-                                class="btn-upper btn btn-primary checkout-page-button">Confirm Order
+                                class="btn-upper btn btn-primary checkout-page-button">Confirm Credit Note
                         </button>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5">
-            {% include 'common/message.html' %}
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <div class="box-header">
-                        <h4 class="box-title text-left">{% now "jS F Y H:i" %}</h4>
-                        <br>
-                        <h4 class="box-title text-right">Sale Summary</h4>
-                    </div>
-                    <div class="box">
-                        <!-- /.box-header -->
-                        <div class="box-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Inventory Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    {% for item in cart %}
-                                    {% with inventory=item.inventory %}
-                                    {% if item.is_wholesale %}
-                                    <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
-                                    {% elif item.is_promotion %}
-                                    <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
-                                    {% else %}
-                                    <td>{{ inventory.name }}</td>
-                                    {% endif %}
-                                    <td>{{ item.price }}</td>
-                                    <td>{{ item.quantity }}</td>
-                                </tr>
-                                {% endwith %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-md-6 text-right">
-                            <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

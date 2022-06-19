@@ -7,6 +7,9 @@ from base.models.base import AuthBaseEntity
 
 
 class Customer(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     phone_number = PhoneNumberField(blank=False, null=False, unique=True)
     name = models.CharField(max_length=150, unique=True)
     is_credit = models.BooleanField(default=False)

@@ -7,10 +7,8 @@
 {% include 'inventory/page_header.html' %}
 
 <div class="content">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box box-primary">
-                {% include 'common/message.html' %}
+    <div class="col-lg-12" >
+        <div class="box box-solid box-success">
                 <div class="box-header with-border">
                     <div class="row">
                         <div class="col-lg-6">
@@ -67,8 +65,14 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="selling_price">Inventory selling price</label>
-                                            {{ form.selling_price }}
+                                            <label for="current_stock">Inventory Current Stock</label>
+                                            {{ form.current_stock }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="stock_unit">Stock Unit</label>
+                                            {{ form.stock_unit }}
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -92,14 +96,14 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="promotional_price">Inventory promotion price</label>
-                                            {{ form.promotional_price }}
+                                            <label for="min_selling_price">Min Selling Price</label>
+                                            {{ form.min_selling_price }}
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check">
-                                            <label for="is_promotion">Is on promotion?</label>
-                                            {{ form.is_promotion }}
+                                            <label for="selling_price">Selling Price</label>
+                                            {{ form.selling_price }}
                                         </div>
                                     </div>
                                 </div>
@@ -122,10 +126,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-success btn-sm">Save</button>
+                        <div style="padding: 1em 0;">
+                            <a href="{% url 'inventory_list' %}" class="btn btn-default ml-auto">Discard</a>
+                            <button class="btn btn-success pull-right" type="submit">Save</button>
+                        </div>
+                
                     </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>

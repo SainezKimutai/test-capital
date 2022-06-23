@@ -9,6 +9,9 @@ from base.models.category import Category
 
 
 class Size(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     SIZE_TYPE = Choices(
         ['LITRES', 'LITRES', 'LITRES'],
         ['METERS', 'METERS', 'METERS'],

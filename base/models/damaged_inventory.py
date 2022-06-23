@@ -11,6 +11,9 @@ from base.models.supplier import Supplier
 
 
 class DamagedInventory(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
     count = models.IntegerField(null=False, blank=False)
     damage_reason = models.CharField(max_length=250)
@@ -24,7 +27,6 @@ class DamagedInventory(AuthBaseEntity):
         null=False,
         blank=False,
         default=None,
-        editable=False,
         related_name="damaged_by_%(app_label)s_%(class)s_set",
         verbose_name="damaged by")
     history = HistoricalRecords()

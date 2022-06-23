@@ -1,70 +1,53 @@
-from decimal import Decimal
+import random
 
-from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 
-from ddf import G
-from faker import Faker
+from django_seed import Seed
+
+from base.models.category import Category
+from base.models.color import Color
+from base.models.customer import Customer
+from base.models.expense import Expense
+from base.models.finish import Finish
+from base.models.range import Range
+from base.models.size import Size
+from base.models.supplier import Supplier
+from base.models.tag import Tag
+
+User = get_user_model()
+seeder = Seed.seeder()
 
 
 class Command(BaseCommand):
-    help = 'Seed the database. Run as `python manage.py seed {modelName}` e.g. python manage.py seed country. To ' \
-           'see supported models, run `python manage.py seed model --list`'
-    faker = Faker()
+    help = 'Seed Database'
 
-    def add_arguments(self, parser):
-        parser.add_argument('model', type=str)
-        parser.add_argument(
-            '--list',
-            action='store_true',
-            help='List all supported models',
-        )
+    def generate_phone_numbers(self):
+        return f"+2547{random.randint(10, 99)}{random.randint(100, 999)}{random.randint(100, 999)}",
 
-    def handle(self, *args, **options): # noqa
-        model = options['model']
-        supported_models = [
-            'customer',
-            'supplier',
-        ]
-        if options['list']:
-            self.stdout.write(
-                self.style.SUCCESS(
-                    'The supported models are: %s' %
-                    ','.join(supported_models)))
-            exit()
-
-        if model not in supported_models:
-            raise CommandError('Unsupported model "%s"' % model)
-
-        if model == 'customer':
-            self.seed_customers()
-        elif model == 'supplier':
-            self.seed_suppliers()
-        elif model == 'expenses':
-            self.seed_expenses()
-        else:
-            raise CommandError('Unsupported model "%s"' % model)
+    def handle(self, *args, **options):  # noqa
+        self.seed_database()
 
         self.stdout.write(
-            self.style.SUCCESS(
-                'Successfully seeded "%s"' %
-                model))
+            self.style.SUCCESS('Database Successfully seeded'))
 
-    def seed_customers(self):
-        countries = [
-            "Kenya",
-            "Uganda",
-            "Malawi",
-            "Zambia",
-            "Nigeria",
-            "Tanzania"]
-        for country_name in countries:
-            if not Country.objects.filter(name=country_name).exists():
-                G(Country, name=country_name)
+    def seed_database(self):
+        # Foreign keys must be seeded first
+        seeder.add_entity(User, 5)
+        seeder.add_entity(Category, 5)
+        seeder.add_entity(Tag, 5)
+        seeder.add_entity(Color, 5)
+        seeder.add_entity(Size, 5)
+        seeder.add_entity(Range, 5)
+        seeder.add_entity(Finish, 5)
+        seeder.add_entity(Customer, 10, {
+            'phone_number': lambda x: f"+2547{random.randint(10, 99)}{random.randint(100, 999)}{random.randint(100, 999)}",
+            'email': lambda x: seeder.faker.email(),
+        })
+        seeder.add_entity(Supplier, 10, {
+            'phone_number_1': lambda x: f"+2547{random.randint(10, 99)}{random.randint(100, 999)}{random.randint(100, 999)}",
+            'email': lambda x: seeder.faker.email(),
+        })
+        seeder.add_entity(Expense, 3)
 
-    def seed_suppliers(self):
-        country = G(Country, name=self.faker.country())
-        G(AdministrativeDivision, country=country)
-
-    def seed_expenses(self):
-        country = G(Country, name=self.faker.country())
-        G(AdministrativeDivision, country=country)
+        seeder.execute()

@@ -8,6 +8,9 @@ from base.models.category import Category
 
 
 class Color(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     category = models.ForeignKey(Category, on_delete=PROTECT, related_name='colorCategory')
     name = models.CharField(max_length=70)
     code = models.CharField(max_length=70, default='#FF0000')

@@ -1,14 +1,10 @@
 <div class="box box-default">
-    <div class="box-header with-border">
-        <div class="box-tools pull-right">
-            <div class="has-feedback">
-                <form method="GET" action="{% url 'expense_search' %}">
-                    <input type="search" class="form-control rounded" placeholder="{{ query|default:'Search...' }}"
-                           name="q">
-                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                </form>
-            </div>
-        </div>
+    <div class="row" style="padding: 1em;">
+        <form class="col-lg-7" method="GET" action="{% url 'expense_search' %}">
+            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
+                   name="q">
+            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+        </form>
     </div>
 
     <div class="box-body">
@@ -37,9 +33,9 @@
                 <td>{{ obj.modified_by }}</td>
                 <td class="text-center">
                     <a class="btn btn-info btn-sm" href="{% url 'expense_detail' obj.pk %}"><i
-                            class="fa fa-eye"></i></a>
+                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
                     <a class="btn btn-info btn-sm" href="{% url 'expense_update' obj.pk %}"><i
-                            class="fa fa-pencil"></i></a>
+                            class="fa fa-pencil" data-toggle="tooltip" title="Edit"></i></a>
                 </td>
             </tr>
             {% endfor %}
@@ -47,9 +43,9 @@
         </table>
         {% else %}
         {% if query %}
-            <h2>No match was found</h2>
+        <h2>No match was found</h2>
         {% else %}
-            <h2>No Expense added yet</h2>
+        <h2>No Expense added yet</h2>
         {% endif %}
         {% endif %}
     </div>

@@ -9,24 +9,23 @@
 
     <section class="content">
         <!-- Default box -->
-        <div class="box">
+        <div class="box box-solid box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">{{ inventory.name }} Spesification</h3>
+                <h3 class="box-title">{{ inventory.name }} Specification</h3>
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                            title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
+                    <a title="Inventory list" data-toggle="tooltip" data-placement="left"
+                        class="btn btn-info btn-sm ml-auto" href="{% url 'inventory_list' %}">
+                        <i class="fa fa-list text-light"></i>
+                    </a>
+                </div>   
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="inventory_image">
+      
                             {% if not inventory.picture %}
-                                <img class="img-responsive" src="{% static 'dist/img/photo1.png' %}"
+                                <img class="img-responsive" src="{% static 'dist/img/inventory_1.png' %}"
                                      alt="Inventory picture">
                             {% else %}
                                 <img class="img-responsive" src="/media/{{ inventory.picture }}"
@@ -39,38 +38,95 @@
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
                                     <b>Inventory current stock</b> <a
-                                        class="pull-right">Total {{ inventory.current_stock }} Items</a>
+                                        class="pull-right">{{ inventory.current_stock }} ( {{ inventory.stock_unit }} )</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Inventory Category Name</b> <a
                                         class="pull-right">{{ inventory.category }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Inventory purchase price</b> <a
-                                        class="pull-right">BDT {{ inventory.purchase_price }} only</a>
+                                    <b>Color</b> <a
+                                        class="pull-right">{{ inventory.color }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Inventory purchase price</b> <a
-                                        class="pull-right">BDT {{ inventory.purchase_price }} only</a>
+                                    <b>Finish</b> <a
+                                        class="pull-right">{{ inventory.finish }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Inventory sales price</b> <a
-                                        class="pull-right">BDT {{ inventory.sales_price }} only</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Inventory promotional price</b> <a
-                                        class="pull-right">BDT {{ inventory.promotional_price }} only</a>
+                                    <b>Size</b> <a
+                                        class="pull-right">{{ inventory.size }}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Inventory Tags</b> <a
                                         class="pull-right">{% for tag in inventory.tags.all %} {{ tag.name }} {% endfor %}</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>Reorder level</b> <a
+                                        class="pull-right">{{ inventory.reorder_level }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Max selling price</b> <a
+                                        class="pull-right">{{ inventory.selling_price }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Min selling price</b> <a
+                                        class="pull-right">{{ inventory.min_selling_price }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Tags</b>
+                                    <a class="pull-right">
+                                        {% for tag in inventory.tags.all %}
+                                        <span >{{ tag.name }}</span>,
+                                        {% endfor %}
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Is deactivated</b> <a
+                                        class="pull-right">{{ inventory.is_deactivated }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Deactivation reason</b> <a
+                                        class="pull-right">{{ inventory.deactivation_reason }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Inventory code</b> <a
+                                        class="pull-right">{{ inventory.inventory_code }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Wholesale minimum number</b> <a
+                                        class="pull-right">{{ inventory.wholesale_minimum_number }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Inventory wholesale price</b> <a
+                                        class="pull-right">{{ inventory.wholesale_price }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Inventory Recent buying price</b> <a
+                                        class="pull-right">{{ inventory.recent_buying_price }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Last modified by</b> <a
+                                        class="pull-right">{{ inventory.modified_by }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Last modified</b> <a
+                                        class="pull-right">{{ inventory.modified }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Last created by</b> <a
+                                        class="pull-right">{{ inventory.created_by }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Last created</b> <a
+                                        class="pull-right">{{ inventory.created }}</a>
+                                </li>
+                                
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="well">
+                    <div class="col-lg-12">
                         <p><b>About {{ inventory.name }} shot description: </b>{{ inventory.short_description }}</p>
                         <hr/>
                         <p>{{ inventory.full_description }}</p>

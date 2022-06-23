@@ -2,6 +2,7 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Sum
 from django.db.models.deletion import PROTECT
 
 from extended_choices.choices import Choices
@@ -13,6 +14,9 @@ from base.models.inventory import Inventory
 
 
 class SalesOrder(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     TRANSACTION_TYPE = Choices(
         ['CASH', 'CASH', 'CASH'],
         ['MPESA', 'MPESA', 'MPESA'],
@@ -31,6 +35,7 @@ class SalesOrder(AuthBaseEntity):
         verbose_name="sold by")
     receipt_number = models.CharField(default=uuid.uuid4, editable=False, null=False, blank=False, max_length=100)
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE, blank=False, null=False)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -38,11 +43,31 @@ class SalesOrder(AuthBaseEntity):
 
 
 class SalesItem(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     sales_order = models.ForeignKey(SalesOrder, on_delete=PROTECT)
     inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
     quantity = models.PositiveIntegerField(default=1)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.sales_order.receipt_number}"
+        return f"{self.inventory.name}-{self.sales_order.receipt_number}"
+
+    def fully_credited(self):
+        """
+        Returns True or False
+        Check if a certain sale item can be raised as a credit note
+        :return:
+        """
+        from base.models.credit_note import CreditNote
+        previous_quantity = CreditNote.objects.filter(sales_item__id=self.id)
+        if previous_quantity:
+            count = previous_quantity.aggregate(Sum('quantity')).get('quantity__sum')
+
+            if count >= self.quantity:
+                return True
+
+        return False

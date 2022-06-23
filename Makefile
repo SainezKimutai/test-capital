@@ -58,3 +58,7 @@ isort:
 
 local-ci: isort pylama
 .PHONY: local-ci
+
+seed-database:
+	@. $(VENV) && venv/bin/python3.9 manage.py seed
+.PHONY: seed-database

@@ -8,6 +8,9 @@ from base.models.base import AuthBaseEntity
 
 
 class Expense(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     description = models.CharField(max_length=250)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     requester = models.ForeignKey(

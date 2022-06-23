@@ -48,21 +48,10 @@
             </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="{% url 'inventory_create' %}"><i class="fa fa-circle-o"></i> Add Inventory</a></li>
-                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i> All Inventory</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-product-hunt"></i>
-                <span>Product</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'product_create' %}"><i class="fa fa-circle-o"></i> Add Product</a></li>
-                <li><a href="{% url 'product_list' %}"><i class="fa fa-circle-o"></i> All Product</a></li>
+                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i>Inventory</a></li>
+                <li><a href="{% url 'replenishment_list' %}"><i class="fa fa-circle-o"></i>Replenishment</a></li>
+                <li><a href="{% url 'promotion_list' %}"><i class="fa fa-circle-o"></i>Promotion</a></li>
+                <li><a href="{% url 'damaged_inventory_list' %}"><i class="fa fa-circle-o"></i>Damage Inventory</a></li>
             </ul>
         </li>
         <li class="treeview">
@@ -75,8 +64,10 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="{% url 'pos_view' %}"><i class="fa fa-circle-o"></i> Create Order</a></li>
-                <li><a href="{% url 'order_information' %}"><i class="fa fa-circle-o"></i> Order Record</a></li>
+                <li><a href="{% url 'sale_item_information' %}"><i class="fa fa-circle-o"></i> Sale Items</a></li>
                 <li><a href="{% url 'expense_list' %}"><i class="fa fa-circle-o"></i> Petty Cash</a></li>
+                <li><a href="{% url 'invoice_list' %}"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                <li><a href="{% url 'credit_note_list' %}"><i class="fa fa-circle-o"></i> Credit Note</a></li>
             </ul>
         </li>
         <li class="treeview">

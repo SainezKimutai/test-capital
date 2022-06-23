@@ -19,7 +19,7 @@ class FinishCreateView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        messages.success(self.request, f"Finish '{form.instance.name}' successfully updated!")
+        messages.success(self.request, f"Finish '{form.instance.name}' successfully created!")
         return super().form_valid(form)
 
 

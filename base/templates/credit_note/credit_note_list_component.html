@@ -1,0 +1,48 @@
+<div class="box box-default">
+    <div class="row" style="padding: 1em;">
+        <form class="col-lg-7" method="GET" action="{% url 'credit_note_search' %}">
+            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
+                   name="q">
+            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
+        </form>
+    </div>
+
+    <div class="box-body">
+        {% include 'common/message.html' %}
+        {% if credit_note %}
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Sale Order</th>
+                <th>Sale Item</th>
+                <th>Customer</th>
+                <th>CN Quantity</th>
+                <th>Reason</th>
+                <th>Affects Cash</th>
+                <th>Created</th>
+                <th>Created By</th>
+            </tr>
+            {% for obj in credit_note %}
+            <tr>
+                <td>{{ obj.sales_item.sales_order.receipt_number }}</td>
+                <td>{{ obj.sales_item.inventory.name }}</td>
+                <td>{{ obj.sales_item.sales_order.customer.name|truncatechars:15 }}</td>
+                <td>{{ obj.quantity }}</td>
+                <td>{{ obj.credit_note_reason }}</td>
+                <td>{{ obj.affects_cash }}</td>
+                <td>{{ obj.created|time:'g:i:s A' }}</td>
+                <td>{{ obj.created_by }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        {% if query %}
+        <h2>No match was found</h2>
+        {% else %}
+        <h2>No Credit Note added yet</h2>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+<!-- /.box-body -->

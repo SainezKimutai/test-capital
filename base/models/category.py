@@ -7,6 +7,9 @@ from base.models.base import AuthBaseEntity
 
 
 class Category(AuthBaseEntity):
+    class Meta:
+        ordering = ['-created', '-modified']
+
     name = models.CharField(max_length=90, unique=True)
     parent = models.ForeignKey('self', on_delete=PROTECT, blank=True, null=True, related_name='sub_category')
     category_image = models.ImageField(upload_to='category/%Y/%m/%d', null=True, blank=True)

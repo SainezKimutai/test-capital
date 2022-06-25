@@ -18,3 +18,27 @@ def generate_receipt(model_name, receipt_prefix):
     new_receipt_int = receipt_int + 1
     new_receipt_no = receipt_prefix + str(new_receipt_int).zfill(4)
     return new_receipt_no
+
+
+def clean_file_to_array(csv_string):
+    """
+        This methods returns csv row in an array;
+        i.e [['header_1', 'header_2'], ['value_1', 'value_2']]
+    """
+    new_string = []
+    for line in csv_string.splitlines():
+        if line.strip():
+            new_string.append(line.replace('"', '').split(","))
+    return new_string
+
+
+bulk_edit_headers = [
+    'id',
+    'name',
+    'current_stock',
+    'recent_buying_price',
+    'max_selling_price',
+    'min_selling_price',
+    'wholesale_price',
+    'wholesale_minimum_number'
+]

@@ -7,8 +7,9 @@ from base.models.inventory import Inventory
 
 
 class Promotion(AuthBaseEntity):
+
     class Meta:
-        ordering = ['-created', '-modified']
+        ordering = ['-modified', '-created']
 
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     promotion_price = models.IntegerField(default=0)

@@ -19,6 +19,7 @@ from base.views.customer_view import (
 from base.views.damaged_inventory_view import (
     DamagedInventoryCreateView, DamagedInventoryDeleteView,
     DamagedInventoryListView, DamagedInventoryUpdateView,
+    damaged_inventory_confirm_replace, damaged_inventory_replace,
     damaged_inventory_search
 )
 from base.views.dashboard_view import Dashboard
@@ -32,7 +33,8 @@ from base.views.finish_view import (
 )
 from base.views.inventory_view import (
     CreateInventoryView, InventoryDeleteView, InventoryDetailView,
-    InventoryListView, InventoryUpdateView, inventory_search
+    InventoryListView, InventoryUpdateView, inventory_bulk_edit_page,
+    inventory_bulk_edit_update, inventory_download, inventory_search
 )
 from base.views.invoice_view import (
     InvoiceDetailView, InvoiceListView, invoice_search, mark_invoice_as_paid
@@ -49,8 +51,10 @@ from base.views.range_view import (
     range_search
 )
 from base.views.replenishment_view import (
-    ReplenishmentCreateView, ReplenishmentDeleteView, ReplenishmentListView,
-    replenishment_search
+    ReplenishmentDeleteView, ReplenishmentListView, ReplenishmentView,
+    replenishment_add, replenishment_clear, replenishment_item_update,
+    replenishment_remove, replenishment_save, replenishment_search,
+    replenishment_update
 )
 from base.views.sales_view import (
     SalesItemView, make_payment_view, sales_order_search
@@ -70,7 +74,6 @@ urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
-    path('create-inventory/', CreateInventoryView.as_view(), name='inventory_create'),
 
     # Configurations
     path('category-create/', CategoryCreateView.as_view(), name='category_create'),
@@ -110,10 +113,14 @@ urlpatterns = [
     path('finish-search/', finish_search, name='finish_search'),
 
     path('inventory/', InventoryListView.as_view(), name='inventory_list'),
+    path('create-inventory/', CreateInventoryView.as_view(), name='inventory_create'),
     path('inventory/<pk>/', InventoryDetailView.as_view(), name='inventory_detail'),
     path('inventory-update/<pk>/', InventoryUpdateView.as_view(), name='inventory_update'),
+    path('inventory-bulk-edit-page/', inventory_bulk_edit_page, name='inventory_bulk_edit_page'),
+    path('inventory-bulk-edit-update/', inventory_bulk_edit_update, name='inventory_bulk_edit_update'),
     path('inventory-delete/<pk>/', InventoryDeleteView.as_view(), name='inventory_delete'),
     path('inventory-search/', inventory_search, name='inventory_search'),
+    path('inventory-download/', inventory_download, name='inventory_download'),
 
     path('cart/<int:id>/', cart_add, name='cart_add'),
     path('cart-update/<int:id>/', cart_updated, name='cart_updated'),
@@ -135,6 +142,7 @@ urlpatterns = [
     path('invoice-search/', invoice_search, name='invoice_search'),
 
     path('create-supplier/', CreateSupplierView.as_view(), name='supplier_create'),
+
     path('supplier/', SupplierListView.as_view(), name='supplier_list'),
     path('supplier/<pk>/', SupplierDetailView.as_view(), name='supplier_detail'),
     path('supplier-update/<pk>/', SupplierUpdateView.as_view(), name='supplier_update'),
@@ -154,10 +162,17 @@ urlpatterns = [
     path('expense-update/<pk>/', ExpenseUpdateView.as_view(), name='expense_update'),
     path('expense-search/', expense_search, name='expense_search'),
 
-    path('replenishment-create/', ReplenishmentCreateView.as_view(), name='replenishment_create'),
+    path('replenishment-create/', ReplenishmentView.as_view(), name='replenishment_create'),
     path('replenishment/', ReplenishmentListView.as_view(), name='replenishment_list'),
     path('replenishment-delete/<pk>/', ReplenishmentDeleteView.as_view(), name='replenishment_delete'),
     path('replenishment-search/', replenishment_search, name='replenishment_search'),
+
+    path('replenishment-add/', replenishment_add, name='replenishment_add'),
+    path('replenishment-update/<int:id>/', replenishment_update, name='replenishment_update'),
+    path('replenishment-item-update/<int:id>/', replenishment_item_update, name='replenishment_item_update'),
+    path('replenishment-remove/<int:id>/', replenishment_remove, name='replenishment_remove'),
+    path('replenishment-save/', replenishment_save, name='replenishment_save'),
+    path('replenishment-clear/', replenishment_clear, name='replenishment_clear'),
 
     path('promotion-create/', PromotionCreateView.as_view(), name='promotion_create'),
     path('promotion/', PromotionListView.as_view(), name='promotion_list'),
@@ -167,6 +182,8 @@ urlpatterns = [
 
     path('damaged-inventory-create/', DamagedInventoryCreateView.as_view(), name='damaged_inventory_create'),
     path('damaged-inventory/', DamagedInventoryListView.as_view(), name='damaged_inventory_list'),
+    path('damaged-inventory-confirm-replace/<int:id>/', damaged_inventory_confirm_replace, name='damaged_inventory_confirm_replace'),
+    path('damaged-inventory-replace/<int:id>/', damaged_inventory_replace, name='damaged_inventory_replace'),
     path('damaged-inventory-update/<pk>/', DamagedInventoryUpdateView.as_view(), name='damaged_inventory_update'),
     path('damaged-inventory-delete/<pk>/', DamagedInventoryDeleteView.as_view(), name='damaged_inventory_delete'),
     path('damaged-inventory-search/', damaged_inventory_search, name='damaged_inventory_search'),

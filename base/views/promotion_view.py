@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from base.forms.promotion_form import PromotionForm
-from base.models.promotion import Promotion
+from base.models import Inventory, Promotion
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -16,6 +16,12 @@ class PromotionCreateView(SuccessMessageMixin, CreateView):
     model = Promotion
     form_class = PromotionForm
     success_url = '/promotion/'
+
+    def get_context_data(self, **kwargs):
+        context_data = super(PromotionCreateView, self).get_context_data(**kwargs)
+        context_data['Inventories'] = Inventory.objects.all()
+        context_data['test'] = True
+        return context_data
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

@@ -59,7 +59,20 @@
                                         <td>{{ item.person }}</td>
                                         <td>{{ item.count }} </td>  
                                         <td>{{ item.quantity_after }} </td> 
-                                        <td>{{ item.replaceable }} </td>   
+                                        <td>
+                                            {% if item.replaceable and not item.replaced  %}
+                                                <a class="btn btn-info btn-sm" href="{% url 'damaged_inventory_confirm_replace' item.id %}">
+                                                    Replace
+                                                </a>
+                                            {% endif %}
+                                            {% if item.replaceable and item.replaced %}
+                                                <span class="text-success">Replaced</span> 
+                                            {% endif %}
+                                            {% if not item.replaceable %}
+                                                <span>False</span>
+                                            {% endif %}
+                                        
+                                        </td>   
                                         <td> <span class="fw-lighter"> <i>{{ item.damage_reason }}</i> </span> </td>                                 
                                         <td> <span class="fw-lighter"> <i>{{ item.created_by }}</i> </span> </td> 
                                         <td>
@@ -68,10 +81,15 @@
                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ item.created | date:"M d, Y" }}, {{ item.created | time:"H:i" }}</i>  </span>
                                        </td>
                                         <td class="text-left">
-                                            <!-- <a class="btn btn-info btn-sm" href="{% url 'damaged_inventory_update' item.id %}"><i
-                                                class="fa fa-pencil"></i></a> -->
-                                            <a class="btn btn-danger btn-sm" href="{% url 'damaged_inventory_delete' item.id %}"><i
-                                                class="fa fa-trash"></i></a>
+                                            <a class="btn btn-info btn-sm"
+                                                {% if item.replaced %} disabled {% endif %}
+                                                href="{% url 'damaged_inventory_update' item.id %}">
+                                                <i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-danger btn-sm" 
+                                                {% if item.replaced %} disabled {% endif %} 
+                                                href="{% url 'damaged_inventory_delete' item.id %}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}

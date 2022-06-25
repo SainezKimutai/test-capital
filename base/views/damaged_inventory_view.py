@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
@@ -39,6 +39,7 @@ class DamagedInventoryListView(ListView):
     paginate_by = 10
 
 
+@method_decorator(login_required(login_url='/login/'), name='dispatch')
 class DamagedInventoryUpdateView(UpdateView):
     template_name = 'damaged_inventory/damaged_inventory_create.html'
     model = DamagedInventory
@@ -46,8 +47,26 @@ class DamagedInventoryUpdateView(UpdateView):
     success_url = '/damaged-inventory/'
 
     def form_valid(self, form):
+
+        original_instance = DamagedInventory.objects.get(id=form.instance.id)
+        inventory = Inventory.objects.get(id=form.instance.inventory.id)
+
+        if original_instance.inventory.id != form.instance.inventory.id:
+            initial_inventory = original_instance.inventory
+            initial_inventory.current_stock += original_instance.count
+            initial_inventory.save()
+
+        if original_instance.count != form.instance.count:
+            inventory.current_stock += original_instance.count
+
+        form.instance.quantity_before = inventory.current_stock
+        quantity_after = inventory.current_stock - form.instance.count
+        form.instance.quantity_after = quantity_after
+        inventory.current_stock = quantity_after
+        inventory.save()
+
         form.instance.modified_by = self.request.user
-        messages.success(self.request, "DamagedInventory successfully updated!")
+        messages.success(self.request, "Damaged Inventory successfully updated!")
         return super().form_valid(form)
 
 
@@ -56,6 +75,36 @@ class DamagedInventoryDeleteView(DeleteView):
     template_name = 'damaged_inventory/damaged_inventory_delete.html'
     model = DamagedInventory
     success_url = '/damaged-inventory/'
+
+    def delete(self, *args, **kwargs):
+        id = kwargs.get('pk')
+        instance = DamagedInventory.objects.get(id=id)
+        inventory = instance.inventory
+        inventory.current_stock += instance.count
+        inventory.save()
+        instance.delete()
+        messages.success(self.request, "Damaged Inventory successfully deleted !")
+        return redirect('damaged_inventory_list')
+
+
+def damaged_inventory_confirm_replace(request, id):
+    instance = DamagedInventory.objects.get(id=id)
+    context = dict()
+    context['item'] = instance
+    template_name = 'damaged_inventory/damaged_inventory_replace.html'
+    return render(request, template_name, context)
+
+
+def damaged_inventory_replace(request, id):
+    instance = DamagedInventory.objects.get(id=id)
+    inventory = instance.inventory
+    inventory.current_stock += instance.count
+    inventory.save()
+    instance.replaced = True
+    instance.modified_by = request.user
+    instance.save()
+    messages.success(request, "Damaged Inventory successfully replaced!")
+    return redirect('damaged_inventory_list')
 
 
 def damaged_inventory_search(request):

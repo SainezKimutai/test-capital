@@ -164,3 +164,4 @@ LOGIN_REDIRECT_URL = 'login'
 
 
 CART_SESSION_ID = 'cart'
+REPLENISHMENT_SESSION_ID = 'replenishment'

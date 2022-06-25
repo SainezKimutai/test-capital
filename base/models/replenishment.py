@@ -9,12 +9,14 @@ from base.models.supplier import Supplier
 
 
 class Replenishment(AuthBaseEntity):
+
     class Meta:
-        ordering = ['-created', '-modified']
+        ordering = ['-modified', '-created']
 
     supplier = models.ForeignKey(Supplier, on_delete=PROTECT)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     receipt_number = models.CharField(max_length=500, null=False, blank=False)
+    delivery_number = models.CharField(max_length=500, null=True, blank=True)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -26,6 +28,7 @@ class Replenishment(AuthBaseEntity):
 
 
 class ReplenishmentItem(AuthBaseEntity):
+    
     class Meta:
         ordering = ['-created', '-modified']
 

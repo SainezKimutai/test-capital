@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ object }} Inventory Bulk Edit {% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row text-center">
+            <div class="col-lg-4 col-lg-offset-4 mx-auto">
+                <div class="box box-solid box-info">
+                    <div class="box-header with-border ">
+                        <h3 class="box-title">Bulk Edit</h3>
+                    </div>
+                    {% include 'common/message.html' %}
+                    <div class="box-body">
+                        <form method="GET" action="{% url 'inventory_download' %}">
+                            <button class="btn btn-warning" type="submit">Download Edit Template</button>
+                        </form>
+                        <form method="POST" action="{% url 'inventory_bulk_edit_update' %}" enctype="multipart/form-data" class="text-left">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="inventory_csv">Inventory picture</label>
+                                <input type="file" class="form-control" name="inventory_csv">
+                            </div>
+                            <div style="padding: 1em 0;">
+                                <a href="{% url 'inventory_list' %}" class="btn btn-default ml-auto">Discard</a>
+                                <button class="btn btn-success pull-right" type="submit">Save</button>
+                            </div>    
+                        </form>    
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

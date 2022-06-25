@@ -26,14 +26,24 @@ class InventoryForm(forms.ModelForm):
                        'placeholder': 'Enter inventory shot description'}),
             'full_description': Textarea(attrs={'class': 'form-control', 'id': 'full_description',
                                                 'placeholder': 'Enter inventory full description'}),
-            'reorder_level': NumberInput(attrs={'class': 'form-control', 'id': 'reorder_level'}),
-            'promotional_price': NumberInput(attrs={'class': 'form-control', 'id': 'promotional_price'}),
+            'reorder_level': NumberInput(attrs={'class': 'form-control', 'id': 'reorder_level', 'min': '0'}),
+            'selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'selling_price', 'min': '1'}),
+            'promotional_price': NumberInput(attrs={'class': 'form-control', 'id': 'promotional_price', 'min': '1'}),
             'is_promotion': CheckboxInput(attrs={'class': 'form-check-input', 'id': 'is_promotion'}),
-            'wholesale_price': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_price'}),
-            'wholesale_minimum_number': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_minimum_number'}),
+            'wholesale_price': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_price', 'min': '1'}),
+            'wholesale_minimum_number': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_minimum_number', 'min': '0'}),
             'picture': FileInput(attrs={'class': 'form-control', 'id': 'picture'}),
-            'current_stock': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock'}),
-            'selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'selling_price'}),
-            'min_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'min_selling_price'}),
+            'current_stock': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock', 'min': '0'}),
+            'max_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'current_stock', 'min': '1'}),
+            'min_selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'min_selling_price', 'min': '1'}),
             'stock_unit': TextInput(attrs={'class': 'form-control', 'id': 'stock_unit'})
+        }
+
+
+class InventoryBulkEditForm(forms.ModelForm):
+    class Meta:
+        model = Inventory
+        fields = '__all__'
+        widgets = {
+            'inventory_csv': FileInput(attrs={'class': 'form-control', 'id': 'inventory_csv'}),
         }

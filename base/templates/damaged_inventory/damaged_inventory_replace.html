@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ object }} confirm items replacement {% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row text-center">
+            <div class="col-lg-4 col-lg-offset-4 text-centermx-auto">
+                <div class="box box-solid box-warning">
+                    <div class="box-header with-border ">
+                        <h3 class="box-title">Confirm that items have been replaced.</h3>
+                    </div>
+                    <div class="box-body">
+                        <div>
+                            {% csrf_token %}
+                            <div>
+                                <i class="fa fa-times fa-3x text-orange"></i>
+                                <h4>You are replacing <b>{{item.count}} item(s)</b> of <b>"{{ item.inventory }}" </b>?</h4> 
+                            </div>
+                            <div style="padding: 1em;">
+                                <a href="{% url 'damaged_inventory_list' %}" class="btn btn-warning" style="margin-right: 1em;">Cancel</a>
+                                <a href="{% url 'damaged_inventory_replace' item.id %}" class="btn btn-light text-orange"  style="border: solid 1px orange;">Replace</a>
+                               
+                            </div>   
+                        </div>    
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

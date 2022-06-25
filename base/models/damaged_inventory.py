@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.deletion import PROTECT
 
@@ -11,8 +10,9 @@ from base.models.supplier import Supplier
 
 
 class DamagedInventory(AuthBaseEntity):
+
     class Meta:
-        ordering = ['-created', '-modified']
+        ordering = ['-modified', '-created']
 
     inventory = models.ForeignKey(Inventory, on_delete=PROTECT)
     count = models.IntegerField(null=False, blank=False)
@@ -20,12 +20,19 @@ class DamagedInventory(AuthBaseEntity):
     quantity_before = models.IntegerField(null=False, blank=False)
     quantity_after = models.IntegerField(null=False, blank=False)
     replaceable = models.BooleanField(default=False)
-    supplier = models.ForeignKey(Supplier, on_delete=PROTECT)
+    replaced = models.BooleanField(default=False)
+    supplier = models.ForeignKey(
+        Supplier,
+        on_delete=PROTECT,
+        null=True,
+        blank=True,
+        default=None
+    )
     person = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=PROTECT,
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         default=None,
         related_name="damaged_by_%(app_label)s_%(class)s_set",
         verbose_name="damaged by")
@@ -33,12 +40,3 @@ class DamagedInventory(AuthBaseEntity):
 
     def __str__(self):
         return f"{self.inventory.name}"
-
-    def clean(self):
-        if self.replaceable and not self.supplier:
-            raise ValidationError(
-                {'supplier': "Supplier cannot be empty if the damaged stock is replaceable."})
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        return super().save(*args, **kwargs)

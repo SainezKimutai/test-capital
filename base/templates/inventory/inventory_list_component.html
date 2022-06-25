@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ obj.name|truncatechars:55 }}</td>
                     <td>{{ obj.category }}</td>
-                    <td>{{ obj.current_stock }} PCS</td>
+                    <td>{{ obj.current_stock }} {{ obj.stock_unit }}</td>
                     <td>{{ obj.recent_buying_price }}</td>
                     <td>{{ obj.inventory_code }}</td>
                     <td> <i class="text-success" style="font-size: 13px;">{{ obj.modified | date:"M d, Y" }}, {{  obj.modified | time:"H:i" }}</i> </td>

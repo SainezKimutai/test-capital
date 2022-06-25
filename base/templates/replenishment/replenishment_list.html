@@ -42,9 +42,11 @@
                                 <tbody>
                                 <tr class="bg-blue rounded">
                                     <th>Receipt No.</th>
+                                    <th>Delivery No.</th>
                                     <th>Supplier</th>
                                     <th>Inventory</th>
                                     <th>Count</th>
+                                    <th>Amount Per Item</th>
                                     <th>Total Amount</th>
                                     <th>Created By</th>
                                     <th>Created</th>
@@ -53,6 +55,7 @@
                                 {% for replenishment_item in replenishments %}
                                     <tr>
                                         <td>{{ replenishment_item.receipt_number }}</td>
+                                        <td>{{ replenishment_item.delivery_number }}</td>
                                         <td>{{ replenishment_item.supplier }}</td>
                                         <td>
                                             <ol>
@@ -68,13 +71,22 @@
                                                 {% endfor %}
                                             </ul>
                                         </td>  
+                                        <td>
+                                            <ul>
+                                                {% for item in replenishment_item.items %}
+                                                    <li >{{ item.amount }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                       
+                                        </td>
                                         <td> <span class="fw-lighter"> <i>{{ replenishment_item.total_amount }}</i> </span> </td>                                 
                                         <td> <span class="fw-lighter"> <i>{{ replenishment_item.created_by }}</i> </span> </td> 
                                         <td>
                                              <span class="fs-6 fw-lighter"> <i style="font-size: 13px;">{{ replenishment_item.created | date:"M d, Y" }}, {{  replenishment_item.created | time:"H:i" }}</i>  </span>
                                         </td>
-                                        <td class="text-left">
-                                       
+                                        <td class="text-left">    
+                                            <a class="btn btn-info btn-sm" href="{% url 'replenishment_update' replenishment_item.id %}"><i
+                                                class="fa fa-pencil"></i></a>  
                                             <a class="btn btn-danger btn-sm" href="{% url 'replenishment_delete' replenishment_item.id %}"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>

@@ -14,8 +14,9 @@ from base.models.tag import Tag
 
 
 class Inventory(AuthBaseEntity):
+
     class Meta:
-        ordering = ['-created', '-modified']
+        ordering = ['-modified', '-created']
 
     name = models.CharField(max_length=120)
     range = models.ForeignKey(Range, on_delete=PROTECT, related_name='productRange')

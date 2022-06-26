@@ -28,7 +28,6 @@ class Replenishment(AuthBaseEntity):
 
 
 class ReplenishmentItem(AuthBaseEntity):
-    
     class Meta:
         ordering = ['-created', '-modified']
 

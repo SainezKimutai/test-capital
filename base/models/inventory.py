@@ -31,6 +31,7 @@ class Inventory(AuthBaseEntity):
     stock_unit = models.CharField(max_length=120, default='Packages')
     recent_buying_price = models.IntegerField(default=0, blank=True)
     selling_price = models.IntegerField(default=0)
+    max_selling_price = models.IntegerField(default=0)
     min_selling_price = models.IntegerField(default=0)
     wholesale_price = models.IntegerField(default=0)
     wholesale_minimum_number = models.IntegerField(default=0)
@@ -57,9 +58,13 @@ class Inventory(AuthBaseEntity):
             raise ValidationError(
                 {'size': "Size category does not match chosen category."})
 
-        if self.min_selling_price > self.selling_price:
+        if self.min_selling_price > self.max_selling_price:
             raise ValidationError(
                 {'min_selling_price': "Minimum selling price cannot be greater than maximum selling price."})
+
+        if self.selling_price > self.max_selling_price or self.selling_price < self.min_selling_price:
+            raise ValidationError(
+                {'selling_price': "Selling price should be within minimum and maximum selling ranges"})
 
     def save(self, *args, **kwargs):
         self.full_clean()

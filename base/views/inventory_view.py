@@ -87,17 +87,26 @@ def inventory_search(request):
 
 
 def inventory_bulk_edit_page(request):
-    return render(request, 'inventory/inventory_bulk_edit.html', {'inventory_csv': None})
+    context = dict()
+    context['inventory_csv']: None
+    context['errors'] = []
+    return render(request, 'inventory/inventory_bulk_edit.html', context)
 
 
 def inventory_download(request):
     inventory = Inventory.objects.values(
         'id',
         'name',
+        'color__name',
+        'range__name',
+        'category__name',
+        'finish__name',
+        'size__value',
         'current_stock',
         'recent_buying_price',
         'max_selling_price',
         'min_selling_price',
+        'selling_price',
         'wholesale_price',
         'wholesale_minimum_number'
     )
@@ -133,20 +142,38 @@ def inventory_bulk_edit_update(request):
 
         inventories = Inventory.objects.all()
         file_rows = file_contents[1:]
+
+        validation_errors = []
         for row in file_rows:
             inventory = inventories.get(id=row[0])
 
-            inventory.current_stock = row[2]
-            inventory.recent_buying_price = row[3]
-            inventory.max_selling_price = row[4]
-            inventory.min_selling_price = row[5]
-            inventory.wholesale_price = row[6]
-            inventory.wholesale_minimum_number = row[7]
+            inventory.current_stock = row[7]
+            inventory.recent_buying_price = row[8]
+            inventory.max_selling_price = row[9]
+            inventory.min_selling_price = row[10]
+            inventory.selling_price = row[11]
+            inventory.wholesale_price = row[12]
+            inventory.wholesale_minimum_number = row[13]
 
             inventory.modified_by = request.user
-            inventory.save()
-        messages.success(request, 'Invetories successfully updated')
 
+            try:
+                inventory.save()
+            except Exception as inst:
+                for error in inst.args:
+                    if error:
+                        error_msg = f"{inventory.name}, {list(error.values())[0]}"
+                        validation_errors.append(error_msg)
+
+        if len(validation_errors):
+            context = dict()
+            context['inventory_csv']: None
+            context['errors'] = validation_errors
+            messages.error(request, 'Upload validation failed')
+            
+            return render(request, 'inventory/inventory_bulk_edit.html', context)
+
+        messages.success(request, 'Invetories successfully updated')
         return redirect(reverse('inventory_list'))
 
     else:

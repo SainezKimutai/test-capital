@@ -165,3 +165,5 @@ LOGIN_REDIRECT_URL = 'login'
 
 CART_SESSION_ID = 'cart'
 REPLENISHMENT_SESSION_ID = 'replenishment'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

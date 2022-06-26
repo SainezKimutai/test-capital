@@ -14,7 +14,7 @@ class InventoryForm(forms.ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'id': 'name', 'placeholder': 'Enter Inventory Name'}),
             'inventory_code': TextInput(attrs={'class': 'form-control', 'id': 'inventory_code',
-                                               'placeholder': 'Enter Inventory Code'}),
+                                               'placeholder': 'Enter Inventory Code', 'required': True}),
             'range': Select(attrs={'class': 'form-control', 'id': 'range'}),
             'category': Select(attrs={'class': 'form-control', 'id': 'category'}),
             'color': Select(attrs={'class': 'form-control', 'id': 'color'}),

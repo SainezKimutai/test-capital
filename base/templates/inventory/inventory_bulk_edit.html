@@ -12,6 +12,11 @@
                     </div>
                     {% include 'common/message.html' %}
                     <div class="box-body">
+                        <ul>
+                            {% for error in errors %}
+                            <li class="text-red text-left">{{ error }} </li>
+                            {% endfor %}
+                        </ul>
                         <form method="GET" action="{% url 'inventory_download' %}">
                             <button class="btn btn-warning" type="submit">Download Edit Template</button>
                         </form>

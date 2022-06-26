@@ -35,10 +35,16 @@ def clean_file_to_array(csv_string):
 bulk_edit_headers = [
     'id',
     'name',
+    'color__name',
+    'range__name',
+    'category__name',
+    'finish__name',
+    'size__value',
     'current_stock',
     'recent_buying_price',
     'max_selling_price',
     'min_selling_price',
+    'selling_price',
     'wholesale_price',
     'wholesale_minimum_number'
 ]

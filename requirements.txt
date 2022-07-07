@@ -24,6 +24,7 @@ Faker==13.11.1
 django-dynamic-fixture==3.1.2
 django-colorfield==0.7.0
 django-seed==0.3.1
+django-adminlte3==0.1.6
 
 # Freeze pyflakes
 pyflakes==2.1.1

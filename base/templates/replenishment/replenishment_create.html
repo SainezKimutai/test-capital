@@ -51,7 +51,7 @@
                                         <form action="{% url 'replenishment_item_update' entry.id %}" method="post">
                                             {% csrf_token %}
                                             <td>
-                                                <select name="inventory_id" value="{{ entry.inventory_id }}" class="form-control">
+                                                <select name="inventory_id" value="{{ entry.inventory_id }}" class="form-control select2">
                                                     {% for inventory in inventories%}
                                                     <option
                                                     value="{{ inventory.id }}"

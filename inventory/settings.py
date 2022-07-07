@@ -37,6 +37,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'colorfield',
     'django_seed',
+    'adminlte3',
+    'adminlte3_theme'
 ]
 
 LOCAL_APPS = [

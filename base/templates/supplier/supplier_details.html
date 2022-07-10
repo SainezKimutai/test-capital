@@ -7,64 +7,60 @@
 
     {% include 'supplier/page_header.html' %}
 
-    <section class="content">
-        <!-- Default box -->
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ supplier.supplier_name }} Specification</h3>
-                <div class="box-tools pull-right">
-                    <div class="col-lg-6 text-right">
-                            <a title="Supplier List" data-toggle="tooltip" data-placement="left"
-                               class="btn btn-info btn-sm" href="{% url 'supplier_list' %}">
-                                <i class="fa fa-list"></i>
-                            </a>
-                        </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="supplier_info">
-                            <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item">
-                                    <b>Supplier name</b> <a
-                                        class="pull-right">{{ supplier.supplier_name }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Phone Number 1</b> <a
-                                        class="pull-right">{{ supplier.phone_number_1 }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Phone Number 2</b> <a
-                                        class="pull-right">{{ supplier.phone_number_2 }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Contact Person</b> <a
-                                        class="pull-right">{{ supplier.contact_person }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>VAT number</b> <a
-                                        class="pull-right">{{ supplier.vat_number }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>PIN number</b> <a
-                                        class="pull-right">{{ supplier.pin_number }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Email</b> <a
-                                        class="pull-right">{{ supplier.email }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Physical Address</b> <a
-                                        class="pull-right">{{ supplier.physical_address }}</a>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-6">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">{{ supplier.supplier_name  }} Specification</h3>
+                    <div class="card-tools">
+                        <a title="Inventory list" data-toggle="tooltip" data-placement="left"
+                        class="btn btn-light btn-sm ml-auto" href="{% url 'supplier_list' %}">
+                            <i class="fa fa-list text-info"></i>
+                        </a>
                     </div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice_info">
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item d-flex">
+                                <b>Supplier name</b> <a
+                                    class="ml-auto">{{ supplier.supplier_name }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Phone Number 1</b> <a
+                                    class="ml-auto">{{ supplier.phone_number_1 }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Phone Number 2</b> <a
+                                    class="ml-auto">{{ supplier.phone_number_2 }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Contact Person</b> <a
+                                    class="ml-auto">{{ supplier.contact_person }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>VAT number</b> <a
+                                    class="ml-auto">{{ supplier.vat_number }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>PIN number</b> <a
+                                    class="ml-auto">{{ supplier.pin_number }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Email</b> <a
+                                    class="ml-auto">{{ supplier.email }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Physical Address</b> <a
+                                    class="ml-auto">{{ supplier.physical_address }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
-        <!-- /.box -->
-    </section>
+    </div>
 
 {% endblock %}

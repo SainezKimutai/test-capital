@@ -4,60 +4,61 @@
 
 {% block content %}
 
-    <section class="content-header">
-        <h1> Dashboard <small>Add new promotion</small></h1>
-        <ol class="breadcrumb">
-            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Promotion</li>
-        </ol>
-    </section>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-title">PROMOTION</h4>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Promotion</li>
+            </ol>
+        </div>
+    </div>
+</div>
 
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="box box-solid box-success">
-                    <div class="box-header">       
-                        <h3 class="box-title">New promotion form</h3>  
-                        <div class="box-tools pull-right">
-                            <a title="Promotion list" data-toggle="tooltip" data-placement="left"
-                                class="btn btn-success btn-sm ml-auto" href="{% url 'promotion_list' %}">
-                                <i class="fa fa-list text-light"></i>
-                            </a>
-                        </div>   
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Form Input</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.errors }}
+                    {% csrf_token %}   
+                    <div class="form-group">
+                        <label for="inventory">Inventory</label>
+                        {{ form.inventory }}
                     </div>
-                    <div class="box-body">
-                        <form method="POST" enctype="multipart/form-data">
-                            {{ form.errors }}
-                            {% csrf_token %}   
-                            <div class="form-group">
-                                <label for="inventory">Inventory</label>
-                                {{ form.inventory }}
-                            </div>
-                            <div class="form-group">
-                                <label for="color_name">Promotion Price</label>
-                                {{ form.promotion_price }}
-                            </div>
-                            <div class="form-group">
-                                <label for="promotion_start_date">Start Date</label>
-                                {{ form.promotion_start_date }}
-                            </div>
-                            <div class="form-group">
-                                <label for="promotion_end_date">End Date</label>
-                                {{ form.promotion_end_date }}
-                            </div>
-                            <div class="form-group">
-                                <label for="color_name">Description</label>
-                                {{ form.description }}
-                            </div>
-        
-                            <div style="padding: 1em 0;">
-                                <a href="{% url 'promotion_list' %}" class="btn btn-default ml-auto">Discard</a>
-                                <button class="btn btn-success pull-right" type="submit">Save</button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="color_name">Promotion Price</label>
+                        {{ form.promotion_price }}
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="promotion_start_date">Start Date</label>
+                        {{ form.promotion_start_date }}
+                    </div>
+                    <div class="form-group">
+                        <label for="promotion_end_date">End Date</label>
+                        {{ form.promotion_end_date }}
+                    </div>
+                    <div class="form-group">
+                        <label for="color_name">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div style="padding: 1em 0;" class="d-flex">
+                        <a href="{% url 'promotion_list' %}" class="btn btn-default mr-auto">Discard</a>
+                        <button class="btn btn-primary ml-auto" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

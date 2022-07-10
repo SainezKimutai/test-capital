@@ -7,68 +7,64 @@
 
     {% include 'invoice/page_header.html' %}
 
-    <section class="content">
-        <!-- Default box -->
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ invoice.sales_order.receipt_number }} Specification</h3>
-                <div class="box-tools pull-right">
-                    <div class="col-lg-6 text-right">
-                            <a title="Invoice List" data-toggle="tooltip" data-placement="left"
-                               class="btn btn-info btn-sm" href="{% url 'invoice_list' %}">
-                                <i class="fa fa-list"></i>
-                            </a>
-                        </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="invoice_info">
-                            <ul class="list-group list-group-unbordered">
-                                <li class="list-group-item">
-                                    <b>Customer name</b> <a
-                                        class="pull-right">{{ invoice.sales_order.customer.name }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Customer Phone Number</b> <a
-                                        class="pull-right">{{ invoice.sales_order.customer.phone_number }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Sale Order</b> <a
-                                        class="pull-right">{{ invoice.sales_order.receipt_number }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Total</b> <a
-                                        class="pull-right">{{ invoice.sales_order.total_amount }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Created</b> <a
-                                        class="pull-right">{{ invoice.created|time:'g:i:s A' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Expected Payment Date</b> <a
-                                        class="pull-right">{{ invoice.expected_payment_date|date:'d D, M Y' }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Paid</b> <a
-                                        class="pull-right">{{ invoice.paid }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Late</b> <a
-                                        class="pull-right">{{ invoice.is_past_due }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Payment Date</b> <a
-                                        class="pull-right">{{ invoice.payment_date|date:'d D, M Y' }}</a>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-6">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">{{ invoice.sales_order.receipt_number }} Specification</h3>
+                    <div class="card-tools">
+                        <a title="Inventory list" data-toggle="tooltip" data-placement="left"
+                        class="btn btn-light btn-sm ml-auto" href="{% url 'invoice_list' %}">
+                            <i class="fa fa-list text-info"></i>
+                        </a>
                     </div>
+                </div>
+                <div class="card-body">
+                    <div class="invoice_info">
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item d-flex">
+                                <b>Customer name</b> <a
+                                    class="ml-auto">{{ invoice.sales_order.customer.name }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Customer Phone Number</b> <a
+                                    class="ml-auto">{{ invoice.sales_order.customer.phone_number }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Sale Order</b> <a
+                                    class="ml-auto">{{ invoice.sales_order.receipt_number }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Total</b> <a
+                                    class="ml-auto">{{ invoice.sales_order.total_amount }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Created</b> <a
+                                    class="ml-auto">{{ invoice.created|time:'g:i:s A' }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Expected Payment Date</b> <a
+                                    class="ml-auto">{{ invoice.expected_payment_date|date:'d D, M Y' }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Paid</b> <a
+                                    class="ml-auto">{{ invoice.paid }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Late</b> <a
+                                    class="ml-auto">{{ invoice.is_past_due }}</a>
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <b>Payment Date</b> <a
+                                    class="ml-auto">{{ invoice.payment_date|date:'d D, M Y' }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
-        <!-- /.box -->
-    </section>
+    </div>
 
 {% endblock %}

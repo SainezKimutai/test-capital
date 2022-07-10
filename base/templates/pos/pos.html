@@ -4,150 +4,165 @@
 
 {% block content %}
 
-<section class="content-header">
-    <h1> Dashboard <small>Create Order</small></h1>
-    <ol class="breadcrumb">
-        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Create Order</li>
-    </ol>
-</section>
-
-<style type="text/css">
-    .item_list img {
-        width: 100%;
-    }
-</style>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-dark">CREATE ORDER</h4>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Create Order</li>
+            </ol>
+        </div>
+    </div>
+</div>
 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="row" style="padding: 1em;">
-                <form class="col-lg-7" method="GET" action="{% url 'pos_inventory_search' %}">
+            <div class="col-12 mb-2">
+                <form class="" method="GET" action="{% url 'pos_inventory_search' %}" style="max-width: 15em;">
                     <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
                            name="q">
-                    <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
                 </form>
             </div>
             <div class="col-md-7">
-                <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
+                <div class="card card-info card-tabs">
+                    <div class="card-header p-0 pt-1">
+                      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                         {% for key in data.keys %}
-                        <li {% if forloop.first %} class="active" {% endif %}><a href="#{{ key|cut:' ' }}"
-                                                                                 data-toggle="tab">{{ key }}</a></li>
+                        <li class="nav-item">
+                          <a 
+                          {% if forloop.first %} class="nav-link active" {% else %} class="nav-link" {% endif %}
+                            data-toggle="pill" 
+                            href="#{{ key|cut:' ' }}"
+                            role="tab" 
+                            aria-controls="custom-tabs-one-home" 
+                            aria-selected="true">
+                            {{ key }}
+                        </a>
+                        </li>
                         {% endfor %}
-                    </ul>
-                    <div class="tab-content">
+                      </ul>
+                    </div>
+                    <div class="card-body">
+                      <div class="tab-content">
                         {% for key, value in data.items %}
-                        <div class="{% if forloop.first %} active {% endif %}tab-pane" id="{{ key|cut:' ' }}">
+                        <div 
+                            class="tab-pane fade show active" 
+                            class="{% if forloop.first %} show active {% endif %}tab-pane fade" 
+                            id="{{ key|cut:' ' }}"
+                            role="tabpanel" 
+                            aria-labelledby="custom-tabs-one-home-tab">
                             <div class="item_list">
                                 <div class="row">
                                     {% for obj in value %}
+                                   
                                     <div class="col-lg-3">
-                                        <a href="{% url 'cart_add' obj.id %}">
-                                            <img src="{{ obj.picture.url }}" alt="">
-                                            <h5 class="box-title">{{ obj.name }}</h5>
-                                        </a>
-                                        <p class="box-comment">KES {{ obj.selling_price }}</p>
+                                        <div class="card p-2 rounded">
+                                            <a href="{% url 'cart_add' obj.id %}">
+                                                <div class="img-wrap" style="height: 12em;">
+                                                    <img class="img-fluid" style="max-height: 100%;" src="{{ obj.picture.url }}" alt="">
+                                                </div>
+                                              
+                                                <h5 class="text-info">{{ obj.name }}</h5>
+                                            </a>
+                                            <p class="">KES {{ obj.selling_price }}</p>
+                                        </div>
                                     </div>
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
+                      </div>
                     </div>
-                </div>
+                    <!-- /.card -->
+                  </div>
             </div>
             <div class="col-md-5">
-                {% include 'common/message.html' %}
-                <div class="box box-primary">
-                    <div class="box-body box-profile">
-                        <div class="box-header">
-                            <h4 class="box-title">{% now "jS F Y H:i" %}</h4>
-                        </div>
-                        <div class="box">
-                            <div class="box-header">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <h3 class="box-title">Default Customer</h3>
-                                    </div>
-                                    <div class="col-lg-6 text-right">
-                                        <h3 class="box-title"><a href="{% url 'customer_create' %}"><i
-                                                class="fa fa-plus"></i></a></h3>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body no-padding">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Inventory Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Del</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        {% for item in cart %}
-                                        {% with inventory=item.inventory %}
-                                        {% if item.is_wholesale %}
-                                        <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
-                                        <td>{{ item.update_price_form.price }}</td>
-                                        {% elif item.is_promotion %}
-                                        <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
-                                        <td>{{ item.update_price_form.price }}</td>
-                                        {% else %}
-                                        <td>{{ inventory.name }}</td>
-                                        <td>
-                                            <form action="{% url 'cart_updated' inventory.id %}" method="post">
-                                                {% csrf_token %}
-                                                <input style="width: 70px" type="number" name="price"
-                                                       value="{{ item.update_price_form.price }}"
-                                                       min="{{ inventory.min_selling_price }}}">
-                                                <button type="submit" class="btn btn-success btn-sm">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        {% endif %}
-                                        <td>
-                                            <form action="{% url 'cart_updated' inventory.id %}" method="post">
-                                                {% csrf_token %}
-                                                <input style="width: 50px" type="number" name="number"
-                                                       value="{{ item.update_quantity_form.quantity }}" min="1">
-                                                <button type="submit" class="btn btn-success btn-sm">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <a href="{% url 'cart_remove' inventory.id %}"
-                                               title="cancel" class="icon"><i
-                                                    class="fa fa-trash-o"></i></a>
-                                        </td>
-                                    </tr>
-                                    {% endwith %}
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Default Customer</h3>
+                        <div class="card-tools">
+                            <a title="Create Customer list" data-toggle="tooltip" data-placement="left"
+                            class="ml-auto" href="{% url 'customer_create' %}">
+                                <i class="fa fa-plus"></i>
+                  
+                            </a>
                         </div>
                     </div>
-                    <div class="box-footer">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Inventory Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Del</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                {% for item in cart %}
+                                {% with inventory=item.inventory %}
+                                {% if item.is_wholesale %}
+                                <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
+                                <td>{{ item.update_price_form.price }}</td>
+                                {% elif item.is_promotion %}
+                                <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
+                                <td>{{ item.update_price_form.price }}</td>
+                                {% else %}
+                                <td>{{ inventory.name }}</td>
+                                <td>
+                                    <form action="{% url 'cart_updated' inventory.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input style="width: 70px" type="number" name="price"
+                                               value="{{ item.update_price_form.price }}"
+                                               min="{{ inventory.min_selling_price }}}">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                {% endif %}
+                                <td>
+                                    <form action="{% url 'cart_updated' inventory.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input style="width: 50px" type="number" name="number"
+                                               value="{{ item.update_quantity_form.quantity }}" min="1">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="{% url 'cart_remove' inventory.id %}"
+                                       title="cancel" class="icon text-danger"><i
+                                            class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
                         <div class="row">
                             <div class="col-md-6">
                                 {% if cart.get_total_price > 0 %}
-                                <a class="btn btn-primary" href="{% url 'make_payment_view' %}">Pay</a>
+                                <a class="btn btn-info" href="{% url 'make_payment_view' %}">Pay</a>
                                 {% else %}
-                                <a class="btn btn-primary" disabled="True" href="#">Pay</a>
+                                <a class="btn btn-info" disabled="True" href="#">Pay</a>
                                 {% endif %}
                             </div>
                             <div class="col-md-6 text-right">
                                 <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

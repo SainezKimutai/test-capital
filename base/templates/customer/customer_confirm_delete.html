@@ -3,25 +3,24 @@
 {% block title %} {{ object }} confirm delete {% endblock %}
 
 {% block content %}
-    <div class="content">
-        <div class="row text-center">
-            <div class="col-lg-6 col-lg-offset-3 text-center mt-5">
-                <div class="box">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="card pt-3">
-                            <div class="card-header">
-                                <h5 class="card-title">Are you sure will you want to delete "{{ object }}"?</h5>
-                            </div>
-                            <div class="card-body">
-                                <button class="btn btn-danger btn-sm" type="submit">Yes</button>
-                                <a href="{% url 'customer_list' %}" class="btn btn-warning btn-sm  text-light">No</a>
-                            </div>
-                        </div>
-                    </form>
-                    <br/>
-                </div>
-            </div>
+<section class="card-body d-flex justify-content-center">
+    <div class="card card-danger" style="min-width: 500px;">
+        <div class="card-header d-flex justify-content-center">
+            <h3 class="card-title">Are you sure ?</h3>
         </div>
-    </div>
+        <div class="card-body d-flex justify-content-center">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fa fa-times fa-3x text-red"></i>
+                    <h6>You are deleting <b>"{{ object }}" </b>?</h6> 
+                </div>
+                <div class="d-flex justify-content-center" style="padding: 1em;">
+                    <a href="{% url 'customer_list' %}" class="btn btn-danger" style="margin-right: 1em;">No</a>
+                    <button class="btn btn-light text-red" type="submit" style="border: solid 1px red;">Yes</button>
+                </div>   
+            </form>   
+        </div>
+        </div>
+</section>
 {% endblock %}

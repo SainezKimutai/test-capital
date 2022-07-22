@@ -28,7 +28,6 @@ class ColorListView(ListView):
     template_name = 'color/color_list.html'
     model = Color
     context_object_name = 'color'
-    paginate_by = 10
 
 
 class ColorUpdateView(UpdateView):

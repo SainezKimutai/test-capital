@@ -1,15 +1,17 @@
 <div class="box-body">
     {% if product %}
         <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Price</th>
+                    <th>Created At</th>
+                    <th>Image</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
             <tbody>
-            <tr>
-                <th>Product Name</th>
-                <th>Product Category</th>
-                <th>Price</th>
-                <th>Created At</th>
-                <th>Image</th>
-                <th class="text-center">Action</th>
-            </tr>
             {% for obj in product %}
                 <tr>
                     <td>{{ obj.title }}</td>

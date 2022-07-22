@@ -39,17 +39,19 @@
         <div class="card-body p-0">
             {% if promotions %}
             <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-blue rounded">
+                        <th>Inventory.</th>
+                        <th>Promotion Price</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th>Modified Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr class="bg-blue rounded">
-                    <th>Inventory.</th>
-                    <th>Promotion Price</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Description</th>
-                    <th>Created By</th>
-                    <th>Modified Created</th>
-                    <th class="text-left">Action</th>
-                </tr>
                 {% for item in promotions %}
                     <tr>
                         <td>{{ item.inventory }}</td>
@@ -81,9 +83,6 @@
             </div>
         </div>
         {% endif %}
-        </div>
-        <div class="card-footer clearfix">
-            {% include 'common/pagination.html' %}
         </div>
     </div>
 </section>

@@ -1,16 +1,19 @@
 <div class="card-body p-0">
     {% if sales_item %}
     <table class="table table-bordered">
-        <tr class="bg-info rounded">
-            <th>Receipt Number</th>
-            <th>Customer Name</th>
-            <th>Inventory</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
-            <th>Sale Date</th>
-            <th class="text-center">Actions</th>
-        </tr>
+        <thead>
+            <tr class="bg-info rounded">
+                <th>Receipt Number</th>
+                <th>Customer Name</th>
+                <th>Inventory</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Sale Date</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for obj in sales_item %}
         <tr>
             <td>{{ obj.sales_order.receipt_number }}</td>

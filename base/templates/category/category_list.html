@@ -39,17 +39,19 @@
 
         <div class="card-body p-0">
             {% if category %}
-            <table id="example1" class="table table-bordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Sub Category</th>
+                        <th>Parent Category</th>
+                        <th>Is Active</th>
+                        <th>Image</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-center">Action</th>                  
+                    </tr>
+                </thead>
                 <tbody>
-                <tr class="bg-info rounded">
-                    <th>Sub Category</th>
-                    <th>Parent Category</th>
-                    <th>Is Active</th>
-                    <th>Image</th>
-                    <th>Created By</th>
-                    <th>Modified / Created</th>
-                    <th class="text-center">Action</th>                  
-                </tr>
                 {% for cat in category %}
                     <tr>
                         <td>{{ cat.name }}</td>
@@ -88,9 +90,6 @@
                 <span class="h4">Category not added yet </span>
             </div>
         {% endif %}
-        </div>
-        <div class="card-footer clearfix">
-            {% include 'common/pagination.html' %}
         </div>
     </div>
 </section>

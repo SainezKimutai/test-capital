@@ -1,17 +1,19 @@
 <div class="card-body p-0">
     {% if credit_note %}
     <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
+                <th>Sale Order</th>
+                <th>Sale Item</th>
+                <th>Customer</th>
+                <th>CN Quantity</th>
+                <th>Reason</th>
+                <th>Affects Cash</th>
+                <th>Created</th>
+                <th>Created By</th>
+            </tr>
+        </thead>
         <tbody>
-        <tr class="bg-info rounded">
-            <th>Sale Order</th>
-            <th>Sale Item</th>
-            <th>Customer</th>
-            <th>CN Quantity</th>
-            <th>Reason</th>
-            <th>Affects Cash</th>
-            <th>Created</th>
-            <th>Created By</th>
-        </tr>
         {% for obj in credit_note %}
         <tr>
             <td>{{ obj.sales_item.sales_order.receipt_number }}</td>

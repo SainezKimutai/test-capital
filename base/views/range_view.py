@@ -28,7 +28,6 @@ class RangeListView(ListView):
     template_name = 'range/range_list.html'
     model = Range
     context_object_name = 'range'
-    paginate_by = 10
 
 
 class RangeUpdateView(UpdateView):

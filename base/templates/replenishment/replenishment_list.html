@@ -39,19 +39,21 @@
             <div class="card-body p-0">
                 {% if replenishments %}
                 <table class="table table-bordered">
+                    <thead>
+                        <tr class="bg-blue rounded">
+                            <th>Receipt No.</th>
+                            <th>Delivery No.</th>
+                            <th>Supplier</th>
+                            <th>Inventory</th>
+                            <th>Count</th>
+                            <th>Amount Per Item</th>
+                            <th>Total Amount</th>
+                            <th>Created By</th>
+                            <th>Created</th>
+                            <th class="text-left">Action</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                    <tr class="bg-blue rounded">
-                        <th>Receipt No.</th>
-                        <th>Delivery No.</th>
-                        <th>Supplier</th>
-                        <th>Inventory</th>
-                        <th>Count</th>
-                        <th>Amount Per Item</th>
-                        <th>Total Amount</th>
-                        <th>Created By</th>
-                        <th>Created</th>
-                        <th class="text-left">Action</th>
-                    </tr>
                     {% for replenishment_item in replenishments %}
                         <tr>
                             <td>{{ replenishment_item.receipt_number }}</td>

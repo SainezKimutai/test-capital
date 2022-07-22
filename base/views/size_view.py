@@ -28,7 +28,6 @@ class SizeListView(ListView):
     template_name = 'size/size_list.html'
     model = Size
     context_object_name = 'size'
-    paginate_by = 10
 
 
 class SizeUpdateView(UpdateView):

@@ -39,16 +39,17 @@
         <div class="card-body p-0">
             {% if tag %}
             <table class="table table-bordered">
-                <tbody>
-                <tr class="bg-info rounded">
-                    <th>Name</th>
-                    <th>Created By</th>
-                    <th>Modified / Created</th>
-                    <th class="text-left">Action</th>
-                </tr>
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Name</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody>             
                 {% for tag_item in tag %}
                     <tr>
-
                         <td>{{ tag_item.name }}</td>
                         <td> <span class="fw-lighter"> <i>{{ tag_item.created_by }}</i> </span> </td> 
                         <td>
@@ -74,9 +75,6 @@
               </div>
             </div>
             {% endif %}
-        </div>
-        <div class="card-footer clearfix">
-            {% include 'common/pagination.html' %}
         </div>
     </div>
 </section>

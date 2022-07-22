@@ -40,15 +40,17 @@
         <div class="card-body p-0">
             {% if size %}
             <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Size Type</th>
+                        <th>Size value</th>
+                        <th>Category</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr class="bg-info rounded">
-                    <th>Size Type</th>
-                    <th>Size value</th>
-                    <th>Category</th>
-                    <th>Created By</th>
-                    <th>Modified / Created</th>
-                    <th class="text-left">Action</th>
-                </tr>
                 {% for size_item in size %}
                     <tr>
                         <td>
@@ -78,9 +80,6 @@
                 <span class="h4">Size not added yet </span>
             </div>       
         {% endif %}
-        </div>
-        <div class="card-footer clearfix">
-            {% include 'common/pagination.html' %}
         </div>
     </div>
 </section>

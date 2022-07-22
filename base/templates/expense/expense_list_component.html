@@ -1,17 +1,19 @@
 <div class="card-body p-0">
     {% if expense %}
     <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Requester</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Modified</th>
+                <th>Modified By</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
         <tbody>
-        <tr class="bg-info rounded">
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Requester</th>
-            <th>Created</th>
-            <th>Created By</th>
-            <th>Modified</th>
-            <th>Modified By</th>
-            <th class="text-center">Actions</th>
-        </tr>
         {% for obj in expense %}
         <tr>
             <td>{{ obj.description|truncatechars:55 }}</td>

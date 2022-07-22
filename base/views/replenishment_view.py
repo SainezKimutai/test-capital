@@ -318,7 +318,6 @@ class ReplenishmentListView(ListView):
     template_name = 'replenishment/replenishment_list.html'
     model = Replenishment
     context_object_name = 'replenishments'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

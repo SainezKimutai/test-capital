@@ -39,14 +39,16 @@
         <div class="card-body p-0">
             {% if finish %}
             <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
-                <tr class="bg-info rounded">
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Created By</th>
-                    <th>Modified / Created</th>
-                    <th class="text-left">Action</th>
-                </tr>
                 {% for finish_item in finish %}
                     <tr>
                         <td>{{ finish_item.name }}</td>

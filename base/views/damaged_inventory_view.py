@@ -36,7 +36,6 @@ class DamagedInventoryListView(ListView):
     template_name = 'damaged_inventory/damaged_inventory_list.html'
     model = DamagedInventory
     context_object_name = 'damaged_inventories'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

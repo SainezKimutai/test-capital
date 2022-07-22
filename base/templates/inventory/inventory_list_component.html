@@ -1,16 +1,18 @@
 <div class="card-body p-0">
     {% if inventory %}
     <table class="table table-bordered">
+        <thead>
+            <tr class="bg-blue rounded">
+                <th>Inventory Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Recent Buying Price</th>
+                <th>Inventory Code</th>
+                <th>Last Modified</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
         <tbody>
-        <tr class="bg-blue rounded">
-            <th>Inventory Name</th>
-            <th>Category</th>
-            <th>Stock</th>
-            <th>Recent Buying Price</th>
-            <th>Inventory Code</th>
-            <th>Last Modified</th>
-            <th class="text-center">Actions</th>
-        </tr>
         {% for obj in inventory %}
             <tr>
                 <td>{{ obj.name|truncatechars:55 }}</td>

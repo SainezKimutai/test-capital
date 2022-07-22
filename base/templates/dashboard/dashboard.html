@@ -4,16 +4,14 @@
 {% block title %}Dashboard || POS{% endblock %}
 
 {% block content %}
-    <!-- page-header -->
-    {% include 'dashboard/page-header.html' %}
-    <!-- End page-header -->
 
-    <!-- main-content -->
+    {% include 'dashboard/page-header.html' %}
+
     <div class="content">
         <div class="row">
 
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
+        
                 <div class="small-box bg-red shadow rounded">
                     <div class="inner">
                         <h3>{{ category.count }}</h3>
@@ -28,7 +26,7 @@
             </div>
 
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
+     
                 <div class="small-box bg-blue shadow rounded">
                     <div class="inner">
                         <h3>{{ inventory.count }}</h3>
@@ -43,7 +41,7 @@
             </div>
 
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
+          
                 <div class="small-box bg-green shadow rounded">
                     <div class="inner">
                         <h3>{{ user.count }}</h3>
@@ -58,7 +56,7 @@
             </div>
 
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
+          
                 <div class="small-box bg-orange shadow rounded">
                     <div class="inner">
                         <h3>{{ tag.count }}</h3>
@@ -71,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End main-content -->
+    </div> 
+
 
 {% endblock %}

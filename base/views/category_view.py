@@ -28,7 +28,6 @@ class CategoryListView(ListView):
     template_name = 'category/category_list.html'
     model = Category
     context_object_name = 'category'
-    paginate_by = 10
 
 
 class CategoryUpdateView(UpdateView):

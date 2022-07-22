@@ -1,17 +1,19 @@
 <div class="card-body p-0">
     {% if supplier %}
     <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
+                <th>Supplier Name</th>
+                <th>Phone Number 1</th>
+                <th>Contact Person</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Created By</th>
+                <th>Modified</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
         <tbody>
-        <tr class="bg-info rounded">
-            <th>Supplier Name</th>
-            <th>Phone Number 1</th>
-            <th>Contact Person</th>
-            <th>Email</th>
-            <th>Created</th>
-            <th>Created By</th>
-            <th>Modified</th>
-            <th class="text-center">Actions</th>
-        </tr>
         {% for obj in supplier %}
         <tr>
             <td>{{ obj.supplier_name|truncatechars:55 }}</td>

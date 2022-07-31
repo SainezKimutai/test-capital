@@ -24,13 +24,13 @@
         <div class="card card-outline">
             <div class="card-header">
                 <div class="card-title d-flex">
-                  <h5 class="text-primary mr-3 mt-auto">List</h5>
+                  <h5 class="text-info mr-3 mt-auto">List</h5>
                   <form method="GET" action="{% url 'replenishment_search' %}">
                     <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
                     </form>
                 </div>
                 <div class="card-tools">
-                    <a class="btn btn-outline-primary btn-sm" href="{% url 'replenishment_create' %}">
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'replenishment_create' %}">
                         <span>Add Replenishment</span> <i class="fa fa-plus"></i>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                 {% if replenishments %}
                 <table class="table table-bordered">
                     <thead>
-                        <tr class="bg-blue rounded">
+                        <tr class="bg-info rounded">
                             <th>Receipt No.</th>
                             <th>Delivery No.</th>
                             <th>Supplier</th>
@@ -87,7 +87,7 @@
                                  <span class="fs-6 fw-lighter"> <i style="font-size: 13px;">{{ replenishment_item.created | date:"M d, Y" }}, {{  replenishment_item.created | time:"H:i" }}</i>  </span>
                             </td>
                             <td class="text-left">    
-                                <a class="btn btn-primary btn-sm" href="{% url 'replenishment_update' replenishment_item.id %}"><i
+                                <a class="btn btn-info btn-sm" href="{% url 'replenishment_update' replenishment_item.id %}"><i
                                     class="fas fa-pencil-alt"></i></a>  
                                 <a class="btn btn-danger btn-sm" href="{% url 'replenishment_delete' replenishment_item.id %}"><i
                                         class="fa fa-trash"></i></a>

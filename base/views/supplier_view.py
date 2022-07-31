@@ -32,7 +32,6 @@ class SupplierListView(ListView):
     template_name = 'supplier/supplier_list.html'
     model = Supplier
     context_object_name = 'supplier'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

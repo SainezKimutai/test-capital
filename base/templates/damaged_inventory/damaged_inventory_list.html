@@ -24,13 +24,13 @@
     <div class="card card-outline">
         <div class="card-header">
             <div class="card-title d-flex">
-              <h5 class="text-primary mr-3 mt-auto">List</h5>
+              <h5 class="text-info mr-3 mt-auto">List</h5>
               <form method="GET" action="{% url 'damaged_inventory_search' %}">
                 <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
                 </form>
             </div>
             <div class="card-tools">
-                <a class="btn btn-outline-primary btn-sm" href="{% url 'damaged_inventory_create' %}">
+                <a class="btn btn-outline-info btn-sm" href="{% url 'damaged_inventory_create' %}">
                     <span>Add Damanged Invetory</span> <i class="fa fa-plus"></i>
                 </a>
             </div>
@@ -40,7 +40,7 @@
             {% if damaged_inventories %}
             <table class="table table-bordered">
                 <thead>
-                    <tr class="bg-blue rounded">
+                    <tr class="bg-info rounded">
                         <th>Inventory.</th>
                         <th>Supplier</th>
                         <th>Person</th>
@@ -83,7 +83,7 @@
                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ item.created | date:"M d, Y" }}, {{ item.created | time:"H:i" }}</i>  </span>
                        </td>
                         <td class="text-left">
-                            <a  {% if item.replaced %} class="btn btn-primary btn-sm disabled" {% else %} class="btn btn-primary btn-sm" {% endif %}
+                            <a  {% if item.replaced %} class="btn btn-info btn-sm disabled" {% else %} class="btn btn-info btn-sm" {% endif %}
                                 href="{% url 'damaged_inventory_update' item.id %}">
                                 <i class="fas fa-pencil-alt"></i></a>
                             <a  {% if item.replaced %} class="btn btn-danger btn-sm disabled" {% else %}  class="btn btn-danger btn-sm"  {% endif %} 

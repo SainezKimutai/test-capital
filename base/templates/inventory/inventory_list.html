@@ -10,13 +10,13 @@
         <div class="card card-outline">
             <div class="card-header">
                 <div class="card-title d-flex">
-                  <h5 class="text-primary mr-3 mt-auto">List</h5>
+                  <h5 class="text-info mr-3 mt-auto">List</h5>
                   <form method="GET" action="{% url 'inventory_search' %}">
                     <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
                     </form>
                 </div>
                 <div class="card-tools">
-                    <a class="btn btn-outline-primary btn-sm" href="{% url 'inventory_create' %}">
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'inventory_create' %}">
                         <span>Add Inventory</span> <i class="fa fa-plus"></i>
                     </a>
                     <a class="btn btn-warning btn-sm" href="{% url 'inventory_bulk_edit_page' %}">

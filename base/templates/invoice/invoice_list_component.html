@@ -29,7 +29,7 @@
             <td>{{ obj.is_past_due }}</td>
             <td>{{ obj.payment_date|date:'d D, M Y' }}</td>
             <td class="text-center">
-                <a class="btn btn-primary btn-sm" href="{% url 'invoice_detail' obj.pk %}"><i
+                <a class="btn btn-info btn-sm" href="{% url 'invoice_detail' obj.pk %}"><i
                         class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
                 {% if not obj.paid %}
                 <a class="btn btn-success btn-sm" href="{% url 'mark_invoice_as_paid' obj.pk %}"><i

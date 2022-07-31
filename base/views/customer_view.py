@@ -34,7 +34,6 @@ class CustomerListView(ListView):
     template_name = 'customer/customer_list.html'
     model = Customer
     context_object_name = 'customer'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

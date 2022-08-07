@@ -8,9 +8,9 @@ from base.models.inventory import Inventory
 from base.models.tag import Tag
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
+@method_decorator(login_required(login_url="/login/"), name="dispatch")
 class Dashboard(TemplateView):
-    template_name = 'dashboard/dashboard.html'
+    template_name = "dashboard/dashboard.html"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -18,8 +18,8 @@ class Dashboard(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(Dashboard, self).get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
-        context['inventory'] = Inventory.objects.all()
-        context['user'] = User.objects.all()
-        context['tag'] = Tag.objects.all()
+        context["category"] = Category.objects.all()
+        context["inventory"] = Inventory.objects.all()
+        context["user"] = User.objects.all()
+        context["tag"] = Tag.objects.all()
         return context

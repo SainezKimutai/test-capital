@@ -22,6 +22,7 @@ from base.views.damaged_inventory_view import (
     damaged_inventory_confirm_replace, damaged_inventory_replace,
     damaged_inventory_search
 )
+from base.views.dashboard_2_view import Dashboard2
 from base.views.dashboard_view import Dashboard
 from base.views.expense_view import (
     CreateExpenseView, ExpenseDetailView, ExpenseListView, ExpenseUpdateView,
@@ -74,6 +75,7 @@ urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
+    path('dashboard-2/', Dashboard2.as_view(), name='dashboard_2'),
 
     # Configurations
     path('category-create/', CategoryCreateView.as_view(), name='category_create'),

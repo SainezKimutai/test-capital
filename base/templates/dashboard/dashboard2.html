@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard || POS{% endblock %}
+
+{% block content %}
+
+    {% include 'dashboard/page-header.html' %}
+
+    <div class="content">
+        <div class="row">
+
+            <div class="col-lg-3 col-xs-6">
+        
+                <div class="small-box bg-red shadow rounded">
+                    <div class="inner">
+                        <h3>{{ category.count }}</h3>
+
+                        <p>Total Category</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="{% url 'category_list' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+     
+                <div class="small-box bg-blue shadow rounded">
+                    <div class="inner">
+                        <h3>{{ inventory.count }}</h3>
+
+                        <p>Total Inventory</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'inventory_list' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+          
+                <div class="small-box bg-green shadow rounded">
+                    <div class="inner">
+                        <h3>{{ user.count }}</h3>
+
+                        <p>User</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+          
+                <div class="small-box bg-orange shadow rounded">
+                    <div class="inner">
+                        <h3>{{ tag.count }}</h3>
+                        <p>Tag</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="{% url 'tag_list' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Area Chart</h3>
+        
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+
+                    <canvas 
+                    class="area-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_1}}"
+                    data="{{chart_data_1}}"
+                    ></canvas>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Area Chart 2</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <canvas 
+                    class="area-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_2}}"
+                    data="{{chart_data_2}}"
+                    ></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Line Chart</h3>
+        
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+
+                    <canvas 
+                    class="line-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_1}}"
+                    data="{{chart_data_1}}"
+                    ></canvas>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Line Chart 2</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <canvas 
+                    class="line-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_2}}"
+                    data="{{chart_data_2}}"
+                    ></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Donut Chart</h3>
+        
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <canvas 
+                      class="donut-chart" 
+                      style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                      label="{{donut_label}}"
+                      data="{{donut_data}}"
+                    ></canvas>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Pie Chart 2</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <canvas
+                      class="pie-chart" 
+                      style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                      label="{{donut_label}}"
+                      data="{{donut_data}}"
+                    ></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Bar Chart</h3>
+      
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas 
+                    class="bar-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_1}}"
+                    data="{{chart_data_1}}"
+                  ></canvas>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Bar Chart 2</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                  <canvas
+                    class="bar-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{chart_label_2}}"
+                    data="{{chart_data_2}}"
+                  ></canvas>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Stacked Bar Chart</h3>
+    
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas 
+                  class="stacked-bar-chart" 
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                  label="{{chart_label_1}}"
+                  data="{{chart_data_1}}"
+                ></canvas>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-danger">
+            <div class="card-header">
+              <h3 class="card-title">Stacked Bar Chart 2</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+                <canvas
+                  class="stacked-bar-chart" 
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                  label="{{chart_label_2}}"
+                  data="{{chart_data_2}}"
+                ></canvas>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    </div> 
+
+{% endblock %}

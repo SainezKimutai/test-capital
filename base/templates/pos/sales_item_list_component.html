@@ -1,47 +1,45 @@
-<div class="box box-default">
-    <div class="row" style="padding: 1em;">
-        <form class="col-lg-7" method="GET" action="{% url 'sales_order_search' %}">
-            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
-                   name="q">
-            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-        </form>
+<div class="card-body p-0">
+    {% if sales_item %}
+    <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
+                <th>Receipt Number</th>
+                <th>Customer Name</th>
+                <th>Inventory</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Sale Date</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for obj in sales_item %}
+        <tr>
+            <td>{{ obj.sales_order.receipt_number }}</td>
+            <td>{{ obj.sales_order.customer }}</td>
+            <td>{{ obj.inventory }}</td>
+            <td>{{ obj.price }}</td>
+            <td>{{ obj.quantity }}</td>
+            <td>{{ obj.total_amount }}</td>
+            <td>{{ obj.created | date:"M d, Y" }}</td>
+            {% if obj.fully_credited %}
+            <td class="text-center">Fully credited</td>
+            {% else %}
+            <td class="text-center">
+                <a class="btn btn-warning btn-sm" href="{% url 'create_credit_note_view' obj.pk %}"><i
+                        class="fa fa-fax" data-toggle="tooltip" title="Create Credit Note"></i></a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="p-4">
+        <div class="callout callout-info" style="max-width: 600px;">
+            <p>No Data</p>
+      </div>
     </div>
-
-    <div class="box-body">
-                    {% include 'common/message.html' %}
-                    <table class="table table-bordered">
-                        <tr class="bg-blue rounded">
-                            <th>Receipt Number</th>
-                            <th>Customer Name</th>
-                            <th>Inventory</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total Amount</th>
-                            <th>Sale Date</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                        {% if sales_item %}
-                        {% for obj in sales_item %}
-                        <tr>
-                            <td>{{ obj.sales_order.receipt_number }}</td>
-                            <td>{{ obj.sales_order.customer }}</td>
-                            <td>{{ obj.inventory }}</td>
-                            <td>{{ obj.price }}</td>
-                            <td>{{ obj.quantity }}</td>
-                            <td>{{ obj.total_amount }}</td>
-                            <td>{{ obj.created | date:"M d, Y" }}</td>
-                            {% if obj.fully_credited %}
-                            <td class="text-center">Fully credited</td>
-                            {% else %}
-                            <td class="text-center">
-                                <a class="btn btn-info btn-sm" href="{% url 'create_credit_note_view' obj.pk %}"><i
-                                        class="fa fa-fax" data-toggle="tooltip" title="Create Credit Note"></i></a>
-                            </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                        {% endif %}
-                    </table>
-                </div>
+    {% endif %}
 </div>
-<!-- /.box-body -->

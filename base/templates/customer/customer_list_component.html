@@ -1,18 +1,8 @@
-<div class="box box-default">
-    <div class="row" style="padding: 1em;">
-        <form class="col-lg-7" method="GET" action="{% url 'customer_search' %}">
-            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
-                   name="q">
-            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-        </form>
-    </div>
-
-    <div class="box-body">
-        {% include 'common/message.html' %}
-        {% if customer %}
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
+<div class="card-body p-0">
+    {% if customer %}
+    <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
                 <th>Customer Name</th>
                 <th>Phone Number</th>
                 <th>Credit Customer?</th>
@@ -22,35 +12,44 @@
                 <th>Modified</th>
                 <th class="text-center">Actions</th>
             </tr>
-            {% for obj in customer %}
-            <tr>
-                <td>{{ obj.name|truncatechars:55 }}</td>
-                <td>{{ obj.phone_number }}</td>
-                <td>{{ obj.is_credit }}</td>
-                <td>{{ obj.email }}</td>
-                <td>{{ obj.created|time:'g:i:s A' }}</td>
-                <td>{{ obj.created_by }}</td>
-                <td>{{ obj.modified|time:'g:i:s A' }}</td>
-                <td class="text-center">
-                    <a class="btn btn-info btn-sm" href="{% url 'customer_detail' obj.pk %}"><i
-                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
-                    <a class="btn btn-info btn-sm" href="{% url 'customer_update' obj.pk %}"><i
-                            class="fa fa-pencil" data-toggle="tooltip" title="Edit"></i></a>
-                    <a class="btn btn-danger btn-sm"
-                       href="{% url 'customer_delete' obj.pk %}"><i class="fa fa-trash" data-toggle="tooltip"
-                                                                    title="Delete"></i></a>
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        {% if query %}
-        <h2>No match was found</h2>
-        {% else %}
-        <h2>No Customer added yet</h2>
-        {% endif %}
-        {% endif %}
+        </thead>
+        <tbody>
+        {% for obj in customer %}
+        <tr>
+            <td>{{ obj.name|truncatechars:55 }}</td>
+            <td>{{ obj.phone_number }}</td>
+            <td>{{ obj.is_credit }}</td>
+            <td>{{ obj.email }}</td>
+            <td>{{ obj.created|time:'g:i:s A' }}</td>
+            <td>{{ obj.created_by }}</td>
+            <td>{{ obj.modified|time:'g:i:s A' }}</td>
+            <td class="text-center">
+                <a class="btn btn-info btn-sm" href="{% url 'customer_detail' obj.pk %}"><i
+                        class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
+                <a class="btn btn-info btn-sm" href="{% url 'customer_update' obj.pk %}"><i
+                        class="fas fa-pencil-alt" data-toggle="tooltip" title="Edit"></i></a>
+                <a class="btn btn-danger btn-sm"
+                   href="{% url 'customer_delete' obj.pk %}"><i class="fa fa-trash" data-toggle="tooltip"
+                                                                title="Delete"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    {% if query %}
+    <div class="p-4">
+        <div class="callout callout-info" style="max-width: 600px;">
+            <p>No match was found.</p>
+      </div>
     </div>
+    {% else %}
+    <div class="p-4">
+        <div class="callout callout-info" style="max-width: 600px;">
+            <p>No customer added yet.</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
 </div>
-<!-- /.box-body -->

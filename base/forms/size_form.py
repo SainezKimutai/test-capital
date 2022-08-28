@@ -10,7 +10,7 @@ class SizeForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'size_type': Select(attrs={
-                'class': 'form-control',
+                'class': 'form-control select2',
                 'id': 'size_value',
                 'type': 'text'
                 }),
@@ -20,7 +20,7 @@ class SizeForm(forms.ModelForm):
                 'type': 'number'
                 }),
             'category': Select(attrs={
-                'class': 'form-control',
+                'class': 'form-control select2',
                 'id': 'size_category'
                 })
         }

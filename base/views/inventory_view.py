@@ -35,7 +35,6 @@ class InventoryListView(ListView):
     template_name = 'inventory/inventory_list.html'
     model = Inventory
     context_object_name = 'inventory'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -170,7 +169,7 @@ def inventory_bulk_edit_update(request):
             context['inventory_csv']: None
             context['errors'] = validation_errors
             messages.error(request, 'Upload validation failed')
-            
+
             return render(request, 'inventory/inventory_bulk_edit.html', context)
 
         messages.success(request, 'Invetories successfully updated')

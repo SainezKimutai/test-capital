@@ -1,54 +1,126 @@
 {% load static %}
 
-<!-- jQuery 3 -->
-<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{% static 'bower_components/jquery-ui/jquery-ui.min.js' %}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+{% block scripts %}
+<script src="{% static 'admin-lte/plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-<!-- Morris.js charts -->
-<script src="{% static 'bower_components/raphael/raphael.min.js' %}"></script>
-<script src="{% static 'bower_components/morris.js/morris.min.js' %}"></script>
-<!-- Sparkline -->
-<script src="{% static 'bower_components/jquery-sparkline/dist/jquery.sparkline.min.js' %}"></script>
-<!-- jvectormap -->
-<script src="{% static 'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
-<script src="{% static 'plugins/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{% static 'bower_components/jquery-knob/dist/jquery.knob.min.js' %}"></script>
-<!-- daterangepicker -->
-<script src="{% static 'bower_components/moment/min/moment.min.js' %}"></script>
-<script src="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-<!-- datepicker -->
-<script src="{% static 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
-<!-- Slimscroll -->
-<script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-<!-- FastClick -->
-<script src="{% static 'bower_components/fastclick/lib/fastclick.js' %}"></script>
-<!-- Select2 -->
-<script src="{% static 'bower_components/select2/dist/js/select2.full.min.js' %}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{% static 'dist/js/pages/dashboard.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'dist/js/demo.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
 
-<!-- Page script -->
+
+{% block datatable_js %}{% endblock %}
+
+<script src="{% static 'admin-lte/dist/js/adminlte.min.js' %}"></script>
+<script src="{% static 'admin-lte/dist/js/demo.js' %}"></script>
+
+
+<script src="{% static 'admin-lte/plugins/select2/js/select2.full.min.js' %}"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script> -->
+
+
+<script src="{% static 'admin-lte/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'admin-lte/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+
+
+
+<script>
+  $(function () {
+    $('.select2').select2()
+
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+   
+    $('[data-mask]').inputmask()
+
+
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+
+
+    $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+    $('#reservation').daterangepicker()
+
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+
+    $('.duallistbox').bootstrapDualListbox()
+
+    $('.my-colorpicker1').colorpicker()
+
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    })
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+
+  })
+
+</script>
+
+
 <script>
     $(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2();
+      $('.table').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+</script> 
 
-        // message popup
-        $(".alert").first().hide().slideDown(500).delay(4000).slideUp(500, function () {
-            $(this).remove();
-        });
-    })
-</script>
+{% endblock %}

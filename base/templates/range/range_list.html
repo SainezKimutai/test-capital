@@ -5,79 +5,76 @@
 
 {% block content %}
 
-    <section class="content-header">
-        <h1> Dashboard <small>Range List page</small></h1>
-        <ol class="breadcrumb">
-            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Range-List</li>
-        </ol>
-    </section>
-
-
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="box box-solid box-info">
-                    <div class="box-header with-border ">     
-                        <h3 class="box-title">Range List</h3>
-                        <div class="box-tools pull-right">
-                            <a class="btn" href="{% url 'range_create' %}">
-                                <span>Add Range</span> <i class="fa fa-plus"></i>
-                            </a>
-                        </div>                       
-                    </div>
-                    <div class="row" style="padding: 1em;">
-                        <form class="col-lg-6" method="GET" action="{% url 'range_search' %}">
-                            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
-                                   name="q">
-                            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-                        </form>
-                    </div>
-                    {% include 'common/message.html' %}
-                    <div class="box-body">
-                        {% if range %}
-                            <table class="table table-bordered">
-                                <tbody>
-                                <tr class="bg-blue rounded">
-                                    <th>Name</th>
-                                    <th>Created By</th>
-                                    <th>Modified / Created</th>
-                                    <th class="text-left">Action</th>
-                                </tr>
-                                {% for range_item in range %}
-                                    <tr>    
-                                        <td>{{ range_item.name }}</td>
-                                        <td> <span class="fw-lighter"> <i>{{ range_item.created_by }}</i> </span> </td> 
-                                        <td>
-                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ range_item.modified | date:"M d, Y" }}, {{ range_item.modified | time:"H:i" }}</i>  </span>
-                                             <br>
-                                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ range_item.created | date:"M d, Y" }}, {{ range_item.created | time:"H:i" }}</i>  </span>
-                                        </td>
-                                        <td class="text-left">
-                                            <a class="btn btn-info btn-sm" href="{% url 'range_update' range_item.id %}"><i
-                                                    class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'range_delete' range_item.id %}"><i
-                                                    class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        {% else %}
-                            <div class="bg-blue text-white" style="padding: 1em;">
-                                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
-                                <span class="h4">Range not added yet </span>
-                            </div>
-                        {% endif %}
-                    </div>
-                    
-
-                    <div class="box-footer clearfix">
-                        {% include 'common/pagination.html' %}
-                    </div>
-                </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-dark">RANGE</h4>
             </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Range</li>
+            </ol>
         </div>
     </div>
+</div>
+
+<section class="content">
+    <div class="card card-outline">
+        <div class="card-header">
+            <div class="card-title d-flex">
+              <h5 class="text-info mr-3 mt-auto">List</h5>
+              <form method="GET" action="{% url 'range_search' %}">
+                <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
+                </form>
+            </div>
+            <div class="card-tools">
+                <a class="btn btn-outline-info btn-sm" href="{% url 'range_create' %}">
+                    <span>Add Range</span> <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            {% if range %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Name</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for range_item in range %}
+                    <tr>    
+                        <td>{{ range_item.name }}</td>
+                        <td> <span class="fw-lighter"> <i>{{ range_item.created_by }}</i> </span> </td> 
+                        <td>
+                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-info" style="font-size: 13px;">{{ range_item.modified | date:"M d, Y" }}, {{ range_item.modified | time:"H:i" }}</i>  </span>
+                             <br>
+                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ range_item.created | date:"M d, Y" }}, {{ range_item.created | time:"H:i" }}</i>  </span>
+                        </td>
+                        <td class="text-left">
+                            <a class="btn btn-info btn-sm" href="{% url 'range_update' range_item.id %}"><i
+                                    class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'range_delete' range_item.id %}"><i
+                                    class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="bg-blue text-white" style="padding: 1em;">
+                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
+                <span class="h4">Range not added yet </span>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}

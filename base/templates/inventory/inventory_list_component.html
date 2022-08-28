@@ -1,8 +1,8 @@
-<div class="box-body">
+<div class="card-body p-0">
     {% if inventory %}
-        <table class="table table-bordered">
-            <tbody>
-            <tr class="bg-blue rounded">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
                 <th>Inventory Name</th>
                 <th>Category</th>
                 <th>Stock</th>
@@ -11,32 +11,35 @@
                 <th>Last Modified</th>
                 <th class="text-center">Actions</th>
             </tr>
-            {% for obj in inventory %}
-                <tr>
-                    <td>{{ obj.name|truncatechars:55 }}</td>
-                    <td>{{ obj.category }}</td>
-                    <td>{{ obj.current_stock }} {{ obj.stock_unit }}</td>
-                    <td>{{ obj.recent_buying_price }}</td>
-                    <td>{{ obj.inventory_code }}</td>
-                    <td> <i class="text-success" style="font-size: 13px;">{{ obj.modified | date:"M d, Y" }}, {{  obj.modified | time:"H:i" }}</i> </td>
-                    <td class="text-center">
-                        <a class="btn btn-info btn-sm" href="{% url 'inventory_detail' obj.pk %}"><i
-                                class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
-                        <a class="btn btn-info btn-sm" href="{% url 'inventory_update' obj.pk %}"><i
-                                class="fa fa-pencil" data-toggle="tooltip" title="Edit"></i></a>
-                        <a class="btn btn-danger btn-sm"
-                           href="{% url 'inventory_delete' obj.pk %}">
-                            <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <div class="bg-blue text-white" style="padding: 1em;">
-            <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
-            <span class="h4">No Inventory </span>
-        </div>
-    {% endif %}
+        </thead>
+        <tbody>
+        {% for obj in inventory %}
+            <tr>
+                <td>{{ obj.name|truncatechars:55 }}</td>
+                <td>{{ obj.category }}</td>
+                <td>{{ obj.current_stock }} {{ obj.stock_unit }}</td>
+                <td>{{ obj.recent_buying_price }}</td>
+                <td>{{ obj.inventory_code }}</td>
+                <td> <i class="" style="font-size: 13px;">{{ obj.modified | date:"M d, Y" }}, {{  obj.modified | time:"H:i" }}</i> </td>
+                <td class="text-center">
+                    <a class="btn btn-warning btn-sm" href="{% url 'inventory_detail' obj.pk %}"><i
+                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
+                    <a class="btn btn-info btn-sm" href="{% url 'inventory_update' obj.pk %}"><i
+                            class="fas fa-pencil-alt" data-toggle="tooltip" title="Edit"></i></a>
+                    <a class="btn btn-danger btn-sm"
+                       href="{% url 'inventory_delete' obj.pk %}">
+                        <i class="fa fa-trash" data-toggle="tooltip" title="Delete"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<div class="p-4">
+    <div class="callout callout-info" style="max-width: 600px;">
+        <h5>No Data!</h5>
+        <p>Create new record by clicking the button at the top right of the card.</p>
+  </div>
 </div>
-<!-- /.box-body -->
+{% endif %}
+</div>

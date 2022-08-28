@@ -30,7 +30,6 @@ class ExpenseListView(ListView):
     template_name = 'expense/expense_list.html'
     model = Expense
     context_object_name = 'expense'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

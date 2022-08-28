@@ -1,14 +1,14 @@
-<div class="custom_pagination pull-right">
+<div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
     {% if is_paginated %}
         <ul class="pagination">
             {% if page_obj.has_previous %}
-                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                <li id="example1_previous" class="paginate_button page-item previous disabled"><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
             {% else %}
-                <li class="disabled"><span>&laquo;</span></li>
+                <li class="paginate_button page-item"><span>&laquo;</span></li>
             {% endif %}
             {% for i in paginator.page_range %}
                 {% if page_obj.number == i %}
-                    <li class="active"><span>{{ i }} <span
+                    <li class="paginate_button page-item active"><span>{{ i }} <span
                             class="sr-only">(current)</span></span>
                     </li>
                 {% else %}
@@ -16,9 +16,9 @@
                 {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                <li id="example1_next" class="paginate_button page-item next"><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
             {% else %}
-                <li class="disabled"><span>&raquo;</span></li>
+                <li class="paginate_button page-item"><span>&raquo;</span></li>
             {% endif %}
         </ul>
     {% endif %}

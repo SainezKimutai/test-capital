@@ -13,19 +13,19 @@ class DamagedInventoryForm(forms.ModelForm):
     supplier = forms.ModelChoiceField(
         queryset=Supplier.objects.all(),
         required=False,
-        widget=Select(attrs={'class': 'form-control', 'id': 'supplier'})
+        widget=Select(attrs={'class': 'form-control select2', 'id': 'supplier'})
     )
     person = forms.ModelChoiceField(
         queryset=User.objects.all(),
         required=False,
-        widget=Select(attrs={'class': 'form-control', 'id': 'person'})
+        widget=Select(attrs={'class': 'form-control select2', 'id': 'person'})
     )
 
     class Meta:
         model = DamagedInventory
         fields = '__all__'
         widgets = {
-            'inventory': Select(attrs={'class': 'form-control', 'id': 'inventory'}),
+            'inventory': Select(attrs={'class': 'form-control select2', 'id': 'inventory'}),
             'count': NumberInput(attrs={'class': 'form-control', 'id': 'count', 'min': '1'}),
             'replaceable':  CheckboxInput(attrs={'class': 'checkbox-inline', 'id': 'replaceable'}),
             'damage_reason': Textarea(attrs={'class': 'form-control', 'id': 'damage_reason'}),

@@ -34,7 +34,6 @@ class PromotionListView(ListView):
     template_name = 'promotion/promotion_list.html'
     model = Promotion
     context_object_name = 'promotions'
-    paginate_by = 10
 
 
 class PromotionUpdateView(UpdateView):

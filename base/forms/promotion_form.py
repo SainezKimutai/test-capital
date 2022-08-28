@@ -9,7 +9,7 @@ class PromotionForm(forms.ModelForm):
         model = Promotion
         fields = '__all__'
         widgets = {
-            'inventory': Select(attrs={'class': 'form-control', 'id': 'inventory'}),
+            'inventory': Select(attrs={'class': 'form-control select2', 'id': 'inventory'}),
             'promotion_price': NumberInput(attrs={'class': 'form-control', 'id': 'promotion_price', 'min': '1'}),
             'promotion_start_date': DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'id': 'promotion_price', 'type': 'date'}),
             'promotion_end_date': DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'id': 'promotion_price', 'type': 'date'}),

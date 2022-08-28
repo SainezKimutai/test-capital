@@ -15,7 +15,6 @@ class InvoiceListView(ListView):
     template_name = 'invoice/invoice_list.html'
     model = Invoice
     context_object_name = 'invoice'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')

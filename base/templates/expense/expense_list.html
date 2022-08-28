@@ -6,28 +6,23 @@
 
     {% include 'expense/page_header.html' %}
 
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h3 class="box-title">Expense List</h3>
-                            </div>
-                            <div class="col-lg-6 text-right">
-                                <a title="Create Expense" data-toggle="tooltip" data-placement="left" class="btn btn-info btn-sm" href="{% url 'expense_create' %}">
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% include 'expense/expense_list_component.html' %}
-                    <div class="box-footer clearfix">
-                        {% include 'common/pagination.html' %}
-                    </div>
+    <section class="content">
+        <div class="card card-outline">
+            <div class="card-header">
+                <div class="card-title d-flex">
+                  <h5 class="text-info mr-3 mt-auto">List</h5>
+                  <form method="GET" action="{% url 'expense_search' %}">
+                    <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
+                    </form>
+                </div>
+                <div class="card-tools">
+                    <a class="btn btn-outline-info btn-sm" href="{% url 'expense_create' %}">
+                        <span>Add Expense</span> <i class="fa fa-plus"></i>
+                    </a>
                 </div>
             </div>
+            {% include 'expense/expense_list_component.html' %}
         </div>
-    </div>
+    </section>
+    
 {% endblock %}

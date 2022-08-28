@@ -14,7 +14,7 @@ class CreditNoteForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'sales_item': Select(attrs={'class': 'form-control', 'id': 'sales_item', 'readonly': True,
+            'sales_item': Select(attrs={'class': 'form-control select2', 'id': 'sales_item', 'readonly': True,
                                         'required': False, 'disabled': True}),
             'quantity': NumberInput(attrs={'class': 'form-control', 'id': 'quantity', 'required': True}),
             'affects_cash': CheckboxInput(attrs={'class': 'form-control', 'id': 'affects_cash', 'required': True},

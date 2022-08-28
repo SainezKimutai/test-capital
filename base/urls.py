@@ -57,6 +57,7 @@ from base.views.replenishment_view import (
     replenishment_remove, replenishment_save, replenishment_search,
     replenishment_update
 )
+from base.views.reports_view import ReportsView
 from base.views.sales_view import (
     SalesItemView, make_payment_view, sales_order_search
 )
@@ -70,8 +71,6 @@ from base.views.supplier_view import (
 from base.views.tag_view import (
     TagCreateView, TagDeleteView, TagListView, TagUpdateView, tag_search
 )
-from base.views.reports_view import ReportsView
-
 
 urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),

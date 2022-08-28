@@ -35,13 +35,8 @@
                         <div class="form-group">
                             <label>Report Type</label>
                             <select name="report_type" class="form-control form-control-sm select2bs4">
-                                <option selected="selected">Sales Average</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                <option value="sales_average" selected="selected">Sales Average</option>
+                                <option value="sales_per_inventory">Sales Per Inventory</option>
                             </select>
                         </div>
 
@@ -51,7 +46,7 @@
                               <option>Daily</option>
                               <option selected="selected">Weekly</option>
                               <option>Monthly</option>
-                              <option>Quaterly</option>
+                              <option>Quarterly</option>
                               <option>Yearly</option>
                           </select>
                       </div>
@@ -93,13 +88,12 @@
                   <div class="tab-content">
                     <div class="active tab-pane" id="table_tab">
                       {% if table %}
-                      <table class="table table-bordered table-hover">
+                      <table id="example1" class="table table-bordered table-hover">
                         <thead>
                             <tr class="bg-info rounded">
-                                <th>Period</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>{{ report_metric }}</th>
+                                <th> {{ header_interval }}</th>
+                                <th>From - To</th>
+                                <th>{{ header_value }}</th>
                  
                             </tr>
                         </thead>
@@ -107,9 +101,8 @@
                         
                         {% for item in table %}
                             <tr>
-                                <td>{{item.period}}</td>
-                                <td>{{item.from}}</td>
-                                <td>{{item.to}}</td>
+                                <td>{{item.index}}</td>
+                                <td>{{item.from}} <b>-</b> {{item.to}} </td>
                                 <td>{{item.value}}</td>
                             </tr>
                         {% endfor %}
@@ -127,7 +120,20 @@
                     </div>
                   
                     <div class="tab-pane" id="chart_tab">
-                    
+                      {% if chart %}
+                      <div class="card card-primary">
+                        <div class="card-body">
+                          <div class="chart">
+                            <canvas 
+                            class="area-chart" 
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                            label="{{ chart.label }}"
+                            data="{{ chart.data }}"
+                            ></canvas>
+                        </div>
+                        </div>
+                      </div>
+                      {% endif%}
                     </div>
             
                   </div>

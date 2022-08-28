@@ -1,12 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 
-from django.shortcuts import render
-
 from base.utilities.helpers import format_period, format_string
-from base.utilities.stats import  sales_report
+from base.utilities.stats import inventory_sales_report, sales_report
 
 
 @method_decorator(login_required(login_url="/login/"), name="dispatch")
@@ -36,12 +34,16 @@ class ReportsView(TemplateView):
         if report_type and report_interval and report_period:
             start_date, end_date = format_period(report_period)
 
-            if format_string(report_type) == 'sales average':
+            if format_string(report_type) == 'sales_average':
                 results = sales_report(report_interval, start_date, end_date)
 
+            if format_string(report_type) == 'sales_per_inventory':
+                results = inventory_sales_report(start_date, end_date)
+
             context['table'] = results['table']
-            context['dataset'] = results['dataset']
-            context['report_metric'] = results['report_metric']
+            context['chart'] = results['chart']
+            context['header_value'] = results['header_value']
+            context['header_interval'] = results['header_interval']
             return render(request, template_name, context)
 
         else:

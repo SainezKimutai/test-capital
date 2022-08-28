@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reports || POS{% endblock %}
+
+{% block content %}
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="m-0">Reports</h1>
+                </div>
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Reports</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">
+
+              <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Choose Data Set</h3>
+                  </div>
+                <div class="card-body">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}   
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select name="report_type" class="form-control form-control-sm select2bs4">
+                                <option selected="selected">Sales Average</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                                <option>Delaware</option>
+                                <option>Tennessee</option>
+                                <option>Texas</option>
+                                <option>Washington</option>
+                            </select>
+                        </div>
+
+                      <div class="form-group">
+                          <label>Interval</label>
+                          <select name="report_interval" class="form-control form-control-sm select2bs4">
+                              <option>Daily</option>
+                              <option selected="selected">Weekly</option>
+                              <option>Monthly</option>
+                              <option>Quaterly</option>
+                              <option>Yearly</option>
+                          </select>
+                      </div>
+
+              
+                        <div class="form-group">
+                            <label>Period</label>                  
+                            <div class="input-group">
+                        
+                              <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                                <i class="far fa-calendar-alt"></i> Date range picker
+                                <i class="fas fa-caret-down"></i>
+                              </button>
+                            </div>
+                            <input id="daterange-input" type="text" name="report_period" class="form-control form-control-sm" readonly>  
+                        </div>
+
+                        <div style="padding: 1em 0;" class="d-flex">
+                          <button class="btn btn-success ml-auto" type="submit">Save</button>
+                      </div>
+
+                    </form>
+                </div>
+              </div>
+    
+         
+            </div>
+       
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-header p-2">
+                  <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#table_tab" data-toggle="tab">Table</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chart_tab" data-toggle="tab">Chart</a></li>
+               
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="active tab-pane" id="table_tab">
+                      {% if table %}
+                      <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="bg-info rounded">
+                                <th>Period</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>{{ report_metric }}</th>
+                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for item in table %}
+                            <tr>
+                                <td>{{item.period}}</td>
+                                <td>{{item.from}}</td>
+                                <td>{{item.to}}</td>
+                                <td>{{item.value}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% else %}
+                      <div class="bg-info text-white" style="padding: 1em;">
+                          <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
+                          <span class="h4"> Generate report on the form on your left </span>
+                      </div>
+                      {% endif%}
+
+                      
+         
+                    </div>
+                  
+                    <div class="tab-pane" id="chart_tab">
+                    
+                    </div>
+            
+                  </div>
+               
+                </div>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+{% endblock %}

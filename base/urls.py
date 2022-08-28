@@ -70,12 +70,15 @@ from base.views.supplier_view import (
 from base.views.tag_view import (
     TagCreateView, TagDeleteView, TagListView, TagUpdateView, tag_search
 )
+from base.views.reports_view import ReportsView
+
 
 urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
     path('dashboard-2/', Dashboard2.as_view(), name='dashboard_2'),
+    path('reports/', ReportsView.as_view(), name='reports'),
 
     # Configurations
     path('category-create/', CategoryCreateView.as_view(), name='category_create'),

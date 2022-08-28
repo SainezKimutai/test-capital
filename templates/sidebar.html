@@ -29,22 +29,29 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         {% block nav_links_ul %}
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
             {% block nav_links_outer %}
             <li class="nav-header">{% block nav_heading %}MAIN FEATURES{% endblock %}</li>
 
             {% block nav_links %}
-                <li class="nav-item">
-                    <a href="{% url 'dashboard' %}" class="nav-link">
-                        <!-- <i class="nav-icon far fa-guage text-success"></i> -->
-                        <i class="nav-icon text-info fas fa-tachometer-alt"></i>
-                        <p class="title-caps">Dashboard</p>
+                <li class="nav-item has-tree-view ">
+                    <a class="nav-link">
+                        <i class="nav-icon text-info fas fa-tachometer-alt"></i> <p class="title-caps">Dashboard</p>
+                        <p><i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
-                    <a href="{% url 'dashboard_2' %}" class="nav-link">
-                        <!-- <i class="nav-icon far fa-guage text-success"></i> -->
-                        <i class="nav-icon text-info fas fa-tachometer-alt"></i>
-                        <p class="title-caps">Dashboard 2</p>
-                    </a>
+                    <ul class="nav nav-treeview menu-open">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard_2' %}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt text-info"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'reports' %}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt text-info"></i> Reports
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item has-tree-view ">

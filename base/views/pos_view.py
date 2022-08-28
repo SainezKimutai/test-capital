@@ -87,7 +87,7 @@ def pos_inventory_search(request):
             Q(range__name__icontains=query) |
             Q(color__name__icontains=query) |
             Q(finish__name__icontains=query) |
-            Q(size__size_type=query) |
+            Q(size__value=query) |
             Q(tags__name__icontains=query) |
             Q(category__name__icontains=query)
         )

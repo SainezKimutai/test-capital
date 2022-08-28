@@ -19,13 +19,13 @@ class Inventory(AuthBaseEntity):
         ordering = ['-modified', '-created']
 
     name = models.CharField(max_length=120)
-    range = models.ForeignKey(Range, on_delete=PROTECT, related_name='productRange')
+    range = models.ForeignKey(Range, on_delete=PROTECT, related_name='productRange', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=PROTECT, related_name='productCategory')
     short_description = models.CharField(max_length=250)
     full_description = models.TextField()
-    color = models.ForeignKey(Color, on_delete=PROTECT, related_name='productColor')
-    finish = models.ForeignKey(Finish, on_delete=PROTECT, related_name='productFinish')
-    size = models.ForeignKey(Size, on_delete=PROTECT, related_name='productSize')
+    color = models.ForeignKey(Color, on_delete=PROTECT, related_name='productColor', blank=True, null=True)
+    finish = models.ForeignKey(Finish, on_delete=PROTECT, related_name='productFinish', blank=True, null=True)
+    size = models.ForeignKey(Size, on_delete=PROTECT, related_name='productSize', blank=True, null=True)
     reorder_level = models.IntegerField(default=0)
     current_stock = models.IntegerField(default=0)
     stock_unit = models.CharField(max_length=120, default='Packages')

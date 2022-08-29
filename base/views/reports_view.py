@@ -43,6 +43,7 @@ class ReportsView(TemplateView):
             context['table'] = results['table']
             context['chart'] = results['chart']
             context['header_value'] = results['header_value']
+            context['header_value_1'] = results['header_value_1']
             context['header_interval'] = results['header_interval']
             return render(request, template_name, context)
 

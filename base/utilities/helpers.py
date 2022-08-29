@@ -23,8 +23,8 @@ def format_period(period):
     end_date_month = int(end_date_str.split(',')[1])
     end_date_year = int(end_date_str.split(',')[2])
 
-    formated_start_date = datetime(start_date_year, start_date_month, start_date_day)
-    formated_end_date = datetime(end_date_year, end_date_month, end_date_day)
+    formated_start_date = datetime(start_date_year, start_date_month, start_date_day, 00, 00, 00)
+    formated_end_date = datetime(end_date_year, end_date_month, end_date_day, 23, 59, 59)
 
     return formated_start_date, formated_end_date
 
@@ -47,12 +47,16 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
     """
     if format_string(interval) == 'daily':
         period_string = 'Day'
-        end_date = period_start_date
+        end_date = period_start_date.replace(hour=23, minute=59, second=59)
         loop = True
-        dates = []
-        while loop:
-            start_date = end_date
+        dates = [[
+            period_start_date.replace(hour=00, minute=00, second=00),
+            end_date
+        ]]
+        while loop and end_date < period_end_date:
             end_date += timedelta(days=1)
+            start_date = end_date.replace(hour=00, minute=00, second=00)
+            end_date = end_date.replace(hour=23, minute=59, second=59)
 
             if end_date > period_end_date:
                 loop = False
@@ -67,8 +71,9 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
         loop = True
         dates = []
         while loop:
-            start_date = end_date
-            end_date += timedelta(days=7)
+            start_date = end_date.replace(hour=00, minute=00, second=00)
+            end_date += timedelta(days=6)
+            end_date = end_date.replace(hour=23, minute=59, second=59)
 
             if end_date > period_end_date:
                 loop = False
@@ -83,8 +88,9 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
         loop = True
         dates = []
         while loop:
-            start_date = end_date
+            start_date = end_date.replace(hour=00, minute=00, second=00)
             end_date += relativedelta(months=1)
+            end_date = end_date.replace(hour=23, minute=59, second=59)
 
             if end_date > period_end_date:
                 loop = False
@@ -99,8 +105,9 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
         loop = True
         dates = []
         while loop:
-            start_date = end_date
+            start_date = end_date.replace(hour=00, minute=00, second=00)
             end_date += relativedelta(months=3)
+            end_date = end_date.replace(hour=23, minute=59, second=59)
 
             if end_date > period_end_date:
                 loop = False
@@ -115,8 +122,9 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
         loop = True
         dates = []
         while loop:
-            start_date = end_date
+            start_date = end_date.replace(hour=00, minute=00, second=00)
             end_date += relativedelta(years=1)
+            end_date = end_date.replace(hour=23, minute=59, second=59)
 
             if end_date > period_end_date:
                 loop = False

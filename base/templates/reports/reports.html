@@ -94,6 +94,10 @@
                                 <th> {{ header_interval }}</th>
                                 <th>From - To</th>
                                 <th>{{ header_value }}</th>
+
+                                {% if header_value_1 %}
+                                <th>{{ header_value_1 }}</th>
+                                {% endif%}
                  
                             </tr>
                         </thead>
@@ -104,6 +108,9 @@
                                 <td>{{item.index}}</td>
                                 <td>{{item.from}} <b>-</b> {{item.to}} </td>
                                 <td>{{item.value}}</td>
+                                {% if header_value_1 %}
+                                <th>{{ item.value_1 }}</th>
+                                {% endif%}
                             </tr>
                         {% endfor %}
                         </tbody>

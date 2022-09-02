@@ -16,7 +16,7 @@ class CustomerForm(forms.ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'id': 'name', 'placeholder': 'Enter Customer Name'}),
             'phone_number': TextInput(attrs={'class': 'form-control', 'id': 'phone_number', 'placeholder': 'Enter phone number +254'}),
-            'is_credit': Select(attrs={'class': 'form-control', 'id': 'is_credit'}, choices=is_credit_choices),
+            'is_credit': Select(attrs={'class': 'form-control select2', 'id': 'is_credit'}, choices=is_credit_choices),
             'days_to_clear_invoice': NumberInput(attrs={'class': 'form-control', 'id': 'days_to_clear_invoice'}),
             'vat_number': TextInput(attrs={'class': 'form-control', 'id': 'vat_number'}),
             'pin_number': TextInput(attrs={'class': 'form-control', 'id': 'pin_number'}),

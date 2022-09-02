@@ -3,45 +3,45 @@
 {% block title %} Add new range {% endblock %}
 
 {% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-title">ADD RANGE</h4>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Range</li>
+            </ol>
+        </div>
+    </div>
+</div>
 
-    <section class="content-header">
-        <h1> Dashboard <small>Add new range</small></h1>
-        <ol class="breadcrumb">
-            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Range</li>
-        </ol>
-    </section>
-
-
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="box box-solid box-success">
-                    <div class="box-header">       
-                        <h3 class="box-title">New range form</h3>  
-                        <div class="box-tools pull-right">
-                            <a title="Range list" data-toggle="tooltip" data-placement="left"
-                                class="btn btn-success btn-sm ml-auto" href="{% url 'range_list' %}">
-                                <i class="fa fa-list text-light"></i>
-                            </a>
-                        </div>   
+<div class="content">
+    <div class="row">
+        <div class="col-lg-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Form Input</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}   
+                    <div class="form-group">
+                        <label for="range_name">Name</label>
+                        {{ form.name }}
                     </div>
-                    <div class="box-body">
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}   
-                            <div class="form-group">
-                                <label for="range_name">Name</label>
-                                {{ form.name }}
-                            </div>
-                            <div style="padding: 1em 0;">
-                                <a href="{% url 'range_list' %}" class="btn btn-default ml-auto">Discard</a>
-                                <button class="btn btn-success pull-right" type="submit">Save</button>
-                            </div>
-                        </form>
+                    <div style="padding: 1em 0;" class="d-flex">
+                        <a href="{% url 'range_list' %}" class="btn btn-default mr-auto">Discard</a>
+                        <button class="btn btn-success ml-auto" type="submit">Save</button>
                     </div>
-                </div>
+                </form>
+            </div>
             </div>
         </div>
     </div>
+</div>
+
 
 {% endblock %}

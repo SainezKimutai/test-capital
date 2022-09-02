@@ -13,5 +13,5 @@ class ExpenseForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'id': 'description', 'placeholder': 'Enter Expense Description'}),
             'amount': NumberInput(
                 attrs={'class': 'form-control', 'id': 'amount'}),
-            'requester': Select(attrs={'class': 'form-control', 'id': 'requester'}),
+            'requester': Select(attrs={'class': 'form-control select2', 'id': 'requester'}),
         }

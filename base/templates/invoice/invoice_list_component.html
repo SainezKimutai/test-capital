@@ -1,18 +1,9 @@
-<div class="box box-default">
-    <div class="row" style="padding: 1em;">
-        <form class="col-lg-7" method="GET" action="{% url 'invoice_search' %}">
-            <input type="search" class="form-control rounded" placeholder="{{ query | default:'Search...' }}"
-                   name="q">
-            <span class="glyphicon glyphicon-search form-control-feedback" style="margin-right: 1em;"></span>
-        </form>
-    </div>
-
-    <div class="box-body">
-        {% include 'common/message.html' %}
-        {% if invoice %}
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
+<div class="card-body p-0">
+    {% include 'common/message.html' %}
+    {% if invoice %}
+    <table class="table table-bordered">
+        <thead>
+            <tr class="bg-info rounded">
                 <th>Customer Name</th>
                 <th>Customer Phone Number</th>
                 <th>Sale Order</th>
@@ -24,36 +15,46 @@
                 <th>Payment Date</th>
                 <th class="text-center">Actions</th>
             </tr>
-            {% for obj in invoice %}
-            <tr>
-                <td>{{ obj.sales_order.customer.name|truncatechars:55 }}</td>
-                <td>{{ obj.sales_order.customer.phone_number }}</td>
-                <td>{{ obj.sales_order.receipt_number }}</td>
-                <td>{{ obj.sales_order.total_amount }}</td>
-                <td>{{ obj.created|time:'g:i:s A' }}</td>
-                <td>{{ obj.expected_payment_date|date:'d D, M Y' }}</td>
-                <td>{{ obj.paid }}</td>
-                <td>{{ obj.is_past_due }}</td>
-                <td>{{ obj.payment_date|date:'d D, M Y' }}</td>
-                <td class="text-center">
-                    <a class="btn btn-info btn-sm" href="{% url 'invoice_detail' obj.pk %}"><i
-                            class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
-                    {% if not obj.paid %}
-                    <a class="btn btn-info btn-sm" href="{% url 'mark_invoice_as_paid' obj.pk %}"><i
-                            class="fa fa-money" data-toggle="tooltip" title="Mark as paid"></i></a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        {% if query %}
-        <h2>No match was found</h2>
-        {% else %}
-        <h2>No Invoice added yet</h2>
-        {% endif %}
-        {% endif %}
+        </thead>
+        <tbody>
+        {% for obj in invoice %}
+        <tr>
+            <td>{{ obj.sales_order.customer.name|truncatechars:55 }}</td>
+            <td>{{ obj.sales_order.customer.phone_number }}</td>
+            <td>{{ obj.sales_order.receipt_number }}</td>
+            <td>{{ obj.sales_order.total_amount }}</td>
+            <td>{{ obj.created|time:'g:i:s A' }}</td>
+            <td>{{ obj.expected_payment_date|date:'d D, M Y' }}</td>
+            <td>{{ obj.paid }}</td>
+            <td>{{ obj.is_past_due }}</td>
+            <td>{{ obj.payment_date|date:'d D, M Y' }}</td>
+            <td class="text-center">
+                <a class="btn btn-info btn-sm" href="{% url 'invoice_detail' obj.pk %}"><i
+                        class="fa fa-eye" data-toggle="tooltip" title="View"></i></a>
+                {% if not obj.paid %}
+                <a class="btn btn-success btn-sm" href="{% url 'mark_invoice_as_paid' obj.pk %}"><i
+                        class="fa fa-check" data-toggle="tooltip" title="Mark as paid"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    {% if query %}
+
+    <div class="p-4">
+        <div class="callout callout-info" style="max-width: 600px;">
+            <p>No match was found</p>
+      </div>
     </div>
+    {% else %}
+    <div class="p-4">
+        <div class="callout callout-info" style="max-width: 600px;">
+            <p>No Invoice added yet</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
 </div>
-<!-- /.box-body -->

@@ -10,9 +10,9 @@ class SalesOrderForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'customer': Select(attrs={'class': 'form-control', 'id': 'customer'}),
-            'sales_agent': Select(attrs={'class': 'form-control', 'id': 'sales_agent'}),
-            'transaction_type': Select(attrs={'class': 'form-control', 'id': 'transaction_type'}),
+            'customer': Select(attrs={'class': 'form-control select2', 'id': 'customer'}),
+            'sales_agent': Select(attrs={'class': 'form-control select2', 'id': 'sales_agent'}),
+            'transaction_type': Select(attrs={'class': 'form-control select2', 'id': 'transaction_type'}),
         }
 
     def clean(self):

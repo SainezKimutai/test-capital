@@ -28,7 +28,6 @@ class FinishListView(ListView):
     template_name = 'finish/finish_list.html'
     model = Finish
     context_object_name = 'finish'
-    paginate_by = 10
 
 
 class FinishUpdateView(UpdateView):

@@ -3,21 +3,21 @@
 {% block title %} {{ object }} Inventory Bulk Edit {% endblock %}
 
 {% block content %}
+
     <div class="content">
         <div class="row text-center">
             <div class="col-lg-4 col-lg-offset-4 mx-auto">
-                <div class="box box-solid box-info">
-                    <div class="box-header with-border ">
-                        <h3 class="box-title">Bulk Edit</h3>
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Bulk Edit</h3>
                     </div>
-                    {% include 'common/message.html' %}
-                    <div class="box-body">
+                    <div class="card-body">
                         <ul>
                             {% for error in errors %}
                             <li class="text-red text-left">{{ error }} </li>
                             {% endfor %}
                         </ul>
-                        <form method="GET" action="{% url 'inventory_download' %}">
+                        <form method="GET" action="{% url 'inventory_download' %}" class="mb-4">
                             <button class="btn btn-warning" type="submit">Download Edit Template</button>
                         </form>
                         <form method="POST" action="{% url 'inventory_bulk_edit_update' %}" enctype="multipart/form-data" class="text-left">
@@ -26,12 +26,12 @@
                                 <label for="inventory_csv">Inventory picture</label>
                                 <input type="file" class="form-control" name="inventory_csv">
                             </div>
-                            <div style="padding: 1em 0;">
-                                <a href="{% url 'inventory_list' %}" class="btn btn-default ml-auto">Discard</a>
-                                <button class="btn btn-success pull-right" type="submit">Save</button>
+                            <div style="padding: 1em 0;" class="d-flex">
+                                <a href="{% url 'inventory_list' %}" class="btn btn-default mr-auto">Discard</a>
+                                <button class="btn btn-warning pull-right" type="submit">Save</button>
                             </div>    
-                        </form>    
-                    </div>         
+                        </form>  
+                    </div>
                 </div>
             </div>
         </div>

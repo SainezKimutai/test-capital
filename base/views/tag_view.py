@@ -28,7 +28,6 @@ class TagListView(ListView):
     template_name = 'tag/tag_list.html'
     model = Tag
     context_object_name = 'tag'
-    paginate_by = 10
 
 
 class TagUpdateView(UpdateView):

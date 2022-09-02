@@ -4,24 +4,32 @@
 
 {% block content %}
 
-<section class="content-header">
-    <h1> Dashboard <small>Confirm Order</small></h1>
-    <ol class="breadcrumb">
-        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Confirm Order</li>
-    </ol>
-</section>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-dark">CONFIRM ORDER</h4>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Confirm Order</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
 
 <div class="content">
     <div class="row">
         <div class="col-md-6">
-            <div class="box">
-                <div class="box-header">
-                    <h4 class="box-title">Confirm Order</h4>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Confirm Order</h3>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     <form method="POST" action="{% url 'make_payment_view' %}" class="register-form"
-                          role="form">
+                            role="form">
                         {% if form.errors %}
                         <div class="alert alert-danger">
                             {{ form.errors }}
@@ -41,59 +49,56 @@
                             {{ form.transaction_type }}
                         </div>
                         <button type="submit"
-                                class="btn-upper btn btn-primary checkout-page-button">Confirm Order
+                                class="btn-upper btn btn-info checkout-page-button">Confirm Order
                         </button>
                     </form>
                 </div>
+            
             </div>
         </div>
         <div class="col-md-5">
-            {% include 'common/message.html' %}
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <div class="box-header">
-                        <h4 class="box-title text-left">{% now "jS F Y H:i" %}</h4>
-                        <br>
-                        <h4 class="box-title text-right">Sale Summary</h4>
-                    </div>
-                    <div class="box">
-                        <!-- /.box-header -->
-                        <div class="box-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Inventory Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    {% for item in cart %}
-                                    {% with inventory=item.inventory %}
-                                    {% if item.is_wholesale %}
-                                    <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
-                                    {% elif item.is_promotion %}
-                                    <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
-                                    {% else %}
-                                    <td>{{ inventory.name }}</td>
-                                    {% endif %}
-                                    <td>{{ item.price }}</td>
-                                    <td>{{ item.quantity }}</td>
-                                </tr>
-                                {% endwith %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">{% now "jS F Y H:i" %}</h3>
+                    <div class="card-tools">
+                        <h3 class="card-title">Sale Summary</h3>
                     </div>
                 </div>
-                <div class="box-footer">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Inventory Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for item in cart %}
+                            {% with inventory=item.inventory %}
+                            {% if item.is_wholesale %}
+                            <td>{{ inventory.name }} <strong>(WholeSale)</strong></td>
+                            {% elif item.is_promotion %}
+                            <td>{{ inventory.name }} <strong>(Promotion)</strong></td>
+                            {% else %}
+                            <td>{{ inventory.name }}</td>
+                            {% endif %}
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                        {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-md-6 text-right">
                             <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

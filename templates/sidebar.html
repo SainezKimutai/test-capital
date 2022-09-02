@@ -1,113 +1,198 @@
-{% load static %}
-<!-- sidebar: style can be found in sidebar.less -->
-<section class="sidebar shadow-sm">
-    <!-- Sidebar user panel -->
-    <div class="user-panel">
-        <div class="pull-left image">
-            <img src="{% static 'dist/img/admin.png' %}" class="img-circle" alt="User Image">
+{% load adminlte_helpers %}
+{%load static %}
+<!-- Left side column. contains the sidebar -->
+<aside class="main-sidebar sidebar-dark-info  elevation-4">
+     <!-- Brand Logo -->
+    {% block logo %}
+        <a href="#" class="brand-link">
+            <img src="{% static 'assets/images/admin.png' %}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            {% block logo_text %}<span class="brand-text text-info"><b>CAPITAL</b>Finishes </span>{% endblock %}
+        </a>
+    {% endblock %}
+    <!-- sidebar: style can be found in sidebar.less -->
+    <div class="sidebar">
+        <!-- Sidebar user panel -->
+        {% block user_panel %}
+        <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% avatar_url size=90 %}" class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="pull-left info">
-            <p>{% if request.user.first_name  or request.user.last_name %} {{ request.user.first_name }}
-                {{ request.user.last_name }} {% else %} {{ request.user.username }} {% endif %}</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <div class="info">
+          <a href="#" class="d-block text-warning">{% firstof request.user.get_full_name request.user.username %}</a>
         </div>
+      </div>
+        {% endblock %}
+
+        {% block form %}{% endblock %}
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        {% block nav_links_ul %}
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            {% block nav_links_outer %}
+            <li class="nav-header">{% block nav_heading %}MAIN FEATURES{% endblock %}</li>
+
+            {% block nav_links %}
+                <li class="nav-item">
+                    <a href="{% url 'dashboard' %}" class="nav-link">
+                        <!-- <i class="nav-icon far fa-guage text-success"></i> -->
+                        <i class="nav-icon text-info fas fa-tachometer-alt"></i>
+                        <p class="title-caps">Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-tree-view ">
+                    <a class="nav-link">
+                        <i class="nav-icon fas fa-hammer text-info"></i> <p class="title-caps">Configuration</p>
+                        <p><i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview menu-open">
+                        <li class="nav-item">
+                            <a href="{% url 'category_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-layer-group text-info"></i> Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'tag_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-tag text-info"></i> Tags
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'color_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-fill text-info"></i> Colors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'size_list' %}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-info"></i> Size
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'range_list' %}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-info"></i> Range
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'finish_list' %}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-info"></i> Finish
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-tree-view ">
+                    <a class="nav-link">
+                        <i class="nav-icon fas fa-boxes text-info"></i> <p class="title-caps">Inventory</p>
+                        <p><i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview menu-open">
+                        <li class="nav-item">
+                            <a href="{% url 'inventory_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-boxes text-info"></i> Inventory
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'replenishment_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-truck-loading text-info"></i> Replenishment
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'promotion_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-ad text-info"></i> Promotion
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'damaged_inventory_list' %}" class="nav-link">
+                                <i class="nav-icon far fa-circle text-info"></i> Damage Inventory
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-tree-view ">
+                    <a class="nav-link">
+                        <i class="nav-icon fas fa-address-card text-info"></i> <p class="title-caps">POS</p>
+                        <p><i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview menu-open">
+                        <li class="nav-item">
+                            <a href="{% url 'pos_view' %}" class="nav-link">
+                                <i class="nav-icon fas fa-cart-plus text-info"></i> Create Order
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'sale_item_information' %}" class="nav-link">
+                                <i class="nav-icon fas fa-receipt text-info"></i> Sale Items
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'expense_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill text-info"></i> Petty Cash
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'invoice_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice text-info"></i> Invoice
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'credit_note_list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-credit-card text-info"></i> Credit Note
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'supplier_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-truck text-info"></i>
+                        <p class="title-caps">Suppliers</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'customer_list' %}" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-bag text-info"></i>
+                
+                        <p class="title-caps">Customers</p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-tree-view ">
+                    <a class="nav-link">
+                        <i class="nav-icon fas fa-cogs text-info"></i> <p class="title-caps">Settings</p>
+                        <p><i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview menu-open">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-key text-danger"></i>
+                                <p class="text">Password Change</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user-plus text-success"></i>
+                                <p class="text">Add Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users text-info"></i>
+                                <p class="text">All Users</p>
+                            </a>
+                        </li>   
+                    </ul>
+                </li>
+            {% endblock nav_links %}
+            {% endblock nav_links_outer %}
+            </ul>
+            </nav>
+        {% endblock nav_links_ul %}
     </div>
-    <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN FEATURES</li>
-        <li class="active">
-            <a href="{% url 'dashboard' %}">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                <span class="pull-right-container">
-            </span>
-            </a>
-        </li>
-        <li class="treeview">
-            <a style="text-decoration: none;">
-                <i class="fa fa-pie-chart"></i>
-                <span>Configuration</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'category_list' %}"><i class="fa fa-circle-o"></i>Categories</a></li>
-                <li><a href="{% url 'tag_list' %}"><i class="fa fa-circle-o"></i>Tags</a></li>
-                <li><a href="{% url 'color_list' %}"><i class="fa fa-circle-o"></i>Colors</a></li>
-                <li><a href="{% url 'size_list' %}"><i class="fa fa-circle-o"></i>Size</a></li>
-                <li><a href="{% url 'range_list' %}"><i class="fa fa-circle-o"></i>Range</a></li>
-                <li><a href="{% url 'finish_list' %}"><i class="fa fa-circle-o"></i>Finish</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>Inventory</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i>Inventory</a></li>
-                <li><a href="{% url 'replenishment_list' %}"><i class="fa fa-circle-o"></i>Replenishment</a></li>
-                <li><a href="{% url 'promotion_list' %}"><i class="fa fa-circle-o"></i>Promotion</a></li>
-                <li><a href="{% url 'damaged_inventory_list' %}"><i class="fa fa-circle-o"></i>Damage Inventory</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-first-order"></i>
-                <span>POS</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'pos_view' %}"><i class="fa fa-circle-o"></i> Create Order</a></li>
-                <li><a href="{% url 'sale_item_information' %}"><i class="fa fa-circle-o"></i> Sale Items</a></li>
-                <li><a href="{% url 'expense_list' %}"><i class="fa fa-circle-o"></i> Petty Cash</a></li>
-                <li><a href="{% url 'invoice_list' %}"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="{% url 'credit_note_list' %}"><i class="fa fa-circle-o"></i> Credit Note</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-address-book"></i>
-                <span>Suppliers</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'supplier_list' %}"><i class="fa fa-circle-o"></i> Suppliers</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-users"></i>
-                <span>Customers</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="{% url 'customer_list' %}"><i class="fa fa-circle-o"></i> Customers</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-gears"></i>
-                <span>Setting</span>
-                <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Password Change</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Add User</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> All User</a></li>
-            </ul>
-        </li>
-    </ul>
-</section>
-<!-- /.sidebar -->
+    <!-- /.sidebar -->
+</aside>

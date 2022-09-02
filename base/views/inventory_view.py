@@ -34,8 +34,8 @@ class CreateInventoryView(SuccessMessageMixin, CreateView):
 class InventoryListView(ListView):
     template_name = 'inventory/inventory_list.html'
     model = Inventory
+    paginate_by = 50
     context_object_name = 'inventory'
-    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -75,7 +75,7 @@ def inventory_search(request):
             Q(range__name__icontains=query) |
             Q(color__name__icontains=query) |
             Q(finish__name__icontains=query) |
-            Q(size__size_type=query) |
+            Q(size__value=query) |
             Q(tags__name__icontains=query) |
             Q(category__name__icontains=query)
         )
@@ -170,7 +170,7 @@ def inventory_bulk_edit_update(request):
             context['inventory_csv']: None
             context['errors'] = validation_errors
             messages.error(request, 'Upload validation failed')
-            
+
             return render(request, 'inventory/inventory_bulk_edit.html', context)
 
         messages.success(request, 'Invetories successfully updated')

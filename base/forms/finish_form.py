@@ -11,7 +11,7 @@ class FinishForm(forms.ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'id': 'range_name'}),
             'category': Select(attrs={
-                'class': 'form-control',
+                'class': 'form-control select2',
                 'id': 'finish_category'
             })
         }

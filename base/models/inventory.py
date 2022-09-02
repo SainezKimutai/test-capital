@@ -46,17 +46,20 @@ class Inventory(AuthBaseEntity):
         return self.name
 
     def clean(self):
-        if self.color.category != self.category:
-            raise ValidationError(
-                {'color': "Color category does not match chosen category."})
+        if self.color and self.category:
+            if self.color.category != self.category:
+                raise ValidationError(
+                    {'color': "Color category does not match chosen category."})
 
-        if self.finish.category != self.category:
-            raise ValidationError(
-                {'finish': "Finish category does not match chosen category."})
+        if self.finish and self.category:
+            if self.finish.category != self.category:
+                raise ValidationError(
+                    {'finish': "Finish category does not match chosen category."})
 
-        if self.size.category != self.category:
-            raise ValidationError(
-                {'size': "Size category does not match chosen category."})
+        if self.size and self.category:
+            if self.size.category != self.category:
+                raise ValidationError(
+                    {'size': "Size category does not match chosen category."})
 
         if self.min_selling_price > self.max_selling_price:
             raise ValidationError(

@@ -11,7 +11,7 @@ class CategoryForm(forms.ModelForm):
 
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'id': 'name'}),
-            'parent': Select(attrs={'class': 'form-control'}),
-            'category_image': FileInput(attrs={'class': 'form-control', 'id': 'imageUpload'}),
+            'parent': Select(attrs={'class': 'form-control select2'}),
+            'category_image': FileInput(attrs={'class': 'form-control', 'id': 'imageUpload', 'type': 'file'}),
             'is_active': CheckboxInput(attrs={'class': 'checkbox', 'id': 'is_active'})
         }

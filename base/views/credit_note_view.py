@@ -32,7 +32,6 @@ class CreditNoteListView(ListView):
     template_name = 'credit_note/credit_note_list.html'
     model = CreditNote
     context_object_name = 'credit_note'
-    paginate_by = 10
 
 
 def credit_note_search(request):

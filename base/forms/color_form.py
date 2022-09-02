@@ -21,7 +21,7 @@ class ColorForm(forms.ModelForm):
                 'type': 'text'
             }),
             'category': Select(attrs={
-                'class': 'form-control',
+                'class': 'form-control select2',
                 'id': 'color_category'
             })
         }

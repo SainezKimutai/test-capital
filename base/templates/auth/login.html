@@ -3,33 +3,45 @@
 {% block title %} Login page {% endblock %}
 
 {% block content %}
-    <body style="background-color: white">
-        <div class="login-box-body bg-black">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <form method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.username }}
-                </div>
-                <div class="form-group">
-                    {{ form.password }}
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <label class="custom-control custom-checkbox">
-                                {{ form.remember_me }} Remember me
-                            </label>
-                        </div>
-                        <div class="col-lg-4">
-                            <button type="submit" class="btn btn-success btn-sm btn-block">Sign in</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="social-auth-links text-center">
-                <a href="#">Forgot password</a>
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {% if message %}
+        <p class="login-box-msg" style="color: red;">{{ message }}</p>
+    {% endif %}
+    <div class="input-group mb-3">
+        <input type="text" name="username" class="form-control">
+        <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <input type="password" name="password" class="form-control">
+        <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            {% block login_form_links %}
+            {% endblock %}
+        </div>
+        <div class="col-8">
+            <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember">
+                    Remember Me
+                </label>
             </div>
         </div>
-    </body>
+        <!-- /.col -->
+        <div class="col-4">
+            <button type="submit" class="btn btn-info btn-block">Sign In</button>
+        </div>
+        <!-- /.col -->
+    </div>
+</form>
 {% endblock %}

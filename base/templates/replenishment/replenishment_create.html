@@ -4,136 +4,140 @@
 
 {% block content %}
 
-    <section class="content-header">
-        <h1> Dashboard <small>Replenishment Form</small></h1>
-        <ol class="breadcrumb">
-            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Replenishment</li>
-        </ol>
-    </section>
 
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="box box-solid box-success">
-                    <div class="box-header">       
-                        <h3 class="box-title">Replenishment form</h3>  
-                        <div class="box-tools pull-right">
-                            <a title="Replenishment list" data-toggle="tooltip" data-placement="left"
-                                class="btn btn-success btn-sm ml-auto" href="{% url 'replenishment_list' %}">
-                                <i class="fa fa-list text-light"></i>
-                            </a>
-                        </div>   
-                    </div>
-                    <div class="box-body">
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <h4 class="m-0 text-title">REPLENISHMENT</h4>
+            </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Replenishment</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Form Input</h3>
+            </div>
+            <div class="card-body">
  
-                            <ul>
-                                {% for error in errors%}
-                                <li class="text-red">{{ error }}</li>
-                                {% endfor %}
-                            </ul>
+                <ul>
+                    {% for error in errors%}
+                    <li class="text-red">{{ error }}</li>
+                    {% endfor %}
+                </ul>
 
 
-                            <h5 class="text-info">Add Replenishment Items</h5>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Inventory</th>
-                                        <th>Count </th>
-                                        <th>Amount per Item</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for entry in replenishment.items %}
-                                       <tr>
-                                     
-                                        <form action="{% url 'replenishment_item_update' entry.id %}" method="post">
-                                            {% csrf_token %}
-                                            <td>
-                                                <select name="inventory_id" value="{{ entry.inventory_id }}" class="form-control">
-                                                    {% for inventory in inventories%}
-                                                    <option
-                                                    value="{{ inventory.id }}"
-                                                    {% if entry.inventory_id == inventory.id %} selected{% endif %}
-                                                    >{{inventory}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </td>
-                                        
-                                            <td>
-                                                <input name="count" value="{{ entry.count }}" type="number" class="form-control" min="1">                           
-                                            </td>
-
-                                            <td>
-                                                
-                                                <input name="amount" value="{{ entry.amount }}" type="number" class="form-control" min="0">
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-info btn-sm">
-                                                    Update
-                                                </button>
-                                                <a class="btn btn-sm btn-danger" href="{% url 'replenishment_remove' entry.id %}"
-                                                    title="cancel" > Remove</a>
-                                            </td>
-                                         </form>
-                                       </tr>
-                                    {% endfor %}
-
-                                       <tr>
-                                        <form action="{% url 'replenishment_add' %}" method="post">
-                                            {% csrf_token %}   
-                                            <td> 
-                                                <select name="inventory_id" class="form-control">
-                                                    {% for inventory in inventories%}
-                                                    <option value="{{inventory.id}}">{{inventory}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </td>
-         
-                                            <td>
-                                                <input name="count" type="number" class="form-control" min="1">
-                                            </td>
-
-                                            <td>
-                                                <input name="amount" type="number" class="form-control" min="0">
-                                            </td>
-
-                                            <td>
-                                                <button class="btn" type="submit">Add</button>
-                                            </td>
-                                        </form>
-                                       </tr>
-                                </tbody>
-                            </table>
-
-                            <br>
-
-                            <form id="replenish_form" action="{% url 'replenishment_save' %}" method="post">
-                                {% csrf_token %}  
-                                <div class="form-group">
-                                    <label for="replenishment_supplier">Supplier</label>
-                                  
-                                    <select name="supplier_id" class="form-control" value="replenishment.supplier_id">
-                                        {% for supplier in suppliers%}
-                                        <option value="{{supplier.id}}">{{supplier}}</option>
+                <h5 class="text-info">Add Replenishment Items</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Inventory</th>
+                            <th>Count </th>
+                            <th>Amount per Item</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in replenishment.items %}
+                           <tr>
+                         
+                            <form action="{% url 'replenishment_item_update' entry.id %}" method="post">
+                                {% csrf_token %}
+                                <td>
+                                    <select name="inventory_id" value="{{ entry.inventory_id }}" class="form-control select2">
+                                        {% for inventory in inventories%}
+                                        <option
+                                        value="{{ inventory.id }}"
+                                        {% if entry.inventory_id == inventory.id %} selected{% endif %}
+                                        >{{inventory}}</option>
                                         {% endfor %}
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="delivery_number">Delivery Number</label>
-                                    <input type="text" name="delivery_number" class="form-control" value="{{ replenishment.delivery_number }}">
-                                </div>
+                                </td>
+                            
+                                <td>
+                                    <input name="count" value="{{ entry.count }}" type="number" class="form-control" min="1">                           
+                                </td>
+
+                                <td>
+                                    
+                                    <input name="amount" value="{{ entry.amount }}" type="number" class="form-control" min="0">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-info btn-sm mb-2" style="min-width: 6em;">
+                                        Update
+                                    </button>
+                                    <a class="btn btn-sm btn-danger" style="min-width: 6em;" href="{% url 'replenishment_remove' entry.id %}"
+                                        title="cancel" > Remove</a>
+                                </td>
+                             </form>
+                           </tr>
+                        {% endfor %}
+
+                           <tr>
+                            <form action="{% url 'replenishment_add' %}" method="post">
+                                {% csrf_token %}   
+                                <td> 
+                                    <select name="inventory_id" class="form-control">
+                                        {% for inventory in inventories%}
+                                        <option value="{{inventory.id}}">{{inventory}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input name="count" type="number" class="form-control" min="1">
+                                </td>
+
+                                <td>
+                                    <input name="amount" type="number" class="form-control" min="0">
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-sm btn-success" style="min-width: 6em;" type="submit">Add</button>
+                                </td>
                             </form>
-                  
-                            <div style="padding: 1em 0;">
-                                <a href="{% url 'replenishment_clear' %}" class="btn btn-default ml-auto">Discard</a>
-                                <button class="btn btn-success pull-right" type="submit" form="replenish_form">Save</button>
-                            </div>
+                           </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <form id="replenish_form" action="{% url 'replenishment_save' %}" method="post">
+                    {% csrf_token %}  
+                    <div class="form-group">
+                        <label for="replenishment_supplier">Supplier</label>
                       
+                        <select name="supplier_id" class="form-control" value="replenishment.supplier_id">
+                            {% for supplier in suppliers%}
+                            <option value="{{supplier.id}}">{{supplier}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="delivery_number">Delivery Number</label>
+                        <input type="text" name="delivery_number" class="form-control" value="{{ replenishment.delivery_number }}">
+                    </div>
+                </form>
+      
+                <div style="padding: 1em 0;" class="d-flex">
+                    <a href="{% url 'replenishment_clear' %}" class="btn btn-sm btn-default mr-auto" style="min-width: 6em;">Discard</a>
+                    <button class="btn btn-sm btn-info ml-auto" type="submit" form="replenish_form" style="min-width: 6em;">Save</button>
                 </div>
+         
+            </div>
             </div>
         </div>
     </div>
+</div>
+
 {% endblock %}

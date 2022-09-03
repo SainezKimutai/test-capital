@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 
 from base.utilities.helpers import format_period, format_string
-from base.utilities.stats import inventory_sales_report, sales_report
+from base.utilities.reports import inventory_sales_report, sales_report
 
 
 @method_decorator(login_required(login_url="/login/"), name="dispatch")

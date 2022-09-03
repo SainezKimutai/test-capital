@@ -6,6 +6,9 @@ from django.views.generic.base import TemplateView
 from base.models.category import Category
 from base.models.inventory import Inventory
 from base.models.tag import Tag
+from base.utilities.dashboard import (
+    get_inventory_chart_data, get_sales_chart_data
+)
 
 
 @method_decorator(login_required(login_url="/login/"), name="dispatch")
@@ -22,4 +25,9 @@ class Dashboard(TemplateView):
         context["inventory"] = Inventory.objects.all()
         context["user"] = User.objects.all()
         context["tag"] = Tag.objects.all()
+
+        context["sales_chart"] = get_sales_chart_data(months=4)
+
+        context["inventory_chart"] = get_inventory_chart_data(months=2, top=4)
+
         return context

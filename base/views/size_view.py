@@ -19,7 +19,8 @@ class SizeCreateView(SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        messages.success(self.request, f"Size of type '{form.instance.size_type}' successfully updated!")
+        messages.success(self.request, f"Size of type '{form.instance.value} of category {form.instance.category.name}'"
+                                       f" successfully created!")
         return super().form_valid(form)
 
 
@@ -38,7 +39,8 @@ class SizeUpdateView(UpdateView):
 
     def form_valid(self, form):
         form.instance.modified_by = self.request.user
-        messages.success(self.request, f"Size of type '{form.instance.size_type}' successfully updated!")
+        messages.success(self.request, f"Size of type '{form.instance.value} of category {form.instance.category.name}'"
+                                       f" successfully updated!")
         return super().form_valid(form)
 
 
@@ -54,7 +56,7 @@ def size_search(request):
     query = request.GET.get('q')
     if query:
         size = Size.objects.filter(
-            Q(size_type__icontains=query) |
+            Q(category__name__icontains=query) |
             Q(value__icontains=query)
         )
     context = {

@@ -44,7 +44,6 @@
                     <tr class="bg-info rounded">
                         <th>Sub Category</th>
                         <th>Parent Category</th>
-                        <th>Is Active</th>
                         <th>Image</th>
                         <th>Created By</th>
                         <th>Modified / Created</th>
@@ -56,9 +55,6 @@
                     <tr>
                         <td>{{ cat.name }}</td>
                         <td>{% if not cat.parent %} <-> {% else %} {{ cat.parent }} {% endif %}</td>
-                        <td>{% if cat.is_active == 1 %}
-                            <span class="badge bg-green">Active</span> {% else %}
-                            <span class="badge bg-red">Deactivated</span> {% endif %}</td>                                
                         <td>
                             {% if not cat.category_image %}
                                 <div class="image_not_found"><i class="fa fa-desktop"></i></div>

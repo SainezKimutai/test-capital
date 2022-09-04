@@ -11,13 +11,13 @@ class Supplier(AuthBaseEntity):
         ordering = ['-created', '-modified']
 
     supplier_name = models.CharField(max_length=150, unique=True)
-    phone_number_1 = PhoneNumberField(blank=False, null=False, unique=True)
+    phone_number_1 = PhoneNumberField(blank=True, null=True)
     phone_number_2 = PhoneNumberField(blank=True, null=True)
     email = models.CharField(max_length=50, unique=True)
-    physical_address = models.TextField(blank=True)
-    pin_number = models.CharField(max_length=50, unique=True)
-    vat_number = models.CharField(max_length=50, unique=True)
-    contact_person = models.CharField(max_length=150, unique=True)
+    physical_address = models.TextField(blank=True, null=True)
+    pin_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
+    vat_number = models.CharField(max_length=50, unique=True, blank=True, null=True)
+    contact_person = models.CharField(max_length=150, blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):

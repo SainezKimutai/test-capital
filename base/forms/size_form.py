@@ -9,15 +9,10 @@ class SizeForm(forms.ModelForm):
         model = Size
         fields = '__all__'
         widgets = {
-            'size_type': Select(attrs={
-                'class': 'form-control select2',
-                'id': 'size_value',
-                'type': 'text'
-                }),
             'value': TextInput(attrs={
                 'class': 'form-control',
                 'id': 'size_value',
-                'type': 'number'
+                'type': 'text'
                 }),
             'category': Select(attrs={
                 'class': 'form-control select2',

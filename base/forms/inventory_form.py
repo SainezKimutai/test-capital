@@ -14,7 +14,7 @@ class InventoryForm(forms.ModelForm):
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'id': 'name', 'placeholder': 'Enter Inventory Name'}),
             'inventory_code': TextInput(attrs={'class': 'form-control', 'id': 'inventory_code',
-                                               'placeholder': 'Enter Inventory Code', 'required': True}),
+                                               'placeholder': 'Enter Inventory Code'}),
             'range': Select(attrs={'class': 'form-control select2', 'id': 'range'}),
             'category': Select(attrs={'class': 'form-control select2', 'id': 'category'}),
             'color': Select(attrs={'class': 'form-control select2', 'id': 'color'}),
@@ -23,13 +23,12 @@ class InventoryForm(forms.ModelForm):
             'tags': SelectMultiple(attrs={'class': 'form-control select2', 'id': 'tags', 'multiple': 'multiple'}),
             'short_description': TextInput(
                 attrs={'class': 'form-control', 'id': 'short_description',
-                       'placeholder': 'Enter inventory shot description'}),
+                       'placeholder': 'Enter inventory short description'}),
             'full_description': Textarea(attrs={'class': 'form-control', 'id': 'full_description',
                                                 'placeholder': 'Enter inventory full description'}),
             'reorder_level': NumberInput(attrs={'class': 'form-control', 'id': 'reorder_level', 'min': '0'}),
             'selling_price': NumberInput(attrs={'class': 'form-control', 'id': 'selling_price', 'min': '1'}),
             'promotional_price': NumberInput(attrs={'class': 'form-control', 'id': 'promotional_price', 'min': '1'}),
-            'is_promotion': CheckboxInput(attrs={'class': 'form-check-input', 'id': 'is_promotion'}),
             'wholesale_price': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_price', 'min': '1'}),
             'wholesale_minimum_number': NumberInput(attrs={'class': 'form-control', 'id': 'wholesale_minimum_number', 'min': '0'}),
             'picture': FileInput(attrs={'class': 'form-control', 'id': 'picture'}),

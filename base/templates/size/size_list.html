@@ -42,7 +42,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr class="bg-info rounded">
-                        <th>Size Type</th>
+
                         <th>Size value</th>
                         <th>Category</th>
                         <th>Created By</th>
@@ -53,9 +53,8 @@
                 <tbody>
                 {% for size_item in size %}
                     <tr>
-                        <td>
-                            {{ size_item.size_type }}
-                        </td>
+
+
                         <td>{{ size_item.value }}</td>
                         <td>{% if not size_item.category %} <-> {% else %} {{ size_item.category }} {% endif %}</td>
                         <td> <span class="fw-lighter"> <i>{{ size_item.created_by }}</i> </span> </td> 

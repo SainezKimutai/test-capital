@@ -19,13 +19,13 @@ class Inventory(AuthBaseEntity):
         ordering = ['-modified', '-created']
 
     name = models.CharField(max_length=120)
-    range = models.ForeignKey(Range, on_delete=PROTECT, related_name='productRange')
+    range = models.ForeignKey(Range, on_delete=PROTECT, related_name='productRange', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=PROTECT, related_name='productCategory')
     short_description = models.CharField(max_length=250)
     full_description = models.TextField()
-    color = models.ForeignKey(Color, on_delete=PROTECT, related_name='productColor')
-    finish = models.ForeignKey(Finish, on_delete=PROTECT, related_name='productFinish')
-    size = models.ForeignKey(Size, on_delete=PROTECT, related_name='productSize')
+    color = models.ForeignKey(Color, on_delete=PROTECT, related_name='productColor', blank=True, null=True)
+    finish = models.ForeignKey(Finish, on_delete=PROTECT, related_name='productFinish', blank=True, null=True)
+    size = models.ForeignKey(Size, on_delete=PROTECT, related_name='productSize', blank=True, null=True)
     reorder_level = models.IntegerField(default=0)
     current_stock = models.IntegerField(default=0)
     stock_unit = models.CharField(max_length=120, default='Packages')
@@ -46,17 +46,20 @@ class Inventory(AuthBaseEntity):
         return self.name
 
     def clean(self):
-        if self.color.category != self.category:
-            raise ValidationError(
-                {'color': "Color category does not match chosen category."})
+        if self.color and self.category:
+            if self.color.category != self.category:
+                raise ValidationError(
+                    {'color': "Color category does not match chosen category."})
 
-        if self.finish.category != self.category:
-            raise ValidationError(
-                {'finish': "Finish category does not match chosen category."})
+        if self.finish and self.category:
+            if self.finish.category != self.category:
+                raise ValidationError(
+                    {'finish': "Finish category does not match chosen category."})
 
-        if self.size.category != self.category:
-            raise ValidationError(
-                {'size': "Size category does not match chosen category."})
+        if self.size and self.category:
+            if self.size.category != self.category:
+                raise ValidationError(
+                    {'size': "Size category does not match chosen category."})
 
         if self.min_selling_price > self.max_selling_price:
             raise ValidationError(

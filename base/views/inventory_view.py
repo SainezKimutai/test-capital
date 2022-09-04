@@ -34,6 +34,7 @@ class CreateInventoryView(SuccessMessageMixin, CreateView):
 class InventoryListView(ListView):
     template_name = 'inventory/inventory_list.html'
     model = Inventory
+    paginate_by = 50
     context_object_name = 'inventory'
 
 
@@ -74,7 +75,7 @@ def inventory_search(request):
             Q(range__name__icontains=query) |
             Q(color__name__icontains=query) |
             Q(finish__name__icontains=query) |
-            Q(size__size_type=query) |
+            Q(size__value=query) |
             Q(tags__name__icontains=query) |
             Q(category__name__icontains=query)
         )

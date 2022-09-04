@@ -22,6 +22,7 @@ from base.views.damaged_inventory_view import (
     damaged_inventory_confirm_replace, damaged_inventory_replace,
     damaged_inventory_search
 )
+from base.views.dashboard_2_view import Dashboard2
 from base.views.dashboard_view import Dashboard
 from base.views.expense_view import (
     CreateExpenseView, ExpenseDetailView, ExpenseListView, ExpenseUpdateView,
@@ -56,6 +57,7 @@ from base.views.replenishment_view import (
     replenishment_remove, replenishment_save, replenishment_search,
     replenishment_update
 )
+from base.views.reports_view import ReportsView
 from base.views.sales_view import (
     SalesItemView, make_payment_view, sales_order_search
 )
@@ -74,6 +76,8 @@ urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
+    path('dashboard-2/', Dashboard2.as_view(), name='dashboard_2'),
+    path('reports/', ReportsView.as_view(), name='reports'),
 
     # Configurations
     path('category-create/', CategoryCreateView.as_view(), name='category_create'),

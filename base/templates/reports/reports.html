@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reports || POS{% endblock %}
+
+{% block content %}
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="m-0">Reports</h1>
+                </div>
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Reports</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">
+
+              <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Choose Data Set</h3>
+                  </div>
+                <div class="card-body">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}   
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select name="report_type" class="form-control form-control-sm select2bs4">
+                                <option value="sales_average" selected="selected">Sales Average</option>
+                                <option value="sales_per_inventory">Sales Per Inventory</option>
+                            </select>
+                        </div>
+
+                      <div class="form-group">
+                          <label>Interval</label>
+                          <select name="report_interval" class="form-control form-control-sm select2bs4">
+                              <option>Daily</option>
+                              <option selected="selected">Weekly</option>
+                              <option>Monthly</option>
+                              <option>Quarterly</option>
+                              <option>Yearly</option>
+                          </select>
+                      </div>
+
+              
+                        <div class="form-group">
+                            <label>Period</label>                  
+                            <div class="input-group">
+                        
+                              <button type="button" class="btn btn-default float-right" id="daterange-btn">
+                                <i class="far fa-calendar-alt"></i> Date range picker
+                                <i class="fas fa-caret-down"></i>
+                              </button>
+                            </div>
+                            <input id="daterange-input" type="text" name="report_period" class="form-control form-control-sm" readonly>  
+                        </div>
+
+                        <div style="padding: 1em 0;" class="d-flex">
+                          <button class="btn btn-success ml-auto" type="submit">Save</button>
+                      </div>
+
+                    </form>
+                </div>
+              </div>
+    
+         
+            </div>
+       
+            <div class="col-md-9">
+              <div class="card">
+                <div class="card-header p-2">
+                  <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#table_tab" data-toggle="tab">Table</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chart_tab" data-toggle="tab">Chart</a></li>
+               
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="active tab-pane" id="table_tab">
+                      {% if table %}
+                      <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="bg-info rounded">
+                                <th> {{ header_interval }}</th>
+                                <th>From - To</th>
+                                <th>{{ header_value }}</th>
+
+                                {% if header_value_1 %}
+                                <th>{{ header_value_1 }}</th>
+                                {% endif%}
+                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                        {% for item in table %}
+                            <tr>
+                                <td>{{item.index}}</td>
+                                <td>{{item.from}} <b>-</b> {{item.to}} </td>
+                                <td>{{item.value}}</td>
+                                {% if header_value_1 %}
+                                <th>{{ item.value_1 }}</th>
+                                {% endif%}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                      {% else %}
+                      <div class="bg-info text-white" style="padding: 1em;">
+                          <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
+                          <span class="h4"> Generate report on the form on your left </span>
+                      </div>
+                      {% endif%}
+
+                      
+         
+                    </div>
+                  
+                    <div class="tab-pane" id="chart_tab">
+                      {% if chart %}
+                      <div class="card card-primary">
+                        <div class="card-body">
+                          <div class="chart">
+                            <canvas 
+                            class="area-chart" 
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                            label="{{ chart.label }}"
+                            data="{{ chart.data }}"
+                            ></canvas>
+                        </div>
+                        </div>
+                      </div>
+                      {% endif%}
+                    </div>
+            
+                  </div>
+               
+                </div>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+{% endblock %}

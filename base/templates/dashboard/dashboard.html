@@ -69,7 +69,115 @@
                 </div>
             </div>
         </div>
-    </div> 
 
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Sales count for the last four months </h3>
+        
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+
+                    <canvas 
+                    class="line-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{sales_chart.label}}"
+                    data="{{sales_chart.count_data}}"
+                    ></canvas>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Sales amount for the last four months</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <canvas 
+                    class="area-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{sales_chart.label}}"
+                    data="{{sales_chart.amount_data}}"
+                    ></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Top four inventory sales amount for last two months</h3>
+        
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+
+                    <canvas 
+                    class="pie-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{inventory_chart.label_count}}"
+                    data="{{inventory_chart.count_data}}"
+                    ></canvas>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Top four inventory sales count for last two months</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                    <canvas 
+                    class="bar-chart" 
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    label="{{inventory_chart.label_amount}}"
+                    data="{{inventory_chart.amount_data}}"
+                    ></canvas>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+    </div> 
 
 {% endblock %}

@@ -52,6 +52,7 @@ class SalesItemView(ListView):
     template_name = 'pos/sales_item_list.html'
     model = SalesItem
     context_object_name = 'sales_item'
+    paginate_by = 10
 
 
 def sales_order_search(request):

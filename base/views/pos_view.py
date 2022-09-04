@@ -5,6 +5,7 @@ from django.views import View
 from django.views.decorators.http import require_POST
 
 from base.addcart import Cart
+from base.models.category import Category
 from base.models.inventory import Inventory
 
 
@@ -13,15 +14,17 @@ class POSView(View):
     def get(self, request):
         context = dict()
         data_items = dict()
-        inventories = Inventory.objects.all()
         cart = Cart(request)
 
         for item in cart:
             item['update_quantity_form'] = {'quantity': item['quantity'], 'update': True}
             item['update_price_form'] = {'price': item['price'], 'update': True}
             item['is_wholesale'] = item['is_wholesale']
-        for inventory in inventories:
-            data_items.setdefault(inventory.category.name, []).append(inventory)
+        categories = Category.objects.all()
+        for category in categories:
+            inventories = Inventory.objects.filter(category=category)[:5]
+            for inventory in inventories:
+                data_items.setdefault(inventory.category.name, []).append(inventory)
 
         context['data'] = data_items
         context['cart'] = cart
@@ -91,14 +94,19 @@ def pos_inventory_search(request):
             Q(tags__name__icontains=query) |
             Q(category__name__icontains=query)
         )
+        for inventory in inventories:
+            data_items.setdefault(inventory.category.name, []).append(inventory)
+    else:
+        categories = Category.objects.all()
+        for category in categories:
+            inventories = Inventory.objects.filter(category=category)[:5]
+            for inventory in inventories:
+                data_items.setdefault(inventory.category.name, []).append(inventory)
 
     cart = Cart(request)
 
     for item in cart:
         item['update_quantity_form'] = {'quantity': item['quantity'], 'update': True}
-
-    for inventory in inventories:
-        data_items.setdefault(inventory.category.name, []).append(inventory)
 
     context['data'] = data_items
     context['cart'] = cart

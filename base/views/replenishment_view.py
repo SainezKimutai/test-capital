@@ -352,7 +352,8 @@ def replenishment_search(request):
     query = request.GET.get('q')
     if query:
         replenishments = Replenishment.objects.filter(
-            Q(receipt_number__icontains=query)
+            Q(receipt_number__icontains=query) |
+            Q(supplier__supplier_name__icontains=query)
         )
     context = {
         'replenishments': replenishments,

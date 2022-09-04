@@ -1,7 +1,7 @@
 import json
-from datetime import datetime
 
 from django.db.models import Sum
+from django.utils import timezone
 
 from dateutil.relativedelta import relativedelta
 
@@ -31,7 +31,7 @@ def get_sales_chart_data(months=4):
             "data": []
         }
     ]
-    start_date = datetime.now()
+    start_date = timezone.now()
     for _ in range(months):
 
         end_date = start_date - relativedelta(months=1)
@@ -83,7 +83,7 @@ def get_inventory_chart_data(months=2, top=4):
             "backgroundColor": ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de']
         }
     ]
-    start_date = datetime.now()
+    start_date = timezone.now()
 
     end_date = start_date - relativedelta(months=months)
 

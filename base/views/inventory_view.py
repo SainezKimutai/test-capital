@@ -34,7 +34,6 @@ class CreateInventoryView(SuccessMessageMixin, CreateView):
 class InventoryListView(ListView):
     template_name = 'inventory/inventory_list.html'
     model = Inventory
-    paginate_by = 50
     context_object_name = 'inventory'
 
 

@@ -1,0 +1,40 @@
+<div class="card-body p-0">
+            {% if finish %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Created By</th>
+                        <th>Modified / Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for finish_item in finish %}
+                    <tr>
+                        <td>{{ finish_item.name }}</td>
+                        <td>{% if not finish_item.category %} <-> {% else %} {{ finish_item.category }} {% endif %}</td>
+                        <td> <span class="fw-lighter"> <i>{{ finish_item.created_by }}</i> </span> </td>
+                        <td>
+                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-info" style="font-size: 13px;">{{ finish_item.modified | date:"M d, Y" }}, {{  finish_item.modified | time:"H:i" }}</i>  </span>
+                             <br>
+                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ finish_item.created | date:"M d, Y" }}, {{ finish_item.created | time:"H:i" }}</i>  </span>
+                        </td>
+                        <td class="text-left">
+                            <a class="btn btn-info btn-sm" href="{% url 'finish_update' finish_item.id %}"><i
+                                    class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'finish_delete' finish_item.id %}"><i
+                                    class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="bg-blue text-white" style="padding: 1em;">
+                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
+                <span class="h4">Finish not added yet </span>
+            </div>
+        {% endif %}
+        </div>

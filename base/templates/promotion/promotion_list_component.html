@@ -1,0 +1,48 @@
+<div class="card-body p-0">
+            {% if promotions %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="bg-info rounded">
+                        <th>Inventory.</th>
+                        <th>Promotion Price</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th>Modified Created</th>
+                        <th class="text-left">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in promotions %}
+                    <tr>
+                        <td>{{ item.inventory }}</td>
+                        <td>{{ item.promotion_price }}</td>
+                        <td>{{ item.promotion_start_date }}</td>
+                        <td>{{ item.promotion_end_date }} </td>
+                        <td> <span class="fw-lighter"> <i>{{ item.description }}</i> </span> </td>
+                        <td> <span class="fw-lighter"> <i>{{ item.created_by }}</i> </span> </td>
+                        <td>
+                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i style="font-size: 13px;">{{ item.modified | date:"M d, Y" }}, {{ item.modified | time:"H:i" }}</i>  </span>
+                            <br>
+                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ item.created | date:"M d, Y" }}, {{ item.created | time:"H:i" }}</i>  </span>
+                       </td>
+                        <td class="text-left">
+                            <a class="btn btn-info btn-sm" href="{% url 'promotion_update' item.id %}"><i
+                                class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'promotion_delete' item.id %}"><i
+                                class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="p-4">
+                <div class="callout callout-info" style="max-width: 600px;">
+                    <h5>No Data!</h5>
+                    <p>Create new record by clicking the button at the top right of the card.</p>
+            </div>
+        </div>
+        {% endif %}
+        </div>

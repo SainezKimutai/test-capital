@@ -87,7 +87,7 @@
                             <form action="{% url 'replenishment_add' %}" method="post">
                                 {% csrf_token %}   
                                 <td> 
-                                    <select name="inventory_id" class="form-control">
+                                    <select name="inventory_id" class="form-control select2">
                                         {% for inventory in inventories%}
                                         <option value="{{inventory.id}}">{{inventory}}</option>
                                         {% endfor %}
@@ -117,7 +117,7 @@
                     <div class="form-group">
                         <label for="replenishment_supplier">Supplier</label>
                       
-                        <select name="supplier_id" class="form-control" value="replenishment.supplier_id">
+                        <select name="supplier_id" class="form-control select2" value="replenishment.supplier_id">
                             {% for supplier in suppliers%}
                             <option value="{{supplier.id}}">{{supplier}}</option>
                             {% endfor %}

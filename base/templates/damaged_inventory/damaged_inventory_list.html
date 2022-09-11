@@ -35,75 +35,8 @@
                 </a>
             </div>
         </div>
-
-        <div class="card-body p-0">
-            {% if damaged_inventories %}
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="bg-info rounded">
-                        <th>Inventory.</th>
-                        <th>Supplier</th>
-                        <th>Person</th>
-                        <th>Count</th>
-                        <th>Quantity After</th>
-                        <th>Replaceable</th>
-                        <th>Damage reason</th>
-                        <th>Created By</th>
-                        <th>Modified Created</th>
-                        <th class="text-left">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for item in damaged_inventories %}
-                    <tr>
-                        <td>{{ item.inventory }}</td>
-                        <td>{{ item.supplier }}</td>
-                        <td>{{ item.person }}</td>
-                        <td>{{ item.count }} </td>  
-                        <td>{{ item.quantity_after }} </td> 
-                        <td>
-                            {% if item.replaceable and not item.replaced  %}
-                                <a class="btn btn-warning btn-sm" href="{% url 'damaged_inventory_confirm_replace' item.id %}">
-                                    Replace
-                                </a>
-                            {% endif %}
-                            {% if item.replaceable and item.replaced %}
-                                <span class="text-success">Replaced</span> 
-                            {% endif %}
-                            {% if not item.replaceable %}
-                                <span>False</span>
-                            {% endif %}
-                        
-                        </td>   
-                        <td> <span class="fw-lighter"> <i>{{ item.damage_reason }}</i> </span> </td>                                 
-                        <td> <span class="fw-lighter"> <i>{{ item.created_by }}</i> </span> </td> 
-                        <td>
-                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-success" style="font-size: 13px;">{{ item.modified | date:"M d, Y" }}, {{ item.modified | time:"H:i" }}</i>  </span>
-                            <br>
-                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ item.created | date:"M d, Y" }}, {{ item.created | time:"H:i" }}</i>  </span>
-                       </td>
-                        <td class="text-left">
-                            <a  {% if item.replaced %} class="btn btn-info btn-sm disabled" {% else %} class="btn btn-info btn-sm" {% endif %}
-                                href="{% url 'damaged_inventory_update' item.id %}">
-                                <i class="fas fa-pencil-alt"></i></a>
-                            <a  {% if item.replaced %} class="btn btn-danger btn-sm disabled" {% else %}  class="btn btn-danger btn-sm"  {% endif %} 
-                                href="{% url 'damaged_inventory_delete' item.id %}">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="p-4">
-                <div class="callout callout-info" style="max-width: 600px;">
-                    <h5>No Data!</h5>
-                    <p>Create new record by clicking the button at the top right of the card.</p>
-              </div>
-            </div>
-        {% endif %}
-        </div>
+        {% include 'damaged_inventory/damaged_inventory_list_component.html' %}
+        {% include 'common/pagination.html' %}
     </div>
 </section>
 

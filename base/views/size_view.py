@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -29,6 +30,7 @@ class SizeListView(ListView):
     template_name = 'size/size_list.html'
     model = Size
     context_object_name = 'size'
+    paginate_by = 10
 
 
 class SizeUpdateView(UpdateView):
@@ -59,8 +61,15 @@ def size_search(request):
             Q(category__name__icontains=query) |
             Q(value__icontains=query)
         )
+    paginator = Paginator(size, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'size': size,
-        'query': query
+        'size': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
     return render(request, 'size/size_list.html', context)

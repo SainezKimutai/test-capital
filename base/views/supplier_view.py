@@ -1,6 +1,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -32,6 +33,7 @@ class SupplierListView(ListView):
     template_name = 'supplier/supplier_list.html'
     model = Supplier
     context_object_name = 'supplier'
+    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -73,9 +75,17 @@ def supplier_search(request):
             Q(email__icontains=query) |
             Q(physical_address__icontains=query)
         )
+
+    paginator = Paginator(supplier, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'supplier': supplier,
-        'query': query
+        'supplier': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
 
     return render(request, 'supplier/supplier_list.html', context)

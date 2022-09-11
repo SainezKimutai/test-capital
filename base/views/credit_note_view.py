@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -32,6 +33,7 @@ class CreditNoteListView(ListView):
     template_name = 'credit_note/credit_note_list.html'
     model = CreditNote
     context_object_name = 'credit_note'
+    paginate_by = 10
 
 
 def credit_note_search(request):
@@ -47,8 +49,16 @@ def credit_note_search(request):
             Q(sales_item__inventory__name__icontains=query) |
             Q(sales_item__sales_order__transaction_type__icontains=query)
         )
+    paginator = Paginator(credit_note, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'credit_note': credit_note,
-        'query': query
+        'credit_note': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'credit_note/credit_note_list.html', context)

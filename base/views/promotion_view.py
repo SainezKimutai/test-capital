@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -34,6 +35,7 @@ class PromotionListView(ListView):
     template_name = 'promotion/promotion_list.html'
     model = Promotion
     context_object_name = 'promotions'
+    paginate_by = 10
 
 
 class PromotionUpdateView(UpdateView):
@@ -64,8 +66,16 @@ def promotion_search(request):
             Q(description__icontains=query) |
             Q(inventory__name__icontains=query)
         )
+    paginator = Paginator(promotions, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'promotions': promotions,
-        'query': query
+        'promotions': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'promotion/promotion_list.html', context)

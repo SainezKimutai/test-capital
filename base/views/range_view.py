@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -28,6 +29,7 @@ class RangeListView(ListView):
     template_name = 'range/range_list.html'
     model = Range
     context_object_name = 'range'
+    paginate_by = 10
 
 
 class RangeUpdateView(UpdateView):
@@ -56,8 +58,16 @@ def range_search(request):
         range = Range.objects.filter(
             Q(name__icontains=query)
         )
+    paginator = Paginator(range, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'range': range,
-        'query': query
+        'range': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'range/range_list.html', context)

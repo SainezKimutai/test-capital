@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -15,6 +16,7 @@ class InvoiceListView(ListView):
     template_name = 'invoice/invoice_list.html'
     model = Invoice
     context_object_name = 'invoice'
+    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -49,9 +51,17 @@ def invoice_search(request):
             Q(sales_order__receipt_number__icontains=query) |
             Q(paid__icontains=query)
         )
+
+    paginator = Paginator(invoice, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'invoice': invoice,
-        'query': query
+        'invoice': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
 
     return render(request, 'invoice/invoice_list.html', context)

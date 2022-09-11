@@ -37,49 +37,8 @@
             </div>
         </div>
 
-        <div class="card-body p-0">
-            {% if size %}
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="bg-info rounded">
-
-                        <th>Size value</th>
-                        <th>Category</th>
-                        <th>Created By</th>
-                        <th>Modified / Created</th>
-                        <th class="text-left">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for size_item in size %}
-                    <tr>
-
-
-                        <td>{{ size_item.value }}</td>
-                        <td>{% if not size_item.category %} <-> {% else %} {{ size_item.category }} {% endif %}</td>
-                        <td> <span class="fw-lighter"> <i>{{ size_item.created_by }}</i> </span> </td> 
-                        <td>
-                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-info" style="font-size: 13px;">{{ size_item.modified | date:"M d, Y" }}, {{ size_item.modified | time:"H:i" }}</i>  </span>
-                             <br>
-                             <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ size_item.created | date:"M d, Y" }}, {{ size_item.created | time:"H:i" }}</i>  </span>
-                        </td>
-                        <td class="text-left">
-                            <a class="btn btn-info btn-sm" href="{% url 'size_update' size_item.id %}"><i
-                                    class="fas fa-pencil-alt"></i></a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'size_delete' size_item.id %}"><i
-                                    class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="bg-blue text-white" style="padding: 1em;">
-                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
-                <span class="h4">Size not added yet </span>
-            </div>       
-        {% endif %}
-        </div>
+        {% include 'size/size_list_component.html' %}
+        {% include 'common/pagination.html' %}
     </div>
 </section>
 

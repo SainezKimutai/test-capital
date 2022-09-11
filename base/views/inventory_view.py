@@ -3,6 +3,7 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -35,6 +36,7 @@ class InventoryListView(ListView):
     template_name = 'inventory/inventory_list.html'
     model = Inventory
     context_object_name = 'inventory'
+    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -78,10 +80,18 @@ def inventory_search(request):
             Q(tags__name__icontains=query) |
             Q(category__name__icontains=query)
         )
+    paginator = Paginator(inventory, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'inventory': inventory,
-        'query': query
+        'inventory': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'inventory/inventory_list.html', context)
 
 

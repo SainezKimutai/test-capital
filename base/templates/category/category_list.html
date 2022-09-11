@@ -36,60 +36,9 @@
                 </a>
             </div>
         </div>
-
-        <div class="card-body p-0">
-            {% if category %}
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="bg-info rounded">
-                        <th>Sub Category</th>
-                        <th>Parent Category</th>
-                        <th>Image</th>
-                        <th>Created By</th>
-                        <th>Modified / Created</th>
-                        <th class="text-center">Action</th>                  
-                    </tr>
-                </thead>
-                <tbody>
-                {% for cat in category %}
-                    <tr>
-                        <td>{{ cat.name }}</td>
-                        <td>{% if not cat.parent %} <-> {% else %} {{ cat.parent }} {% endif %}</td>
-                        <td>
-                            {% if not cat.category_image %}
-                                <div class="image_not_found"><i class="fa fa-desktop"></i></div>
-                            {% else %}
-                                <img width="40px" height="15" src="/media/{{ cat.category_image }}"
-                                        alt="category image">
-                            {% endif %}
-                        </td>
-                        <td> <span class="fw-lighter"> <i>{{ cat.created_by }}</i> </span> </td>
-                        <td>
-                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Last modified :</i> <i class="text-info" style="font-size: 13px;">{{ cat.modified | date:"M d, Y" }}, {{ cat_item.modified | time:"H:i" }}</i>  </span>
-                            <br>
-                            <span class="fs-6 fw-lighter"> <i class="fw-lighter" style="font-size: 12px;">Date created  :</i> <i style="font-size: 13px;">{{ cat.created | date:"M d, Y" }}, {{  cat_item.created | time:"H:i" }}</i>  </span>
-                        </td> 
-                        <td class="text-center">
-                            <a class="btn btn-info btn-sm" href="{% url 'category_update' cat.id %}">
-                                <i
-                                    class="fas fa-pencil-alt"></i></a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'category_delete' cat.id %}"><i
-                                    class="fa fa-trash"></i></a>
-                        </td>          
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="bg-blue text-white" style="padding: 1em;">
-                <i class="fa fa-info fa-2x" style="margin-right: 0.4em;"></i>
-                <span class="h4">Category not added yet </span>
-            </div>
-        {% endif %}
-        </div>
+        {% include 'category/category_list_component.html' %}
+        {% include 'common/pagination.html' %}
     </div>
 </section>
-
-
 
 {% endblock %}

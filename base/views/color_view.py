@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -28,6 +29,7 @@ class ColorListView(ListView):
     template_name = 'color/color_list.html'
     model = Color
     context_object_name = 'color'
+    paginate_by = 10
 
 
 class ColorUpdateView(UpdateView):
@@ -57,8 +59,16 @@ def color_search(request):
             Q(name__icontains=query) |
             Q(code__icontains=query)
         )
+    paginator = Paginator(color, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'color': color,
-        'query': query
+        'color': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'color/color_list.html', context)

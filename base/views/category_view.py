@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -28,6 +29,7 @@ class CategoryListView(ListView):
     template_name = 'category/category_list.html'
     model = Category
     context_object_name = 'category'
+    paginate_by = 10
 
 
 class CategoryUpdateView(UpdateView):
@@ -54,8 +56,17 @@ def category_search(request):
     query = request.GET.get('q')
     if query:
         category = Category.objects.filter(Q(name__icontains=query))
+
+    paginator = Paginator(category, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'category': category,
-        'query': query
+        'category': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'category/category_list.html', context)

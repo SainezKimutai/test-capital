@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -36,6 +37,7 @@ class DamagedInventoryListView(ListView):
     template_name = 'damaged_inventory/damaged_inventory_list.html'
     model = DamagedInventory
     context_object_name = 'damaged_inventories'
+    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -115,8 +117,17 @@ def damaged_inventory_search(request):
             Q(supplier_name__icontains=query) |
             Q(person__name__icontains=query)
         )
+
+    paginator = Paginator(damaged_inventories, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'damaged_inventories': damaged_inventories,
-        'query': query
+        'damaged_inventories': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'damaged_inventory/damaged_inventory_list.html', context)

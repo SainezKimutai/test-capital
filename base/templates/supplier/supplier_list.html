@@ -4,25 +4,27 @@
 
 {% block content %}
 
-    {% include 'supplier/page_header.html' %}
+{% include 'supplier/page_header.html' %}
 
-    <section class="content">
-        <div class="card card-outline">
-            <div class="card-header">
-                <div class="card-title d-flex">
-                  <h5 class="text-info mr-3 mt-auto">List</h5>
-                  <form method="GET" action="{% url 'supplier_search' %}">
-                    <input type="search" class="form-control form-control-sm rounded" placeholder="{{ query | default:'Search...' }}" name="q">
-                    </form>
-                </div>
-                <div class="card-tools">
-                    <a class="btn btn-outline-info btn-sm" href="{% url 'supplier_create' %}">
-                        <span>Add Supplier</span> <i class="fa fa-plus"></i>
-                    </a>
-                </div>
+<section class="content">
+    <div class="card card-outline">
+        <div class="card-header">
+            <div class="card-title d-flex">
+                <h5 class="text-info mr-3 mt-auto">List</h5>
+                <form method="GET" action="{% url 'supplier_search' %}">
+                    <input type="search" class="form-control form-control-sm rounded"
+                           placeholder="{{ query | default:'Search...' }}" name="q">
+                </form>
             </div>
-            {% include 'supplier/supplier_list_component.html' %}
+            <div class="card-tools">
+                <a class="btn btn-outline-info btn-sm" href="{% url 'supplier_create' %}">
+                    <span>Add Supplier</span> <i class="fa fa-plus"></i>
+                </a>
+            </div>
         </div>
-    </section>
+        {% include 'supplier/supplier_list_component.html' %}
+        {% include 'common/pagination.html' %}
+    </div>
+</section>
 
 {% endblock %}

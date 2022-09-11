@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -28,6 +29,7 @@ class TagListView(ListView):
     template_name = 'tag/tag_list.html'
     model = Tag
     context_object_name = 'tag'
+    paginate_by = 10
 
 
 class TagUpdateView(UpdateView):
@@ -56,8 +58,15 @@ def tag_search(request):
         tag = Tag.objects.filter(
             Q(name__icontains=query)
         )
+    paginator = Paginator(tag, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'tag': tag,
-        'query': query
+        'tag': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
     return render(request, 'tag/tag_list.html', context)

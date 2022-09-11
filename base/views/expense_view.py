@@ -1,6 +1,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
@@ -30,6 +31,7 @@ class ExpenseListView(ListView):
     template_name = 'expense/expense_list.html'
     model = Expense
     context_object_name = 'expense'
+    paginate_by = 10
 
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -62,9 +64,16 @@ def expense_search(request):
             Q(amount__icontains=query) |
             Q(requester__username__icontains=query)
         )
+    paginator = Paginator(expense, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'expense': expense,
-        'query': query
+        'expense': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
 
     return render(request, 'expense/expense_list.html', context)

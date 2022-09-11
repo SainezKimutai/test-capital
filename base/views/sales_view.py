@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.views.generic import ListView
@@ -52,6 +53,7 @@ class SalesItemView(ListView):
     template_name = 'pos/sales_item_list.html'
     model = SalesItem
     context_object_name = 'sales_item'
+    paginate_by = 10
 
 
 def sales_order_search(request):
@@ -67,8 +69,16 @@ def sales_order_search(request):
             Q(inventory__name__icontains=query) |
             Q(sales_order__transaction_type__icontains=query)
         )
+    paginator = Paginator(sales_item, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'sales_item': sales_item,
-        'query': query
+        'sales_item': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'is_paginated': True
     }
+
     return render(request, 'pos/sales_item_list.html', context)

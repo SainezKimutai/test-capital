@@ -132,3 +132,7 @@ def get_time_period_dates(interval, period_start_date, period_end_date):
 
             dates.append([start_date, end_date])
         return period_string, dates
+
+
+def get_user_groups(user):
+    return [group.name for group in user.groups.all()]

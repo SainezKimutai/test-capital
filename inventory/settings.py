@@ -169,3 +169,10 @@ CART_SESSION_ID = 'cart'
 REPLENISHMENT_SESSION_ID = 'replenishment'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+GROUPS = (
+    ('ADMIN', 'ADMIN'),
+    ('CASHIER', 'CASHIER'),
+    ('STORE', 'STORE'),
+    ('SALES', 'SALES'),
+)

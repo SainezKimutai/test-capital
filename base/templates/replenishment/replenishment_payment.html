@@ -1,0 +1,35 @@
+{% if replenishment_item %}
+
+<div id="modal_{{replenishment_item.id}}" class="modal fade">
+
+    <div class="modal-dialog">
+      <div class="modal-content bg-warning">
+        <div class="modal-header">
+          <h4 class="modal-title"> Invoice Receipt {{ replenishment_item.receipt_number }} </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="replenishment_payment_form" action="{% url 'replenishment_payment' replenishment_item.id %}" method="post">
+            {% csrf_token %}
+            <div class="mb-5">
+                <h4>Pending Amount</h4>
+                <h4> {{ replenishment_item.pending_balance }}</h4>
+            </div>
+            <div class="form-group">
+                <label for="amount_paid">Amount Paid</label>
+                <input type="number" min="1" max="replenishment_item.pending_balance" name="amount_paid" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+          <button type="submit" form="replenishment_payment_form" class="btn btn-outline-light">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+  </div>
+{% endif %}
+  <!-- /.modal -->

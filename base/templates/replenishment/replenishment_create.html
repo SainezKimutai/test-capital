@@ -127,6 +127,16 @@
                         <label for="delivery_number">Delivery Number</label>
                         <input type="text" name="delivery_number" class="form-control" value="{{ replenishment.delivery_number }}">
                     </div>
+                    {% if replenishment.new_entry %}
+                    <div class="form-group">
+                        <label for="payment_status">Payment Status</label>
+                        
+                        <select name="payment_status" class="form-control select2" value="replenishment.payment_status">         
+                            <option value="FULLY_PAID">FULLY PAID</option>
+                            <option value="NOT_PAID">ON CREDIT</option>
+                        </select>
+                    </div>
+                    {% endif %}
                 </form>
       
                 <div style="padding: 1em 0;" class="d-flex">

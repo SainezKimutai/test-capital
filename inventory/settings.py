@@ -38,7 +38,8 @@ THIRD_PARTY_APPS = [
     'colorfield',
     'django_seed',
     'adminlte3',
-    'adminlte3_theme'
+    'adminlte3_theme',
+    'multiselectfield'
 ]
 
 LOCAL_APPS = [

@@ -48,6 +48,18 @@
                             <label class="info-title" for="transaction_type">Transaction Type</label>
                             {{ form.transaction_type }}
                         </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;">
+                        <div id="cash_paid_form_group" class="form-group" style="display: none;">
+                            <label class="info-title" for="cash_paid">Cash Paid</label>
+                            {{ form.cash_paid }}
+                        </div>
+
+                        <div id="mpesa_paid_form_group" class="form-group" style="display: none;">
+                            <label class="info-title" for="mpesa_paid">M-Pesa Paid</label>
+                            {{ form.mpesa_paid }}
+                        </div>
+                    </div>
                         <button type="submit"
                                 class="btn-upper btn btn-info checkout-page-button">Confirm Order
                         </button>
@@ -94,8 +106,11 @@
                 </div>
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col-md-6 text-right">
-                            <p><strong>Net Total: KES {{ cart.get_total_price }}</strong></p>
+                        <div class="col-md-12 text-right">
+                            <p><strong>Net Total: KES <span id="total_price">{{ cart.get_total_price }}</span></strong></p>
+                        </div>
+                        <div class="col-md-12 text-right">
+                            <p id="balance_amount"></p>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
                 <th>Total</th>
                 <th>Created</th>
                 <th>Expected Payment Date</th>
-                <th>Paid</th>
+                <th>Status</th>
                 <th>Late</th>
                 <th>Payment Date</th>
                 <th class="text-center">Actions</th>
@@ -25,7 +25,7 @@
             <td>{{ obj.sales_order.total_amount }}</td>
             <td>{{ obj.created|time:'g:i:s A' }}</td>
             <td>{{ obj.expected_payment_date|date:'d D, M Y' }}</td>
-            <td>{{ obj.paid }}</td>
+            <td>{{ obj.payment_status }}</td>
             <td>{{ obj.is_past_due }}</td>
             <td>{{ obj.payment_date|date:'d D, M Y' }}</td>
             <td class="text-center">

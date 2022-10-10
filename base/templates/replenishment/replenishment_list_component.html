@@ -10,6 +10,7 @@
                             <th>Count</th>
                             <th>Amount Per Item</th>
                             <th>Total Amount</th>
+                            <th>Payment Status</th>
                             <th>Created By</th>
                             <th>Created</th>
                             <th class="text-left">Action</th>
@@ -44,6 +45,7 @@
 
                             </td>
                             <td> <span class="fw-lighter"> <i>{{ replenishment_item.total_amount }}</i> </span> </td>
+                            <td> <span class="fw-lighter"> {{ replenishment_item.payment_status }} </span> </td>
                             <td> <span class="fw-lighter"> <i>{{ replenishment_item.created_by }}</i> </span> </td>
                             <td>
                                  <span class="fs-6 fw-lighter"> <i style="font-size: 13px;">{{ replenishment_item.created | date:"M d, Y" }}, {{  replenishment_item.created | time:"H:i" }}</i>  </span>
@@ -53,8 +55,15 @@
                                     class="fas fa-pencil-alt"></i></a>
                                 <a class="btn btn-danger btn-sm" href="{% url 'replenishment_delete' replenishment_item.id %}"><i
                                         class="fa fa-trash"></i></a>
+                                {% if replenishment_item.payment_status == 'PARTIALLY_PAID' or replenishment_item.payment_status == 'NOT_PAID' %}
+                                <a type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal_{{replenishment_item.id}}"
+                                title="Update Payment">
+                                    <i class="fas fa-check">  </i>
+                                </a>
+                                {% endif %}
                             </td>
                         </tr>
+                        {% include 'replenishment/replenishment_payment.html' %}
                     {% endfor %}
                     </tbody>
                 </table>

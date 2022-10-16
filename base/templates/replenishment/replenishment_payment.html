@@ -3,19 +3,22 @@
 <div id="modal_{{replenishment_item.id}}" class="modal fade">
 
     <div class="modal-dialog">
-      <div class="modal-content bg-warning">
+      <div class="modal-content bg-info">
         <div class="modal-header">
-          <h4 class="modal-title"> Invoice Receipt {{ replenishment_item.receipt_number }} </h4>
+          <h4 class="modal-title"> Invoice Payment Update </h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-light">
           <form id="replenishment_payment_form" action="{% url 'replenishment_payment' replenishment_item.id %}" method="post">
             {% csrf_token %}
+            <h6 class="pb-4">
+              <i>Invoice Receipt No:</i> <span class="text-info"> <b style="letter-spacing: 4px; font-size: 24px;">{{ replenishment_item.receipt_number }}</b></span>
+            </h6>
             <div class="mb-5">
-                <h4>Pending Amount</h4>
-                <h4> {{ replenishment_item.pending_balance }}</h4>
+                <label>Pending Amount</label>
+                <h6> {{ replenishment_item.pending_balance }}</h6>
             </div>
             <div class="form-group">
                 <label for="amount_paid">Amount Paid</label>
@@ -23,9 +26,9 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-          <button type="submit" form="replenishment_payment_form" class="btn btn-outline-light">Save changes</button>
+        <div class="modal-footer justify-content-between bg-light">
+          <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
+          <button type="submit" form="replenishment_payment_form" class="btn btn-outline-info">Save changes</button>
         </div>
       </div>
       <!-- /.modal-content -->

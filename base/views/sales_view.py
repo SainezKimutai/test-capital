@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -15,11 +16,16 @@ def make_payment_view(request):
     cart = Cart(request)
     form = SalesOrderForm(request.POST or None)
     if request.method == 'POST':
+        form.total_amount = cart.get_total_price()
         if form.is_valid():
             order = form.save()
             order.created_by = request.user
             order.total_amount = cart.get_total_price()
             order.modified_by = request.user
+            cash_paid = order.cash_paid if order.cash_paid else 0
+            mpesa_paid = order.mpesa_paid if order.mpesa_paid else 0
+            order.balance = (cash_paid + mpesa_paid) - order.total_amount
+
             order.save()
             for item in cart:
                 inventory = item['inventory']
@@ -37,14 +43,17 @@ def make_payment_view(request):
             cart.clear()
 
             # Create invoice if transaction was credit
-            if order.transaction_type == SalesOrder.TRANSACTION_TYPE.CREDIT:
+            if SalesOrder.TRANSACTION_TYPE.CREDIT in order.transaction_type:
                 expected_payment_date = datetime.date.today() + datetime.timedelta(
                     order.customer.days_to_clear_invoice)
                 Invoice.objects.create(
                     sales_order=order,
                     expected_payment_date=expected_payment_date,
+                    payment_status=Invoice.PAYMENT_STATUS.NOT_PAID,
+                    pending_balance=order.total_amount,
                     created_by=request.user
                 )
+            messages.success(request, "Order made successfully!")
             return redirect('pos_view')
     return render(request, 'pos/sales_order_information.html', {'form': form, 'cart': cart})
 

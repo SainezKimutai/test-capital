@@ -54,8 +54,8 @@ from base.views.range_view import (
 from base.views.replenishment_view import (
     ReplenishmentDeleteView, ReplenishmentListView, ReplenishmentView,
     replenishment_add, replenishment_clear, replenishment_item_update,
-    replenishment_remove, replenishment_save, replenishment_search,
-    replenishment_update
+    replenishment_payment, replenishment_remove, replenishment_save,
+    replenishment_search, replenishment_update
 )
 from base.views.reports_view import ReportsView
 from base.views.sales_view import (
@@ -176,6 +176,7 @@ urlpatterns = [
     path('replenishment-item-update/<int:id>/', replenishment_item_update, name='replenishment_item_update'),
     path('replenishment-remove/<int:id>/', replenishment_remove, name='replenishment_remove'),
     path('replenishment-save/', replenishment_save, name='replenishment_save'),
+    path('replenishment-payment/<int:id>/', replenishment_payment, name='replenishment_payment'),
     path('replenishment-clear/', replenishment_clear, name='replenishment_clear'),
 
     path('promotion-create/', PromotionCreateView.as_view(), name='promotion_create'),

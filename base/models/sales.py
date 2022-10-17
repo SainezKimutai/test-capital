@@ -6,6 +6,7 @@ from django.db.models import Sum
 from django.db.models.deletion import PROTECT
 
 from extended_choices.choices import Choices
+from multiselectfield import MultiSelectField
 from simple_history.models import HistoricalRecords
 
 from base.models.base import AuthBaseEntity
@@ -34,8 +35,11 @@ class SalesOrder(AuthBaseEntity):
         related_name="sold_by_%(app_label)s_%(class)s_set",
         verbose_name="sold by")
     receipt_number = models.CharField(default=uuid.uuid4, editable=False, null=False, blank=False, max_length=100)
-    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPE, blank=False, null=False)
+    transaction_type = MultiSelectField(max_length=40, choices=TRANSACTION_TYPE, blank=False, null=False)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+    cash_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
+    mpesa_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):

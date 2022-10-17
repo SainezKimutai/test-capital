@@ -172,6 +172,7 @@ def replenishment_save(request):
     else:
         replenishment_object.update(replenishment={'delivery_number': delivery_number})
 
+    payment_status = request.POST.get('payment_status', None)
     context['replenishment'] = replenishment_object.replenishment_entry
     context['inventories'] = Inventory.objects.all()
     context['suppliers'] = Supplier.objects.all()
@@ -188,6 +189,9 @@ def replenishment_save(request):
             receipt_number=generate_receipt(Replenishment, 'RPL'),
             supplier=get_object_or_404(Supplier, id=supplier_id),
             delivery_number=delivery_number,
+            paid=payment_status == 'FULLY_PAID',
+            payment_status=payment_status,
+            pending_balance=0,
             total_amount=0,
             created_by=request.user
         )
@@ -208,6 +212,8 @@ def replenishment_save(request):
             inventory.recent_buying_price = Decimal(item['amount'])
             inventory.save()
 
+        if not created_replenishment.paid:
+            created_replenishment.pending_balance = created_replenishment.total_amount
         created_replenishment.save()
     else:
         id = replenishment_object.replenishment_entry['id']
@@ -369,3 +375,25 @@ def replenishment_search(request):
         'is_paginated': True
     }
     return render(request, 'replenishment/replenishment_list.html', context)
+
+
+def replenishment_payment(request, id):
+    replenishment = Replenishment.objects.get(id=id)
+    amount_paid = request.POST.get('amount_paid', None)
+    if not amount_paid:
+        return redirect('replenishment_list')
+
+    initial_balance = replenishment.pending_balance
+
+    current_balance = initial_balance - int(amount_paid)
+
+    if current_balance <= 0:
+        replenishment.paid = True
+        replenishment.payment_status = Replenishment.PAYMENT_STATUS.FULLY_PAID
+    if current_balance > 0 and current_balance < replenishment.total_amount:
+        replenishment.payment_status = Replenishment.PAYMENT_STATUS.PARTIALLY_PAID
+
+    replenishment.pending_balance = current_balance
+    replenishment.save()
+    messages.success(request, "Replenishment payment was successfully updated!")
+    return redirect('replenishment_list')

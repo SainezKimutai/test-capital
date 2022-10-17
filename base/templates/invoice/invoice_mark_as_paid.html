@@ -4,23 +4,42 @@
 
 {% block content %}
 
-    <section class="card-body d-flex justify-content-center">
-        <div class="card card-success" style="min-width: 500px;">
-            <div class="card-header d-flex justify-content-center">
-                <h3 class="card-title">Mark Invoice as paid.</h3>
+    <section class="card-body">
+        <div class="card card-success" style="max-width: 600px;">
+            <div class="card-header">
+                <h3 class="card-title">Invoice Payment</h3>
             </div>
-            <div class="card-body d-flex justify-content-center">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="d-flex flex-column align-items-center">
-                        <i class="fa fa-check fa-3x text-success"></i>
-                        <h5 class="card-title">Are you sure you want to mark invoice {{ invoice.id }}
-                            for {{ invoice.sales_order.receipt_number }} for customer
-                            {{ invoice.sales_order.customer.name }} as paid?</h5>
+            <div class="card-body">
+                <form method="POST" action="{% url 'mark_invoice_as_paid' invoice.id %}" role="form">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
                     </div>
-                    <div class="d-flex justify-content-center" style="padding: 1em;">
-                        <a href="{% url 'invoice_list' %}" class="btn btn-success" style="margin-right: 1em;">No</a>
-                        <button type="submit" class="btn btn-light text-success" style="border: solid 1px green;">Yes</button>
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="mb-5">
+                        <h5>Pending amount <span class="text-info"> <b>{{ invoice.pending_balance }}</b> </span></h5>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="info-title" for="transaction_type">Transaction Type</label>
+                        {{ form.transaction_type }}
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10px;">
+                        <div id="cash_paid_form_group" class="form-group" style="display: none;">
+                            <label class="info-title" for="cash_paid">Cash Paid</label>
+                            {{ form.cash_paid }}
+                        </div>
+
+                        <div id="mpesa_paid_form_group" class="form-group" style="display: none;">
+                            <label class="info-title" for="mpesa_paid">M-Pesa Paid</label>
+                            {{ form.mpesa_paid }}
+                        </div>
+                    </div>
+                    <div class="d-flex " style="padding: 1em;">
+                        <a href="{% url 'invoice_list' %}" class="btn btn-sm btn-default mr-auto" style="margin-right: 1em;">Cancel</a>
+                        <button type="submit" class="btn btn-sm btn-info ml-auto" >Save</button>
                     </div>   
                 </form>   
             </div>

@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'capital_finishes_erp',
         'USER': 'capital_finishes',
         'PASSWORD': 'capital_finishes',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306'
     }
 }
@@ -177,3 +177,26 @@ GROUPS = (
     ('STORE', 'STORE'),
     ('SALES', 'SALES'),
 )
+
+# Redis for cache configs
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'SOCKET_CONNECT_TIMEOUT': 60,
+            'SOCKET_TIMEOUT': 60,
+            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+        }
+    }
+}
+
+# Redis for celery configs
+BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'

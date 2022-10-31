@@ -1,0 +1,72 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    ports:
+      - "8111:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD='capital_finishes'
+      - MYSQL_USER='capital_finishes'
+      - MYSQL_PASSWORD='capital_finishes'
+      - MYSQL_DATABASE='capital_finishes_erp'
+    volumes:
+      - /tmp/app/mysqld:/var/run/mysqld
+      - mysql_data:/var/lib/mysql
+    networks:
+      - capital_finishes_network
+  
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "8222:6379"
+    networks:
+      - capital_finishes_network
+  
+  inventory_service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    command: [ "sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" ]
+    volumes:
+      - .:/app
+      - /tmp/app/mysqld:/run/mysqld
+    depends_on:
+      - db
+    networks:
+      - capital_finishes_network
+
+  celery:
+    image: capitalfinishes_inventory_service:latest
+    restart: always
+    command: [ "sh", "-c", "celery -A inventory worker --concurrency=2 --autoscale=2,1 --loglevel=info --logfile=logs/celery.log" ]
+    depends_on:
+      - redis
+      - inventory_service
+    volumes:
+      - .:/apps/capital_finishes
+    networks:
+      - capital_finishes_network
+
+  flower_dashboard:
+    image: capitalfinishes_inventory_service:latest
+    command: [ "sh", "-c", "celery -A inventory --broker=redis://redis:6379 flower --port=8333 --loglevel=info" ]
+    ports:
+      - 8333:5555
+    depends_on:
+      - redis
+      - celery
+    volumes:
+      - .:/apps/capital_finishes
+    networks:
+      - capital_finishes_network
+
+volumes:
+  mysql_data:
+
+networks:
+  capital_finishes_network:
+    driver: bridge

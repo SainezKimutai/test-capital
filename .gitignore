@@ -9,3 +9,5 @@ __pycache__
 .vscode
 .db
 /db
+celerybeat-schedule
+/celerybeat-schedule

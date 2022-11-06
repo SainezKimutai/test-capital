@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 
+import inventory.celery_app  # noqa
+
+import inventory.celery_beat  # noqa
+
+from celery.schedules import crontab  
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from django.contrib.messages import constants as messages
 
@@ -194,9 +200,10 @@ CACHES = {
 }
 
 # Redis for celery configs
-BROKER_URL = 'redis://redis:6379'
+CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Nairobi'
+

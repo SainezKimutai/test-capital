@@ -42,25 +42,38 @@ services:
   celery:
     image: capitalfinishes_inventory_service:latest
     restart: always
-    command: [ "sh", "-c", "celery -A inventory worker --concurrency=2 --autoscale=2,1 --loglevel=info --logfile=logs/celery.log" ]
+    command: [ "sh", "-c", "celery -A inventory worker --concurrency=2 --autoscale=2,2 -E --loglevel=info --uid=0 --logfile=logs/celery.log" ]
     depends_on:
       - redis
       - inventory_service
     volumes:
-      - .:/apps/capital_finishes
+      - .:/app
+    networks:
+      - capital_finishes_network
+
+  celery_beat:
+    image: capitalfinishes_inventory_service:latest
+    restart: always
+    command: [ "sh", "-c", "celery -A inventory beat --logfile=logs/celery_beat.log" ]
+    depends_on:
+      - redis
+      - celery
+      - inventory_service
+    volumes:
+      - .:/app
     networks:
       - capital_finishes_network
 
   flower_dashboard:
     image: capitalfinishes_inventory_service:latest
-    command: [ "sh", "-c", "celery -A inventory --broker=redis://redis:6379 flower --port=8333 --loglevel=info" ]
+    command: [ "sh", "-c", "celery -A inventory  --broker=redis://redis:6379// flower --port=5555 --loglevel=info" ]
     ports:
-      - 8333:5555
+      - 5555:5555
     depends_on:
       - redis
       - celery
     volumes:
-      - .:/apps/capital_finishes
+      - .:/app
     networks:
       - capital_finishes_network
 

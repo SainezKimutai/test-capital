@@ -42,7 +42,7 @@ services:
   celery:
     image: capitalfinishes_inventory_service:latest
     restart: always
-    command: [ "sh", "-c", "celery -A inventory worker --concurrency=2 --autoscale=2,2 -E --loglevel=info --uid=0 --logfile=logs/celery.log" ]
+    command: [ "sh", "-c", "celery -A inventory worker --concurrency=2 --autoscale=2,1 -E --loglevel=info --uid=0 --logfile=logs/celery.log" ]
     depends_on:
       - redis
       - inventory_service

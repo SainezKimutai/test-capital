@@ -37,3 +37,20 @@ Run
 ```
 make local-ci
 ```
+
+# Setup this project on windows 10
+
+- Enable WSL 2
+  - Open cmd or powershell as administrator and run..
+    ```
+        wsl --install
+    ```
+  - Restart the machine
+  - Install distro ( good for developer mode )
+    ```
+        wsl --install -d Ubuntu
+    ```
+    - Set username and password, this will be your sudo user
+
+- 
+

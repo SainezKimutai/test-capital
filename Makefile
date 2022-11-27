@@ -62,3 +62,36 @@ local-ci: isort pylama
 seed-database:
 	@. $(VENV) && venv/bin/python3.9 manage.py seed
 .PHONY: seed-database
+
+# Docker Comands
+docker-prune:
+	sudo docker image prune && sudo docker builder prune
+.PHONY: docker-prune
+
+docker-build:
+	sudo docker compose build
+.PHONY: docker-build
+
+docker-db:
+	sudo docker compose up db --detach
+.PHONY: docker-db
+
+docker-exec-db:
+	sudo docker exec -it capitalfinishes-db-1 /bin/bash
+.PHONY: docker-exec-db
+
+docker-server:
+	sudo docker compose up --detach
+.PHONY: docker-server
+
+docker-exec-server:
+	sudo docker exec -it capitalfinishes-inventory_service-1 /bin/bash
+.PHONY: docker-exec-server
+
+docker-down:
+	sudo docker compose down
+.PHONY: docker-down
+
+docker-local-ci:
+	sudo docker exec -it capitalfinishes-inventory_service-1 /bin/bash && make local-ci
+.PHONY: docker-local-ci

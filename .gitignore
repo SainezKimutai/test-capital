@@ -11,3 +11,5 @@ __pycache__
 /db
 celerybeat-schedule
 /celerybeat-schedule
+# logs
+# /logs
